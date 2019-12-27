@@ -56,8 +56,8 @@ class TRADER:
         actions.send_keys(Keys.BACKSPACE)
         actions.send_keys(stock)
         actions.send_keys(Keys.ENTER)
-        actions.perform()TVIX
-        time.sleep()
+        actions.perform()
+        time.sleep(1)
         self.get_info_table()
 
     def MFI(df, n):
@@ -103,7 +103,7 @@ class TRADER:
                 print(j.text)
                # if j.text > 1600:
                  #   self.set_limit_order(self.topBidsPrice[i].text, 500)
-                    i = i + 1
+                i = i + 1
                     
 
     def get_info_table(self):
