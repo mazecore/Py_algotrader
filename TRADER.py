@@ -29,6 +29,7 @@ class TRADER:
         self.browser.get('http://markets.cboe.com/us/equities/market_statistics/book_viewer/')
         self.limit_order_pending = False
         self.stock_purchased = False
+        self.changeStock('TVIX')
 
     def getYahooData(self):
         now = str(time.time()).split('.')[0]
@@ -55,7 +56,9 @@ class TRADER:
         actions.send_keys(Keys.BACKSPACE)
         actions.send_keys(stock)
         actions.send_keys(Keys.ENTER)
-        actions.perform()
+        actions.perform()TVIX
+        time.sleep()
+        self.get_info_table()
 
     def MFI(df, n):
         """
@@ -97,8 +100,9 @@ class TRADER:
         if not self.limit_order_pending or not self.stock_purchased:
             i = 0
             for j in self.topBidShares:
-                if j.text > 1600:
-                    self.set_limit_order(self.topBidsPrice[i].text, 500)
+                print(j.text)
+               # if j.text > 1600:
+                 #   self.set_limit_order(self.topBidsPrice[i].text, 500)
                     i = i + 1
                     
 
@@ -108,6 +112,7 @@ class TRADER:
         self.topBidShares = self.browser.find_elements_by_class_name("book-viewer__bid-shares")
         self.topAskPrice = self.browser.find_elements_by_class_name("book-viewer__ask-price")
         self.topAskShares = self.browser.find_elements_by_class_name("book-viewer__ask-shares")
+        self.set_interval()
         # button = browser.find_element_by_xpath('//button[text()="I agree"]')
         # actions = ActionChains(browser)
         # actions.pause(1)
