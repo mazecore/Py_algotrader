@@ -29,7 +29,7 @@ class TRADER:
         self.browser.get('http://markets.cboe.com/us/equities/market_statistics/book_viewer/')
         self.limit_order_pending = False
         self.stock_purchased = False
-        self.changeStock('TVIX')
+        self.changeStock_and_go_to_EDGX('TVIX')
 
     def getYahooData(self):
         now = str(time.time()).split('.')[0]
@@ -48,7 +48,7 @@ class TRADER:
         df = pd.DataFrame(data) 
         self.moneyFlow = self.MFI(df, 14)
         
-    def changeStock(self, stock):
+    def changeStock_and_go_to_EDGX(self, stock):
         inputt = self.browser.find_element_by_xpath('//*[@id="symbol0"]')
         actions = ActionChains(self.browser)
         actions.move_to_element(inputt)
@@ -56,6 +56,10 @@ class TRADER:
         actions.send_keys(Keys.BACKSPACE)
         actions.send_keys(stock)
         actions.send_keys(Keys.ENTER)
+        actions.pause(1)
+        EDGX = self.browser.find_element_by_xpath('//span[text()="EDGX Equities"]')
+        actions.click(EDGX)
+        actions.pause(1)
         actions.perform()
         time.sleep(1)
         self.get_info_table()
