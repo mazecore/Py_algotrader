@@ -28,6 +28,8 @@ class TRADER:
         self.browser.get('http://markets.cboe.com/us/equities/market_statistics/book_viewer/')
         self.limit_order_pending = False
         self.stock_purchased = False
+        self.stock_sold = False
+        # self.transaction_fulfilled = False
         self.db = TinyDB('DB.json')
         record = Query()
         self.maCash = (self.db.search(record.type == 'current_state'))[0]['cash_amount']
@@ -96,42 +98,57 @@ class TRADER:
         return result
 
 
-    def set_limit_order(self, price, n):
-        if self.currentPrice > price:
-            self.limit_order_pending = True
+    def set_limit_order(self, price, n, transaction):
+        print('setting limit order')
+        self.limit_order_pending = True
+        if transaction == 'purchase':
+            while self.stock_purchased == False:
+                self.buy(price, n)
+                time.sleep(1)
         else:
-            self.buy(price, n)
-            self.stock_purchased = True
-            
+            while self.stock_sold == False:
+                self.sell(price, n)
+        
             
     def buy(self, stockPrice, n):
+        print('buying')
         if self.currentPrice <= stockPrice:
             self.maCash = self.maCash - stockPrice * n
-            print('bought at %s', stockPrice)
+            print('bought at %s' % stockPrice)
+            self.stock_purchased = True
+            self.limit_order_pending = False
+            self.stock_purchased == True
             self.register_the_trade(n, stockPrice, 'purchase')
+            print('bought')
         
     def sell(self, stockPrice, n):
+        print('selling')
         if self.currentPrice >= stockPrice:
             self.maCash = self.maCash + stockPrice * n
-            print('sold at %s', stockPrice)
+            print('sold at %s' % stockPrice)
+            self.stock_sold = True
+            self.stock_purchased = False
+            self.limit_order_pending = False
             self.register_the_trade(n, stockPrice, 'sale')
+            print('sold')
 
 
     def check_stock_info(self):
-        self.currentPrice = float(self.last10TradesPrices[0].text)
+        print(self.currentPrice)
         if self.stock_purchased == False:
             i = 0
             for j in self.topBidShares:
-                if int(j.text) > 1600:
-                    self.buy(float(self.topBidsPrice[i].text), 500)
+                if int((j.text).replace(',','')) >= 500:
+                    self.set_limit_order(float(self.topBidsPrice[i].text), 50, 'purchase')
+                    break
                 i = i + 1
         else:
             b = 0
             for s in self.topAskShares:
-                if int(s.text) >= 1600:
-                    self.sell(float(self.topAskPrice[b].text), 500)
+                if int((s.text).replace(',','')) >= 500:
+                    self.set_limit_order(float(self.topAskPrice[b].text), 50, 'sale')
+                    break
                 b = b + 1
-                        
 
     def get_info_table(self):
         self.last10TradesPrices = self.browser.find_elements_by_class_name("book-viewer__trades-price")
@@ -145,7 +162,9 @@ class TRADER:
     def set_interval(self):
         while True:
             time.sleep(5)
-            self.check_stock_info()
+            self.currentPrice = float(self.last10TradesPrices[0].text)
+            if self.limit_order_pending == False:
+                self.check_stock_info()
             
     def register_the_trade(self, n, stockPrice, transactionType):
         Trade = Query()
