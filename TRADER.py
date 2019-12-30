@@ -7,10 +7,10 @@ Created on Thu Dec 26 19:57:19 2019
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
-from bs4 import BeautifulSoup
+# from bs4 import BeautifulSoup
 
 import requests
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import pandas as pd  
 import time
 from datetime import datetime
@@ -34,7 +34,6 @@ class TRADER:
         print(self.maCash)
         self.tradeNumber = 0
         self.change_Stock_and_go_to_EDGX('TVIX')
-        .
 
     def get_Yahoo_Data(self):
         now = str(time.time()).split('.')[0]
@@ -120,13 +119,13 @@ class TRADER:
             i = 0
             for j in self.topBidShares:
                 if int(j.text) > 1600:
-                    self.set_limit_order(self.topBidsPrice[i].text, 500)
+                    self.set_limit_order(float(self.topBidsPrice[i].text), 500)
                 i = i + 1
         else:
             b = 0
             for s in self.topAskShares:
                 if int(s.text) >= 1600:
-                    self.set_limit_order(self.topAskPrice[b].text, 500)
+                    self.set_limit_order(float(self.topAskPrice[b].text), 500)
                 b = b + 1
                         
 
