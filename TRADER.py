@@ -116,21 +116,19 @@ class TRADER:
 
     def check_stock_info(self):
         self.currentPrice = float(self.last10TradesPrices[0].text)
-        if not self.limit_order_pending: 
-            if not self.stock_purchased:
-                i = 0
-                for j in self.topBidShares:
-                    if int(j.text) > 1600:
-                        self.set_limit_order(self.topBidsPrice[i].text, 500)
-                    i = i + 1
-            else:
-                b = 0
-                (self.db.search(record.type == 'current_state'))[0]['cash_amount']
-                print(f.read())
-                for s in self.topAskShares:
-                    if int(s.text) >= 1600:
+        if self.stock_purchased == False:
+            i = 0
+            for j in self.topBidShares:
+                if int(j.text) > 1600:
+                    self.set_limit_order(self.topBidsPrice[i].text, 500)
+                i = i + 1
+        else:
+            b = 0
+            for s in self.topAskShares:
+                if int(s.text) >= 1600:
+                    self.set_limit_order(self.topAskPrice[b].text, 500)
+                b = b + 1
                         
-                    
 
     def get_info_table(self):
         self.last10TradesPrices = self.browser.find_elements_by_class_name("book-viewer__trades-price")
