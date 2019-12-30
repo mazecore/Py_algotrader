@@ -105,12 +105,16 @@ class TRADER:
             
             
     def buy(self, stockPrice, n):
-        self.maCash = self.maCash - stockPrice * n
-        self.register_the_trade(n, stockPrice, 'purchase')
+        if self.currentPrice <= stockPrice:
+            self.maCash = self.maCash - stockPrice * n
+            print('bought at %s', stockPrice)
+            self.register_the_trade(n, stockPrice, 'purchase')
         
     def sell(self, stockPrice, n):
-        self.maCash = self.maCash + stockPrice * n
-        self.register_the_trade(n, stockPrice, 'sale')
+        if self.currentPrice >= stockPrice:
+            self.maCash = self.maCash + stockPrice * n
+            print('sold at %s', stockPrice)
+            self.register_the_trade(n, stockPrice, 'sale')
 
 
     def check_stock_info(self):
@@ -119,13 +123,13 @@ class TRADER:
             i = 0
             for j in self.topBidShares:
                 if int(j.text) > 1600:
-                    self.set_limit_order(float(self.topBidsPrice[i].text), 500)
+                    self.buy(float(self.topBidsPrice[i].text), 500)
                 i = i + 1
         else:
             b = 0
             for s in self.topAskShares:
                 if int(s.text) >= 1600:
-                    self.set_limit_order(float(self.topAskPrice[b].text), 500)
+                    self.sell(float(self.topAskPrice[b].text), 500)
                 b = b + 1
                         
 
