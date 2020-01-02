@@ -62,3 +62,6 @@ class SP500_ANALYZER:
     # def get_5min_state():
         
     # def get_2min_state():
+    
+if __name__=='__main__':
+    SP500_ANALYZER().__init__()

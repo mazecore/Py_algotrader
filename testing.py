@@ -5,34 +5,41 @@ Created on Mon Dec 30 22:58:07 2019
 @author: Ldeezy
 """
 
-import threading, time
-def threaded(fn):
-    def wrapper(*args, **kwargs):
-        threading.Thread(target=fn, args=args, kwargs=kwargs).start()
-    return wrapper
+import logging
+import threading
+import time
 
-class MyClass:
-#     somevar = 'someval'
-    def __init__(self):
-       self.somevar = 'someval'
-       t1 = threading.Thread(target=self.func_to_be_threaded())
-       t2 = threading.Thread(target=self.loop())
-       t2.start()
-       t1.start()
-       t2.join()
-       t1.join()
+somevar = 'yo'
 
-    def func_to_be_threaded(self):
-        while self.somevar == 'someval':
-            print('yo')
-            time.sleep(3)
-            
-
-    def loop(self):
-        for i in 100:
-           print('hey', i)
-           if i == 30:
-              self.somevar = 'drrr'
-            
+def thread_function():
+    global somevar
+    logging.info("Thread 1: starting")
+    # time.sleep(2)
+    while somevar == 'yo':
+        print('yo')
+        # time.sleep(1)
+    logging.info("Thread 1: finishing")
     
-MyClass().__init__()
+def thread_function2():
+    global somevar
+    logging.info("Thread 2: starting")
+    for i in range(15):
+        print(i)
+        if i == 10:
+            somevar = 'hey'
+    logging.info("Thread 2: finishing")
+
+if __name__ == "__main__":
+    format = "%(asctime)s: %(message)s"
+    logging.basicConfig(format=format, level=logging.INFO,
+                        datefmt="%H:%M:%S")
+
+    logging.info("Main    : before creating thread")
+    x = threading.Thread(target=thread_function)
+    y = threading.Thread(target=thread_function2)
+    logging.info("Main    : before running thread")
+    x.start()
+    y.start()
+    logging.info("Main    : wait for the thread to finish")
+    # x.join()
+    logging.info("Main    : all done")
