@@ -6,12 +6,12 @@ Created on Tue Dec 31 13:40:37 2019
 """
 
 import multiprocessing
-import TRADER, SP500
+import TRADER, ANALYZER
 
 
 if __name__=='__main__':
     jobs = []
-    a = multiprocessing.Process(target=SP500.SP500_ANALYZER('%5EGSPC'))
+    a = multiprocessing.Process(target=ANALYZER.ANALYZER())
     b = multiprocessing.Process(target=TRADER.TRADER())
     jobs.append(a)
     jobs.append(b)

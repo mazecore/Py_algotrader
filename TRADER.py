@@ -56,6 +56,9 @@ class TRADER:
 
     def set_limit_order(self, price, n, transaction):
         print('setting limit order')
+        # register rate of change on the minute range
+        # if tvix rate of change goes up, cancel tvix purchase
+        # and if tvix rate of change goes down, cancel tvix limit order sale.. maybe idk
         self.limit_order_pending = True
         if transaction == 'purchase':
             while self.stock_purchased == False:

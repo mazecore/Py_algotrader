@@ -43,11 +43,11 @@ class ANALYZER:
             sp_df = self.get_Yahoo_Data('%5EGSPC', str(monthAgo).split('.')[0], '30m')
             moneyFlow = talib.MFI(sp_df, 14)
             Trade = Query()
-            db.update({'SP500_30mMF': moneyFlow[-1:]}, Trade.type == 'current_state')
+            db.update({'SP500_30mMF': moneyFlow.values[-1:][0]}, Trade.type == 'current_state')
             time.sleep(900)
         
-    def slopeOFTheMF(df):
-        for 
+    # def slopeOFTheMF(df):
+    #     for 
 
         
     def get_daily_Volume(self, stock):
@@ -82,7 +82,5 @@ class ANALYZER:
     # def get_2min_state():
     
 if __name__=='__main__':
-    a = threading.Thread(target= ANALYZER().get_SP500_30minStateEvery15min)
-    b = threading.Thread(target=ANALYZER().get_daily_Volume, args=('TVIX',))
-    a.start()
-    b.start()
+    Thread(target= ANALYZER().get_SP500_30minStateEvery15min).start()
+    Thread(target=ANALYZER().get_daily_Volume, args=('TVIX',)).start()
