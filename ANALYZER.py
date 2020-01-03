@@ -63,14 +63,18 @@ class ANALYZER:
         print('checking daily volume spikes...')
         monthAgo = time.time() - 2419200
         sp_df = self.get_Yahoo_Data('%5EGSPC', str(monthAgo).split('.')[0], '1d')
-        volumeSpkIndxs = sp_df.index[sp_df['Volume'] > sp_df['Volume'].mean() / 100 * 134]
-        print('The number of volume spikes in the last month is %s', len(volumeSpkIndxs))
-        for i in range(len(volumeSpkIndxs)):
-            print(sp_df['Close'][volumeSpkIndxs[i]-1])
-        if int(sp_df['Close'][volumeSpkIndxs[i]-1]) > int(sp_df['Close'][volumeSpkIndxs[i]]):
-            print ('bearish volume', sp_df['Volume'][volumeSpkIndxs[i]])
-        else:
-            print ('bullish volume', sp_df['Volume'][volumeSpkIndxs[i]])
+        volSpkIndxes = sp_df.index[sp_df['Volume'] > sp_df['Volume'].mean() / 100 * 134]
+        print('The number of volume spikes in the last month is %s', len(volSpkIndxes))
+        Trade = Query()
+        for i in range(len(volSpkIndxes)):
+            print(sp_df['Close'][volSpkIndxes[i]-1])
+            if int(sp_df['Close'][volSpkIndxes[i]-1]) > int(sp_df['Close'][volSpkIndxes[i]]):
+                spike = { 'volume': sp_df['Volume'][volSpkIndxes[i]], 'date': sp_df['Timestamp'][volSpkIndxes[i]], 'sentiment': 'Bearish' }
+                print ('bearish volume', sp_df['Volume'][volSpkIndxes[i]])
+            else:
+                spike = { 'volume': sp_df['Volume'][volSpkIndxes[i]], 'date': sp_df['Timestamp'][volSpkIndxes[i]], 'sentiment': 'Bullish' }
+                print ('bullish volume', sp_df['Volume'][volSpkIndxes[i]])
+            db.update({'SP500_lastVolumeSpike': spike }, Trade.type == 'current_state')
         
         
         
@@ -98,5 +102,6 @@ class ANALYZER:
     # def get_2min_state():
     
 if __name__=='__main__':
+    Thread(target=ANALYZER().look_for_SP500_volumeSpikes).start()
     Thread(target= ANALYZER().get_SP500_30minStateEvery15min).start()
     Thread(target=ANALYZER().get_daily_Volume, args=('TVIX',)).start()
