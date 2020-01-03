@@ -58,6 +58,22 @@ class ANALYZER:
         r = requests.get(yahooFinanceURL.format(stock, startOfDay, now, '1d'))
         yahooData = r.json()
         return yahooData["chart"]["result"][0]["indicators"]["quote"][0]['volume']
+    
+    def look_for_SP500_volumeSpikes(self):
+        print('checking daily volume spikes...')
+        monthAgo = time.time() - 2419200
+        sp_df = self.get_Yahoo_Data('%5EGSPC', str(monthAgo).split('.')[0], '1d')
+        volumeSpkIndxs = sp_df.index[sp_df['Volume'] > sp_df['Volume'].mean() / 100 * 134]
+        print('The number of volume spikes in the last month is %s', len(volumeSpkIndxs))
+        for i in range(len(volumeSpkIndxs)):
+            print(sp_df['Close'][volumeSpkIndxs[i]-1])
+        if int(sp_df['Close'][volumeSpkIndxs[i]-1]) > int(sp_df['Close'][volumeSpkIndxs[i]]):
+            print ('bearish volume', sp_df['Volume'][volumeSpkIndxs[i]])
+        else:
+            print ('bullish volume', sp_df['Volume'][volumeSpkIndxs[i]])
+        
+        
+        
         
     
         
