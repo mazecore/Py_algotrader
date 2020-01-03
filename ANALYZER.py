@@ -67,14 +67,15 @@ class ANALYZER:
         print('The number of volume spikes in the last month is %s', len(volSpkIndxes))
         Trade = Query()
         for i in range(len(volSpkIndxes)):
-            print(sp_df['Close'][volSpkIndxes[i]-1])
+            spike = { 'volume': sp_df['Volume'][volSpkIndxes[i]], 'date': sp_df['Timestamp'][volSpkIndxes[i]], 'sentiment': None }
             if int(sp_df['Close'][volSpkIndxes[i]-1]) > int(sp_df['Close'][volSpkIndxes[i]]):
-                spike = { 'volume': sp_df['Volume'][volSpkIndxes[i]], 'date': sp_df['Timestamp'][volSpkIndxes[i]], 'sentiment': 'Bearish' }
+                spike['sentiment'] = 'Bearish'
                 print ('bearish volume', sp_df['Volume'][volSpkIndxes[i]])
             else:
-                spike = { 'volume': sp_df['Volume'][volSpkIndxes[i]], 'date': sp_df['Timestamp'][volSpkIndxes[i]], 'sentiment': 'Bullish' }
+                spike['sentiment'] = 'Bullish'
                 print ('bullish volume', sp_df['Volume'][volSpkIndxes[i]])
             db.update({'SP500_lastVolumeSpike': spike }, Trade.type == 'current_state')
+        # don't forget to mark attitude towards long term prospect depending on these spikes
         
         
         
