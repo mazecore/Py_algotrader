@@ -20,10 +20,10 @@ class ANALYZER:
         print('analizer initialized...')
         
         
-    def get_Yahoo_Data(self, stock, beginning, timerange):
+    def get_Yahoo_Data(self, stock, beginning, interval):
         now = str(time.time()).split('.')[0]
         print('getting Yahoo data', now)
-        r = requests.get(yahooFinanceURL.format(stock, beginning, now, timerange))
+        r = requests.get(yahooFinanceURL.format(stock, beginning, now, interval))
         yahoo = r.json()
         times = yahoo["chart"]["result"][0]["timestamp"]
         quote = yahoo["chart"]["result"][0]["indicators"]["quote"][0]
@@ -35,6 +35,15 @@ class ANALYZER:
                 'Timestamp': times }
         df = pd.DataFrame(data)
         return df
+    
+    def get_SP500_5minStateEvery1min(self):
+        while running == True:
+            weekAgo = time.time() - 386329
+            sp_df = self.get_Yahoo_Data('%5EGSPC', str(weekAgo).split('.')[0], '5m')
+            moneyFlow = talib.MFI(sp_df, 14)
+            Trade = Query()
+            db.update({'SP500_5mMF': moneyFlow.values[-1:][0]}, Trade.type == 'current_state')
+            time.sleep(60)
         
         
     def get_SP500_30minStateEvery15min(self):
@@ -104,5 +113,6 @@ class ANALYZER:
     
 if __name__=='__main__':
     Thread(target=ANALYZER().look_for_SP500_volumeSpikes).start()
+    Thread(target= ANALYZER().get_SP500_5minStateEvery1min).start()
     Thread(target= ANALYZER().get_SP500_30minStateEvery15min).start()
     Thread(target=ANALYZER().get_daily_Volume, args=('TVIX',)).start()

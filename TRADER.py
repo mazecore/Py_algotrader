@@ -92,7 +92,7 @@ class TRADER:
             print('sold')
 
 
-    def check_stock_info(self):
+    def check_against_EDGX_bids(self):
         print(self.currentPrice)
         if self.stock_purchased == False:
             i = 0
@@ -108,6 +108,12 @@ class TRADER:
                     self.set_limit_order(float(self.topAskPrice[b].text), 50, 'sale')
                     break
                 b = b + 1
+                
+    def check_5min_MF(self):
+        record = Query()
+        fiveMinMF = (self.db.search(record.type == 'current_state'))[0]['SP500_5mMF']
+        if fiveMinMF > 0.76:
+            self.buy(self.currentPrice, 50)
 
     def get_info_table(self):
         self.last10TradesPrices = self.browser.find_elements_by_class_name("book-viewer__trades-price")
@@ -123,7 +129,8 @@ class TRADER:
             time.sleep(5)
             self.currentPrice = float(self.last10TradesPrices[0].text)
             if self.limit_order_pending == False:
-                self.check_stock_info()
+                self.check_5min_MF()
+                self.check_against_EDGX_bids()
             
     def register_the_trade(self, n, stockPrice, transactionType):
         Trade = Query()
