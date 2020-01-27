@@ -76,7 +76,6 @@ class TRADER:
             print('bought at %s' % stockPrice)
             self.stock_purchased = True
             self.limit_order_pending = False
-            self.stock_purchased == True
             self.register_the_trade(n, stockPrice, 'purchase')
             print('bought')
         
@@ -114,6 +113,16 @@ class TRADER:
         fiveMinMF = (self.db.search(record.type == 'current_state'))[0]['SP500_5mMF']
         if fiveMinMF > 0.76:
             self.buy(self.currentPrice, 50)
+            self.monitor_for_5hours_until_1percent_is_gained()
+            
+    def monitor_for_5hours_until_2percent_is_gained(self):
+        self.fiveHoursIntoTheFuture = time.time() + 18000
+        while time.time() < self.fiveHoursIntoTheFuture and self.stock_purchased == False:
+            self.currentPrice = float(self.last10TradesPrices[0].text)
+            Trade = Query()
+            if self.db.search(Trade.type == 'trade')[0]['stocks'][0]['price'] * 0.02 >= self.currentPrice:
+               self.sell(self.currentPrice, self.db.search(Trade.type == 'trade')[0]['stocks'][0]['shares'])
+        
 
     def get_info_table(self):
         self.last10TradesPrices = self.browser.find_elements_by_class_name("book-viewer__trades-price")

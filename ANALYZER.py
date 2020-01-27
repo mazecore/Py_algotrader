@@ -44,7 +44,7 @@ class ANALYZER:
             Trade = Query()
             db.update({'SP500_5mMF': moneyFlow.values[-1:][0]}, Trade.type == 'current_state')
             time.sleep(60)
-        
+
         
     def get_SP500_30minStateEvery15min(self):
         while running == True:
@@ -54,11 +54,20 @@ class ANALYZER:
             Trade = Query()
             db.update({'SP500_30mMF': moneyFlow.values[-1:][0]}, Trade.type == 'current_state')
             time.sleep(900)
+            
+    def get_SP500_4hrStateEvery1hour(self):
+        while running == True:
+            monthAgo = time.time() - 2419200
+            sp_df = self.get_Yahoo_Data('%5EGSPC', str(monthAgo).split('.')[0], '60m')
+            moneyFlow = talib.MFI(sp_df, 14)
+            Trade = Query()
+            db.update({'SP500_4hrMF': moneyFlow.values[-1:][0]}, Trade.type == 'current_state')
+            time.sleep(3600)
         
     # def slopeOFTheMF(df):
     #     for 
 
-        
+
     def get_daily_Volume(self, stock):
         print('getting daily volume')
         now = str(time.time()).split('.')[0]
