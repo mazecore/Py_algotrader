@@ -109,11 +109,15 @@ class TRADER:
                 b = b + 1
                 
     def check_5min_MF(self):
-        record = Query()
-        fiveMinMF = (self.db.search(record.type == 'current_state'))[0]['SP500_5mMF']
-        if fiveMinMF > 0.76:
-            self.buy(self.currentPrice, 50)
-            self.monitor_for_5hours_until_1percent_is_gained()
+        try:
+            record = Query()
+            fiveMinMF = (self.db.search(record.type == 'current_state'))[0]['SP500_5mMF']
+            if fiveMinMF > 0.76:
+                # add control for momentum. Momentum shouldn't be higher than 16
+                self.buy(self.currentPrice, 50)
+                self.monitor_for_5hours_until_1percent_is_gained()
+        except:
+            print('no 5 min MF')
             
     def monitor_for_5hours_until_2percent_is_gained(self):
         self.fiveHoursIntoTheFuture = time.time() + 18000
@@ -158,5 +162,6 @@ class TRADER:
 
             
 if __name__ == "__main__":
+    print('trader name main')
     TRADER().__init__()
         

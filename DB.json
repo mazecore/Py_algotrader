@@ -1,1 +1,1 @@
-{"_default":{"1":{"type":"current_state","cash_amount":25000,"stocks":null,"portfolio_value":25000}}}
+{"_default": {"1": {"type": "current_state", "cash_amount": 25000, "stocks": null, "portfolio_value": 25000, "SP500_30mMF": 0.42857142857142855, "SP500_5mMF": 0.35714285714285715}}}

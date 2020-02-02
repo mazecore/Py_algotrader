@@ -18,6 +18,10 @@ class ANALYZER:
     def __init__(self):
         # self.stock = stock
         print('analizer initialized...')
+        Thread(target = self.look_for_SP500_volumeSpikes).start()
+        Thread(target = self.get_SP500_5minStateEvery1min).start()
+        Thread(target = self.get_SP500_30minStateEvery15min).start()
+        Thread(target = self.get_daily_Volume, args=('TVIX',)).start()
         
         
     def get_Yahoo_Data(self, stock, beginning, interval):
@@ -41,11 +45,19 @@ class ANALYZER:
             weekAgo = time.time() - 386329
             sp_df = self.get_Yahoo_Data('%5EGSPC', str(weekAgo).split('.')[0], '5m')
             moneyFlow = talib.MFI(sp_df, 14)
+            moneyFlow = moneyFlow.dropna()
+            print(moneyFlow)
+            fiveMinMf = moneyFlow.values[-1:][0]
+            print('5min Money Flow is = ', moneyFlow.values[-1:][0])
+            if fiveMinMf == 'NaN':
+                fiveMinMf = moneyFlow.values[-2:][0]
+                if moneyFlow.values[-2:][0] == 'NaN':
+                   fiveMinMf = moneyFlow.values[-3:][0]
             Trade = Query()
-            db.update({'SP500_5mMF': moneyFlow.values[-1:][0]}, Trade.type == 'current_state')
+            db.update({'SP500_5mMF': fiveMinMf }, Trade.type == 'current_state')
             time.sleep(60)
 
-        
+
     def get_SP500_30minStateEvery15min(self):
         while running == True:
             monthAgo = time.time() - 2419200
@@ -121,6 +133,7 @@ class ANALYZER:
     # def get_2min_state():
     
 if __name__=='__main__':
+    print('if name main analyzer runs')
     Thread(target=ANALYZER().look_for_SP500_volumeSpikes).start()
     Thread(target= ANALYZER().get_SP500_5minStateEvery1min).start()
     Thread(target= ANALYZER().get_SP500_30minStateEvery15min).start()
