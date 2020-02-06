@@ -7,6 +7,7 @@ from datetime import datetime
 from tinydb import TinyDB, Query
 from threading import Thread
 import talib
+import math
 
 yahooFinanceURL = "https://query1.finance.yahoo.com/v8/finance/chart/{0}?symbol={0}&period1={1}&period2={2}&interval={3}&includePrePost=true&events=div%7Csplit%7Cearn&lang=en-US&region=US&crumb=ED2zlWJHcMa&corsDomain=finance.yahoo.com"
 db = TinyDB('DB.json')
@@ -45,16 +46,27 @@ class ANALYZER:
             weekAgo = time.time() - 386329
             sp_df = self.get_Yahoo_Data('%5EGSPC', str(weekAgo).split('.')[0], '5m')
             moneyFlow = talib.MFI(sp_df, 14)
-            moneyFlow = moneyFlow.dropna()
-            print(moneyFlow)
-            fiveMinMf = moneyFlow.values[-1:][0]
-            print('5min Money Flow is = ', moneyFlow.values[-1:][0])
-            if fiveMinMf == 'NaN':
-                fiveMinMf = moneyFlow.values[-2:][0]
-                if moneyFlow.values[-2:][0] == 'NaN':
-                   fiveMinMf = moneyFlow.values[-3:][0]
+            rateOfChange = talib.ROC(sp_df, 14)
+            
+            print('last 10 values of latest 5 min Money Flow:')
+            print(moneyFlow[-10:])
+            
+            print('last 10 values of latest 5 min Rate Of Change:')
+            print(rateOfChange[-10:])
+            
+            fiveMinMF_lastValue = moneyFlow.values[-1:][0]
+            fiveMinROC_lastValue = rateOfChange.values[-1:][0]
+            
+            if math.isnan(fiveMinMF_lastValue):
+                fiveMinMF_lastValue = moneyFlow.values[-2:][0]
+                if math.isnan(moneyFlow.values[-2:][0]):
+                   fiveMinMF_lastValue = moneyFlow.values[-3:][0]
+            print('5min Money Flow is = ', fiveMinMF_lastValue)
             Trade = Query()
-            db.update({'SP500_5mMF': fiveMinMf }, Trade.type == 'current_state')
+            db.update({'SP500_5mMF': fiveMinMF_lastValue }, Trade.type == 'current_state')
+            db.update({'SP500_5mROC': fiveMinROC_lastValue }, Trade.type == 'current_state')
+            if fiveMinMF_lastValue != 'NaN' and fiveMinROC_lastValue != 'NaN':
+                fiveMinUltimateIndicator = fiveMinMF_lastValue 
             time.sleep(60)
 
 
@@ -63,15 +75,26 @@ class ANALYZER:
             monthAgo = time.time() - 2419200
             sp_df = self.get_Yahoo_Data('%5EGSPC', str(monthAgo).split('.')[0], '30m')
             moneyFlow = talib.MFI(sp_df, 14)
-            Trade = Query()
-            db.update({'SP500_30mMF': moneyFlow.values[-1:][0]}, Trade.type == 'current_state')
-            time.sleep(900)
+            thirtyMinMF_lastValue = moneyFlow.values[-1:][0]
             
+            print('last 10 values of latest 30 min Money Flow:')
+            print(moneyFlow[-10:])
+            
+            if math.isnan(thirtyMinMF_lastValue):
+                thirtyMinMF_lastValue = moneyFlow.values[-2:][0]
+                if math.isnan(moneyFlow.values[-2:][0]):
+                   thirtyMinMF_lastValue = moneyFlow.values[-3:][0]
+            Trade = Query()
+            db.update({'SP500_30mMF': thirtyMinMF_lastValue }, Trade.type == 'current_state')
+            time.sleep(900)
+
+#           this still tracks only 1 hr Money Flow
     def get_SP500_4hrStateEvery1hour(self):
         while running == True:
             monthAgo = time.time() - 2419200
             sp_df = self.get_Yahoo_Data('%5EGSPC', str(monthAgo).split('.')[0], '60m')
             moneyFlow = talib.MFI(sp_df, 14)
+            print('last 10 values of latest 1hr Money Flow:')
             Trade = Query()
             db.update({'SP500_4hrMF': moneyFlow.values[-1:][0]}, Trade.type == 'current_state')
             time.sleep(3600)
@@ -132,9 +155,9 @@ class ANALYZER:
         
     # def get_2min_state():
     
-if __name__=='__main__':
-    print('if name main analyzer runs')
-    Thread(target=ANALYZER().look_for_SP500_volumeSpikes).start()
-    Thread(target= ANALYZER().get_SP500_5minStateEvery1min).start()
-    Thread(target= ANALYZER().get_SP500_30minStateEvery15min).start()
-    Thread(target=ANALYZER().get_daily_Volume, args=('TVIX',)).start()
+#if __name__=='__main__':
+#    print('if name main analyzer runs')
+#    Thread(target=ANALYZER().look_for_SP500_volumeSpikes).start()
+#    Thread(target= ANALYZER().get_SP500_5minStateEvery1min).start()
+#    Thread(target= ANALYZER().get_SP500_30minStateEvery15min).start()
+#    Thread(target=ANALYZER().get_daily_Volume, args=('TVIX',)).start()

@@ -1,1 +1,1 @@
-{"_default": {"1": {"type": "current_state", "cash_amount": 25000, "stocks": null, "portfolio_value": 25000, "SP500_30mMF": 0.42857142857142855, "SP500_5mMF": 0.35714285714285715}}}
+{"_default": {"1": {"type": "current_state", "cash_amount": 22867.0, "stocks": null, "portfolio_value": 25000, "SP500_30mMF": 0.6428571428571429, "SP500_5mMF": 0.7857142857142857, "SP500_5mROC": 0.0021474933346027586}, "2": {"type": "trade", "stocks": [{"stock": "tvix", "shares": 50, "price": 42.66}], "transaction": "purchase"}}}

@@ -60,10 +60,13 @@ class TRADER:
         # if tvix rate of change goes up, cancel tvix purchase
         # and if tvix rate of change goes down, cancel tvix limit order sale.. maybe idk
         self.limit_order_pending = True
+        oneMinTimer = time.time() + 60
         if transaction == 'purchase':
             while self.stock_purchased == False:
                 self.buy(price, n)
                 time.sleep(1)
+                if time.time() < oneMinTimer:
+                    break
         else:
             while self.stock_sold == False:
                 self.sell(price, n)
@@ -97,6 +100,7 @@ class TRADER:
             i = 0
             for j in self.topBidShares:
                 if int((j.text).replace(',','')) >= 500:
+                    print('A 500 share bid detected. Placing a buy limit order for tvix at %s' % float(self.topBidsPrice[i].text))
                     self.set_limit_order(float(self.topBidsPrice[i].text), 50, 'purchase')
                     break
                 i = i + 1
@@ -104,6 +108,7 @@ class TRADER:
             b = 0
             for s in self.topAskShares:
                 if int((s.text).replace(',','')) >= 500:
+                    print('A 500 share ask detected. Placing a sale limit order for tvix at %s' % float(self.topAskPrice[b].text))
                     self.set_limit_order(float(self.topAskPrice[b].text), 50, 'sale')
                     break
                 b = b + 1
@@ -119,12 +124,12 @@ class TRADER:
         except:
             print('no 5 min MF')
             
-    def monitor_for_5hours_until_2percent_is_gained(self):
+    def monitor_for_5hours_until_1percent_is_gained(self):
         self.fiveHoursIntoTheFuture = time.time() + 18000
         while time.time() < self.fiveHoursIntoTheFuture and self.stock_purchased == False:
             self.currentPrice = float(self.last10TradesPrices[0].text)
             Trade = Query()
-            if self.db.search(Trade.type == 'trade')[0]['stocks'][0]['price'] * 0.02 >= self.currentPrice:
+            if self.db.search(Trade.type == 'trade')[0]['stocks'][0]['price'] * 0.01 >= self.currentPrice:
                self.sell(self.currentPrice, self.db.search(Trade.type == 'trade')[0]['stocks'][0]['shares'])
         
 
@@ -146,22 +151,24 @@ class TRADER:
                 self.check_against_EDGX_bids()
             
     def register_the_trade(self, n, stockPrice, transactionType):
+        print('registering the trade')
+        print('cash_amount:', self.maCash)
         Trade = Query()
         self.db.update({'cash_amount': self.maCash, 'stocks': None }, Trade.type == 'current_state')
         self.db.insert({'type': 'trade', 'stocks': [ {'stock': 'tvix', 'shares': n, 'price': stockPrice } ], 'transaction': transactionType })
         f = open("trading_log.txt", "a")
-        f.write('<=================trade number %s===================' % self.tradeNumber)
-        f.write('cash is %s' % self.maCash)
+        f.write('<=================trade number %s===================\n' % self.tradeNumber)
+        f.write('cash is %s \n' % self.maCash)
         # f.write('stocks value is %s' % self.maCash)
-        f.write('bought %s tvix at %s' % (n, stockPrice))
-        f.write('current price is %s' % self.last10TradesPrices[0].text)
-        f.write('=====================================>')
+        f.write('bought %s tvix at %s \n' % (n, stockPrice))
+        f.write('current price is %s \n' % self.last10TradesPrices[0].text)
+        f.write('=====================================>\n')
         f.close()
         self.tradeNumber = self.tradeNumber + 1
         
 
             
-if __name__ == "__main__":
-    print('trader name main')
-    TRADER().__init__()
+#if __name__ == "__main__":
+#    print('trader name main')
+#    TRADER().__init__()
         
