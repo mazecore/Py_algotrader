@@ -9,13 +9,10 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 # from bs4 import BeautifulSoup
 
-import requests
 # import matplotlib.pyplot as plt
-import pandas as pd  
 import time
 from datetime import datetime
 from tinydb import TinyDB, Query
-from threading import Thread
 import sys
 
 
@@ -31,15 +28,21 @@ class TRADER:
         self.stock_sold = False
         self.db = TinyDB('DB.json')
         record = Query()
+        print('db length', len(self.db))
+        last_record = (self.db.search(record.type == 'trade'))[-1]
+        print('last trade ======>', last_record)
+        current_state = (self.db.search(record.type == 'current_state'))[0]
+        self.maCash = current_state['cash_amount']
+        self.fiveHourPending = current_state['five_hour_pending']
 
-        print('last trade ======>', self.db.get(doc_id=len(self.db)))
-        self.maCash = (self.db.search(record.type == 'current_state'))[0]['cash_amount']
-        if (self.db.search(record.type == 'current_state'))[0]['limit_order_pending'] == True:
-            self.limit_order_pending = True
-            last_record = self.db.get(doc_id=len(self.db))
-            if last_record['transaction'] == 'sale':
- 
-               self.stock_purchased = True
+#        if (self.db.search(record.type == 'current_state'))[0]['limit_order_pending'] == True:
+        if current_state['five_hour_pending'] > 0 and last_record['transaction'] == 'purchase':
+            print('There is a stock that needs to be sold.')
+            self.limit_order_pending = True        
+            self.stock_purchased = True
+#        if last_record['transaction'] == 'sale' and current_state['five_hour_pending'] > 0:
+#            self.stock_purchased = True
+
         print('ma cash: ', self.maCash)
         self.tradeNumber = 0
         self.change_Stock_and_go_to_EDGX('TVIX')
@@ -69,7 +72,7 @@ class TRADER:
         # if tvix rate of change goes up, cancel tvix purchase
         # and if tvix rate of change goes down, cancel tvix limit order sale.. maybe idk
         if self.limit_order_pending == False:
-            self.register_the_trade(n, price, transaction, False)
+            self.register_the_trade(n, price, transaction)
         self.limit_order_pending = True
         
         oneMinTimer = time.time() + 60
@@ -79,14 +82,12 @@ class TRADER:
                 time.sleep(1)
                 if time.time() > oneMinTimer:
                     print('One minute elapsed. Limit order cancelled.')
+                    self.limit_order_pending = False
                     break
         else:
             while self.stock_sold == False:
                 self.sell(price, n)
-                
-    def resume_limit_order(self):
-        last_record = self.db.get(doc_id=len(self.db))
-        self.set_limit_order(last_record['stock']['price'], last_record['stock']['shares'], last_record['transaction'])
+
         
 
     def buy(self, stockPrice, n):
@@ -96,8 +97,9 @@ class TRADER:
             print('bought at %s' % stockPrice)
             self.stock_purchased = True
             self.limit_order_pending = False
-            self.register_the_trade(n, stockPrice, 'purchase', True)
-            print('bought')
+            self.fiveHourPending = time.time() + 18000
+            self.register_the_trade(n, stockPrice, 'purchase')
+            print('B O U G H T')
         
     def sell(self, stockPrice, n):
         print('selling')
@@ -107,12 +109,13 @@ class TRADER:
             self.stock_sold = True
             self.stock_purchased = False
             self.limit_order_pending = False
-            self.register_the_trade(n, stockPrice, 'sale', True)
-            print('sold')
+            self.fiveHourPending = 0
+            self.register_the_trade(n, stockPrice, 'sale')
+            print('S O L D')
 
 
     def check_against_EDGX_bids(self):
-        print(self.currentPrice)
+        print('checking against EDGX bids...')
         try:
             if self.stock_purchased == False:
                 i = 0
@@ -137,23 +140,34 @@ class TRADER:
             sys.exit('No bids or asks. Arrivederci...')
                 
     def check_5min_MF(self):
+        print('checking 5 min MF...')
         try:
             record = Query()
             fiveMinMF = (self.db.search(record.type == 'current_state'))[0]['SP500_5mMF']
             if fiveMinMF > 0.76:
-                # add control for momentum. Momentum shouldn't be higher than 16
-                self.buy(self.currentPrice, 50)
-                self.monitor_for_5hours_until_1percent_is_gained()
+                if self.stock_purchased == False:
+                    # add control for momentum. Momentum shouldn't be higher than 16
+                    self.buy(self.currentPrice, 50)
+                    self.monitor_for_5hours_until_1percent_is_gained()
+            if fiveMinMF < 0.3:
+                if self.stock_purchased == True:
+                    record = Query()
+                    last_record = (self.db.search(record.type == 'trade'))[-1]
+                    if last_record['price'] + last_record['price'] * 0.01 < self.currentPrice:
+                       self.sell(self.currentPrice, 50)
+                    
         except:
             print('no 5 min MF')
             
     def monitor_for_5hours_until_1percent_is_gained(self):
-        self.fiveHoursIntoTheFuture = time.time() + 18000
-        while time.time() < self.fiveHoursIntoTheFuture and self.stock_purchased == False:
+        print('monitoring for 5 hours')
+        
+        while time.time() < self.fiveHourPending and self.stock_purchased == True:
             self.currentPrice = float(self.last10TradesPrices[0].text)
             Trade = Query()
-            if self.db.search(Trade.type == 'trade')[0]['stocks'][0]['price'] * 0.01 >= self.currentPrice:
-               self.sell(self.currentPrice, self.db.search(Trade.type == 'trade')[0]['stocks'][0]['shares'])
+            price = (self.db.search(Trade.type == 'trade'))[-1]['stock']['price']
+            if price + price * 0.01 < self.currentPrice:
+               self.sell(self.currentPrice, (self.db.search(Trade.type == 'trade'))[-1]['stock']['shares'])
         
 
     def get_info_table(self):
@@ -169,23 +183,29 @@ class TRADER:
         while True:
             time.sleep(5)
             self.currentPrice = float(self.last10TradesPrices[0].text)
+            print('current price ===>', self.currentPrice)
             if self.limit_order_pending == False:
                 self.check_5min_MF()
                 self.check_against_EDGX_bids()
             else: 
-                self.resume_limit_order()
-            
-    def register_the_trade(self, n, stockPrice, transactionType, closed):
+                self.monitor_for_5hours_until_1percent_is_gained()
+
+    def register_the_trade(self, n, stockPrice, transactionType):
         print('registering the trade')
         print('cash_amount:', self.maCash)
         Trade = Query()
         self.db.update({'cash_amount': self.maCash, 
-                        'last_trade': transactionType, 
-                        'limit_order_pending': self.limit_order_pending
+                        'last_trade': transactionType,
+                        'portfolio_value': self.maCash + self.currentPrice * n,
+                        'five_hour_pending': self.fiveHourPending
                         }, Trade.type == 'current_state')
-        self.db.insert({'type': 'trade', 'stock': {'stock': 'tvix', 'shares': n, 'price': stockPrice }, 'transaction': transactionType, 'closed': closed })
+
+        self.db.insert({'type': 'trade', 
+                        'stock': {'name': 'tvix', 'shares': n, 'price': stockPrice }, 
+                        'transaction': transactionType })
+
         f = open("trading_log.txt", "a")
-        f.write('------', str(datetime.now()), '-------\n')
+        f.write('------%s-------\n' % str(datetime.now()))
         f.write('<=================trade number %s===================\n' % self.tradeNumber)
         f.write('cash is %s \n' % self.maCash)
         # f.write('stocks value is %s' % self.maCash)
@@ -195,8 +215,6 @@ class TRADER:
         f.close()
         self.tradeNumber = self.tradeNumber + 1
         
-
-            
 #if __name__ == "__main__":
 #    print('trader name main')
 #    TRADER().__init__()

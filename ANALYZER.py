@@ -11,8 +11,8 @@ import math
 import sys
 
 yahooFinanceURL = "https://query1.finance.yahoo.com/v8/finance/chart/{0}?symbol={0}&period1={1}&period2={2}&interval={3}&includePrePost=true&events=div%7Csplit%7Cearn&lang=en-US&region=US&crumb=ED2zlWJHcMa&corsDomain=finance.yahoo.com"
-db = TinyDB('DB.json')
-running = True
+
+
 
 
 class ANALYZER:
@@ -20,6 +20,8 @@ class ANALYZER:
     def __init__(self):
         # self.stock = stock
         print('analizer initialized...')
+        self.db = TinyDB('DB.json')
+        self.running = True
         Thread(target = self.look_for_SP500_volumeSpikes).start()
         Thread(target = self.get_SP500_5minStateEvery1min).start()
         Thread(target = self.get_SP500_30minStateEvery15min).start()
@@ -41,13 +43,19 @@ class ANALYZER:
                 'Timestamp': times }
         df = pd.DataFrame(data)
         record = Query()
-        if (db.search(record.type == 'current_state'))[0]['afterhours'] == True:
-            print('exiting')
-            sys.exit('exiting')
+        try:
+            self.running = (self.db.search(record.type == 'current_state'))[0]['afterhours']
+            print('afterhours', self.running)
+        except: 
+            print('afterhours problem')
+#        if (self.db.search(record.type == 'current_state'))[0]['afterhours'] == True:
+#            print('exiting')
+#            self.running = False
+##            sys.exit('exiting')
         return df
     
     def get_SP500_5minStateEvery1min(self):
-        while running == True:
+        while self.running == True:
             weekAgo = time.time() - 386329
             sp_df = self.get_Yahoo_Data('%5EGSPC', str(weekAgo).split('.')[0], '5m')
             moneyFlow = talib.MFI(sp_df, 14)
@@ -68,15 +76,15 @@ class ANALYZER:
                    fiveMinMF_lastValue = moneyFlow.values[-3:][0]
             print('5min Money Flow is = ', fiveMinMF_lastValue)
             Trade = Query()
-            db.update({'SP500_5mMF': fiveMinMF_lastValue }, Trade.type == 'current_state')
-            db.update({'SP500_5mROC': fiveMinROC_lastValue }, Trade.type == 'current_state')
-            if fiveMinMF_lastValue != 'NaN' and fiveMinROC_lastValue != 'NaN':
-                fiveMinUltimateIndicator = fiveMinMF_lastValue 
+            self.db.update({'SP500_5mMF': fiveMinMF_lastValue }, Trade.type == 'current_state')
+            self.db.update({'SP500_5mROC': fiveMinROC_lastValue }, Trade.type == 'current_state')
+#            if fiveMinMF_lastValue != 'NaN' and fiveMinROC_lastValue != 'NaN':
+#                fiveMinUltimateIndicator = fiveMinMF_lastValue 
             time.sleep(60)
 
 
     def get_SP500_30minStateEvery15min(self):
-        while running == True:
+        while self.running == True:
             monthAgo = time.time() - 2419200
             sp_df = self.get_Yahoo_Data('%5EGSPC', str(monthAgo).split('.')[0], '30m')
             moneyFlow = talib.MFI(sp_df, 14)
@@ -90,18 +98,18 @@ class ANALYZER:
                 if math.isnan(moneyFlow.values[-2:][0]):
                    thirtyMinMF_lastValue = moneyFlow.values[-3:][0]
             Trade = Query()
-            db.update({'SP500_30mMF': thirtyMinMF_lastValue }, Trade.type == 'current_state')
+            self.db.update({'SP500_30mMF': thirtyMinMF_lastValue }, Trade.type == 'current_state')
             time.sleep(900)
 
 #           this still tracks only 1 hr Money Flow
     def get_SP500_4hrStateEvery1hour(self):
-        while running == True:
+        while self.running == True:
             monthAgo = time.time() - 2419200
             sp_df = self.get_Yahoo_Data('%5EGSPC', str(monthAgo).split('.')[0], '60m')
             moneyFlow = talib.MFI(sp_df, 14)
             print('last 10 values of latest 1hr Money Flow:')
             Trade = Query()
-            db.update({'SP500_4hrMF': moneyFlow.values[-1:][0]}, Trade.type == 'current_state')
+            self.db.update({'SP500_4hrMF': moneyFlow.values[-1:][0]}, Trade.type == 'current_state')
             time.sleep(3600)
         
     # def slopeOFTheMF(df):
@@ -132,7 +140,7 @@ class ANALYZER:
             else:
                 spike['sentiment'] = 'Bullish'
                 print ('bullish volume', sp_df['Volume'][volSpkIndxes[i]])
-            db.update({'SP500_lastVolumeSpike': spike }, Trade.type == 'current_state')
+            self.db.update({'SP500_lastVolumeSpike': spike }, Trade.type == 'current_state')
         # don't forget to mark attitude towards long term prospect depending on these spikes
         
         
