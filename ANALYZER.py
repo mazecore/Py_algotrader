@@ -8,6 +8,7 @@ from tinydb import TinyDB, Query
 from threading import Thread
 import talib
 import math
+import sys
 
 yahooFinanceURL = "https://query1.finance.yahoo.com/v8/finance/chart/{0}?symbol={0}&period1={1}&period2={2}&interval={3}&includePrePost=true&events=div%7Csplit%7Cearn&lang=en-US&region=US&crumb=ED2zlWJHcMa&corsDomain=finance.yahoo.com"
 db = TinyDB('DB.json')
@@ -39,6 +40,10 @@ class ANALYZER:
                 'Volume': quote['volume'],
                 'Timestamp': times }
         df = pd.DataFrame(data)
+        record = Query()
+        if (db.search(record.type == 'current_state'))[0]['afterhours'] == True:
+            print('exiting')
+            sys.exit('exiting')
         return df
     
     def get_SP500_5minStateEvery1min(self):
@@ -117,7 +122,7 @@ class ANALYZER:
         monthAgo = time.time() - 2419200
         sp_df = self.get_Yahoo_Data('%5EGSPC', str(monthAgo).split('.')[0], '1d')
         volSpkIndxes = sp_df.index[sp_df['Volume'] > sp_df['Volume'].mean() / 100 * 134]
-        print('The number of volume spikes in the last month is %s', len(volSpkIndxes))
+        print('The number of volume spikes in the last month is %s' % len(volSpkIndxes))
         Trade = Query()
         for i in range(len(volSpkIndxes)):
             spike = { 'volume': sp_df['Volume'][volSpkIndxes[i]], 'date': sp_df['Timestamp'][volSpkIndxes[i]], 'sentiment': None }
