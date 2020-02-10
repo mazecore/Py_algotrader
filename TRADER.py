@@ -36,7 +36,7 @@ class TRADER:
         self.fiveHourPending = current_state['five_hour_pending']
 
 #        if (self.db.search(record.type == 'current_state'))[0]['limit_order_pending'] == True:
-        if current_state['five_hour_pending'] > 0 and last_record['transaction'] == 'purchase':
+        if current_state['five_hour_pending'] > 0 and last_record['transaction'] == 'purchase' or last_record['transaction'] == 'sale' and last_record['closed'] == False:
             print('There is a stock that needs to be sold.')
             self.limit_order_pending = True        
             self.stock_purchased = True
@@ -71,9 +71,8 @@ class TRADER:
         # register rate of change on the minute range
         # if tvix rate of change goes up, cancel tvix purchase
         # and if tvix rate of change goes down, cancel tvix limit order sale.. maybe idk
-        if self.limit_order_pending == False:
-            self.register_the_trade(n, price, transaction)
         self.limit_order_pending = True
+        self.register_the_trade(n, price, transaction)
         
         oneMinTimer = time.time() + 60
         if transaction == 'purchase':
@@ -87,11 +86,16 @@ class TRADER:
         else:
             while self.stock_sold == False:
                 self.sell(price, n)
+                time.sleep(1)
+                if time.time() > oneMinTimer:
+                    print('One minute elapsed. Limit order cancelled.')
+                    self.limit_order_pending = False
+                    break
 
-        
 
     def buy(self, stockPrice, n):
-        print('buying')
+        self.currentPrice = float(self.last10TradesPrices[0].text)
+        print('trying to buy at %s. current price is: %s' % (stockPrice, self.currentPrice))
         if self.currentPrice <= stockPrice:
             self.maCash = self.maCash - stockPrice * n
             print('bought at %s' % stockPrice)
@@ -102,7 +106,8 @@ class TRADER:
             print('B O U G H T')
         
     def sell(self, stockPrice, n):
-        print('selling')
+        self.currentPrice = float(self.last10TradesPrices[0].text)
+        print('trying to sell at %s. current price is: %s' % (stockPrice, self.currentPrice))
         if self.currentPrice >= stockPrice:
             self.maCash = self.maCash + stockPrice * n
             print('sold at %s' % stockPrice)
@@ -129,9 +134,12 @@ class TRADER:
                 b = 0
                 for s in self.topAskShares:
                     if int((s.text).replace(',','')) >= 500:
-                        print('A 500 share -ASK- detected. Placing a sale limit order for tvix at %s' % float(self.topAskPrice[b].text))
-                        self.set_limit_order(float(self.topAskPrice[b].text), 50, 'sale')
-                        break
+                        Trade = Query()
+                        price = (self.db.search(Trade.type == 'trade'))[-1]['stock']['price']
+                        if price + price * 0.01 < float(self.topAskPrice[b].text):
+                            print('A 500 share -ASK- detected. Placing a sale limit order for tvix at %s' % float(self.topAskPrice[b].text))
+                            self.set_limit_order(float(self.topAskPrice[b].text), 50, 'sale')
+                            break
                     b = b + 1
         except:
             Trade = Query()
@@ -161,14 +169,25 @@ class TRADER:
             
     def monitor_for_5hours_until_1percent_is_gained(self):
         print('monitoring for 5 hours')
-        
+        sleepTime = 10
+        Trade = Query()
+        last_record = (self.db.search(Trade.type == 'trade'))[-1]['stock']
+        target_price = last_record['price'] + last_record['price'] * 0.01
         while time.time() < self.fiveHourPending and self.stock_purchased == True:
             self.currentPrice = float(self.last10TradesPrices[0].text)
-            Trade = Query()
-            price = (self.db.search(Trade.type == 'trade'))[-1]['stock']['price']
-            if price + price * 0.01 < self.currentPrice:
-               self.sell(self.currentPrice, (self.db.search(Trade.type == 'trade'))[-1]['stock']['shares'])
-        
+            if self.currentPrice > target_price - target_price * 0.006:
+                sleepTime = 1
+            else:
+                sleepTime = 10
+            print('monitoring for 5 hours... trying to sell at %s. And current price is %s: ' % (target_price, self.currentPrice))
+            if target_price < self.currentPrice:
+               self.sell(self.currentPrice, last_record['shares'])
+               break
+            if self.currentPrice < last_record['price'] - last_record['price'] * 0.03:
+                print('S T O P  L O S S triggered...')
+                self.sell(self.currentPrice, last_record['shares'])
+                break
+            time.sleep(sleepTime)
 
     def get_info_table(self):
         self.last10TradesPrices = self.browser.find_elements_by_class_name("book-viewer__trades-price")
@@ -202,7 +221,8 @@ class TRADER:
 
         self.db.insert({'type': 'trade', 
                         'stock': {'name': 'tvix', 'shares': n, 'price': stockPrice }, 
-                        'transaction': transactionType })
+                        'transaction': transactionType, 
+                        'closed': not self.limit_order_pending })
 
         f = open("trading_log.txt", "a")
         f.write('------%s-------\n' % str(datetime.now()))

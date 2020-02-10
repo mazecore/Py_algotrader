@@ -44,8 +44,8 @@ class ANALYZER:
         df = pd.DataFrame(data)
         record = Query()
         try:
-            self.running = (self.db.search(record.type == 'current_state'))[0]['afterhours']
-            print('afterhours', self.running)
+            self.running = not (self.db.search(record.type == 'current_state'))[0]['afterhours']
+            print('afterhours', not self.running)
         except: 
             print('afterhours problem')
 #        if (self.db.search(record.type == 'current_state'))[0]['afterhours'] == True:

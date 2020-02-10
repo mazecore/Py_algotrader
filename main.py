@@ -28,9 +28,9 @@ if __name__=='__main__':
     b.start()
 #    sleep(10)
  #   a.terminate()
-    a.join()
+#    a.join()
 #    b.terminate()
-    b.join()
+#    b.join()
 #    while True:
 #        print('still true')
 #        sleep(5)
