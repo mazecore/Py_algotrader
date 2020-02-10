@@ -27,11 +27,10 @@ class TRADER:
         self.stock_purchased = False
         self.stock_sold = False
         self.db = TinyDB('DB.json')
-        record = Query()
         print('db length', len(self.db))
-        last_record = (self.db.search(record.type == 'trade'))[-1]
+        last_record = (self.db.search(Query().type == 'trade'))[-1]
         print('last trade ======>', last_record)
-        current_state = (self.db.search(record.type == 'current_state'))[0]
+        current_state = (self.db.search(Query().type == 'current_state'))[0]
         self.maCash = current_state['cash_amount']
         self.fiveHourPending = current_state['five_hour_pending']
 
@@ -150,8 +149,7 @@ class TRADER:
     def check_5min_MF(self):
         print('checking 5 min MF...')
         try:
-            record = Query()
-            fiveMinMF = (self.db.search(record.type == 'current_state'))[0]['SP500_5mMF']
+            fiveMinMF = (self.db.search(Query().type == 'current_state'))[0]['SP500_5mMF']
             if fiveMinMF > 0.76:
                 if self.stock_purchased == False:
                     # add control for momentum. Momentum shouldn't be higher than 16
@@ -170,8 +168,7 @@ class TRADER:
     def monitor_for_5hours_until_1percent_is_gained(self):
         print('monitoring for 5 hours')
         sleepTime = 10
-        Trade = Query()
-        last_record = (self.db.search(Trade.type == 'trade'))[-1]['stock']
+        last_record = (self.db.search(Query().type == 'trade'))[-1]['stock']
         target_price = last_record['price'] + last_record['price'] * 0.01
         while time.time() < self.fiveHourPending and self.stock_purchased == True:
             self.currentPrice = float(self.last10TradesPrices[0].text)
@@ -179,7 +176,7 @@ class TRADER:
                 sleepTime = 1
             else:
                 sleepTime = 10
-            print('monitoring for 5 hours... trying to sell at %s. And current price is %s: ' % (target_price, self.currentPrice))
+            print('monitoring for 5 hours... trying to sell at %s. And current price is: %s ' % (target_price, self.currentPrice))
             if target_price < self.currentPrice:
                self.sell(self.currentPrice, last_record['shares'])
                break
@@ -212,12 +209,11 @@ class TRADER:
     def register_the_trade(self, n, stockPrice, transactionType):
         print('registering the trade')
         print('cash_amount:', self.maCash)
-        Trade = Query()
         self.db.update({'cash_amount': self.maCash, 
                         'last_trade': transactionType,
                         'portfolio_value': self.maCash + self.currentPrice * n,
                         'five_hour_pending': self.fiveHourPending
-                        }, Trade.type == 'current_state')
+                        }, Query().type == 'current_state')
 
         self.db.insert({'type': 'trade', 
                         'stock': {'name': 'tvix', 'shares': n, 'price': stockPrice }, 

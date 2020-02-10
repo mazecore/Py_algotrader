@@ -15,8 +15,7 @@ from tinydb import TinyDB, Query
 
 if __name__=='__main__':
     db = TinyDB('DB.json')
-    Trade = Query()
-    db.update({'afterhours': False }, Trade.type == 'current_state')
+    db.update({'afterhours': False }, Query().type == 'current_state')
     analyzer = ANALYZER.ANALYZER()
     trader = TRADER.TRADER()
     jobs = []
