@@ -100,7 +100,7 @@ class TRADER:
             print('bought at %s' % stockPrice)
             self.stock_purchased = True
             self.limit_order_pending = False
-            self.fiveHourPending = time.time() + 18000
+            self.set_five_hour_timestamp()
             self.register_the_trade(n, stockPrice, 'purchase')
             print('B O U G H T')
         
@@ -116,7 +116,17 @@ class TRADER:
             self.fiveHourPending = 0
             self.register_the_trade(n, stockPrice, 'sale')
             print('S O L D')
-
+            
+    def set_five_hour_timestamp(self):
+        deltaTillClose = datetime(datetime.now().year, datetime.now().month, datetime.now().day, 16,0) - datetime.now()
+        print(deltaTillClose.seconds)
+        if deltaTillClose.seconds < 18000:
+            self.fiveHourPending = time.time() + 81000
+            print('fivehour deadline set for tomorrow at ', datetime.fromtimestamp(self.fiveHourPending))
+        else:
+            self.fiveHourPending = time.time() + 18000
+            print('fivehour deadline set for today at ', datetime.fromtimestamp(self.fiveHourPending))
+        
 
     def check_against_EDGX_bids(self):
         print('checking against EDGX bids...')
@@ -166,7 +176,7 @@ class TRADER:
             print('no 5 min MF')
             
     def monitor_for_5hours_until_1percent_is_gained(self):
-        print('monitoring for 5 hours')
+        print('monitoring for 5 hours. %s minutes elapsed' % self.fiveHourPending / 60)
         sleepTime = 10
         last_record = (self.db.search(Query().type == 'trade'))[-1]['stock']
         target_price = last_record['price'] + last_record['price'] * 0.01
@@ -185,6 +195,8 @@ class TRADER:
                 self.sell(self.currentPrice, last_record['shares'])
                 break
             time.sleep(sleepTime)
+        if time.time() < self.fiveHourPending:
+            print('five hour wait was fruitless...')
 
     def get_info_table(self):
         self.last10TradesPrices = self.browser.find_elements_by_class_name("book-viewer__trades-price")
