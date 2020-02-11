@@ -151,9 +151,8 @@ class TRADER:
                             break
                     b = b + 1
         except:
-            Trade = Query()
             self.db.update({'afterhours': True, 
-                        }, Trade.type == 'current_state')
+                        }, Query().type == 'current_state')
             sys.exit('No bids or asks. Arrivederci...')
                 
     def check_5min_MF(self):
@@ -176,27 +175,35 @@ class TRADER:
             print('no 5 min MF')
             
     def monitor_for_5hours_until_1percent_is_gained(self):
-        print('monitoring for 5 hours. %s minutes elapsed' % self.fiveHourPending / 60)
+        print('monitoring for 5 hours. %s minutes elapsed' % str(round((self.fiveHourPending - time.time()) / 60)))
         sleepTime = 10
         last_record = (self.db.search(Query().type == 'trade'))[-1]['stock']
         target_price = last_record['price'] + last_record['price'] * 0.01
-        while time.time() < self.fiveHourPending and self.stock_purchased == True:
-            self.currentPrice = float(self.last10TradesPrices[0].text)
-            if self.currentPrice > target_price - target_price * 0.006:
-                sleepTime = 1
+        while  self.stock_purchased == True:
+            if time.time() < self.fiveHourPending:
+                self.currentPrice = float(self.last10TradesPrices[0].text)
+                if self.currentPrice > target_price - target_price * 0.006:
+                    sleepTime = 1
+                else:
+                    sleepTime = 10
+                print('monitoring for 5 hours... trying to sell at %s. And current price is: %s ' % (target_price, self.currentPrice))
+                if target_price < self.currentPrice:
+                   self.sell(self.currentPrice, last_record['shares'])
+                   break
+                if self.currentPrice < last_record['price'] - last_record['price'] * 0.03:
+                    print('S T O P  L O S S triggered...')
+                    self.sell(self.currentPrice, last_record['shares'])
+                    break
+                time.sleep(sleepTime)
             else:
-                sleepTime = 10
-            print('monitoring for 5 hours... trying to sell at %s. And current price is: %s ' % (target_price, self.currentPrice))
-            if target_price < self.currentPrice:
-               self.sell(self.currentPrice, last_record['shares'])
-               break
-            if self.currentPrice < last_record['price'] - last_record['price'] * 0.03:
-                print('S T O P  L O S S triggered...')
-                self.sell(self.currentPrice, last_record['shares'])
+                self.reevaluate_state()
+                self.limit_order_pending == False
+                print('five hour wait was fruitless...')
                 break
-            time.sleep(sleepTime)
-        if time.time() < self.fiveHourPending:
-            print('five hour wait was fruitless...')
+    
+    def reevaluate_state(self):
+        print('is current 30min MF bullinsh?')
+        print('is current 5min MF bullish?')
 
     def get_info_table(self):
         self.last10TradesPrices = self.browser.find_elements_by_class_name("book-viewer__trades-price")
@@ -221,9 +228,11 @@ class TRADER:
     def register_the_trade(self, n, stockPrice, transactionType):
         print('registering the trade')
         print('cash_amount:', self.maCash)
+        portfolio_value = self.maCash + self.currentPrice * n
+            
         self.db.update({'cash_amount': self.maCash, 
                         'last_trade': transactionType,
-                        'portfolio_value': self.maCash + self.currentPrice * n,
+                        'portfolio_value': portfolio_value,
                         'five_hour_pending': self.fiveHourPending
                         }, Query().type == 'current_state')
 
@@ -235,8 +244,9 @@ class TRADER:
         f = open("trading_log.txt", "a")
         f.write('------%s-------\n' % str(datetime.now()))
         f.write('<=================trade number %s===================\n' % self.tradeNumber)
+        f.write('only limit order %s \n' % self.limit_order_pending)
         f.write('cash is %s \n' % self.maCash)
-        # f.write('stocks value is %s' % self.maCash)
+        f.write('portfolio value is %s' % portfolio_value)
         f.write('%s %s tvix at %s \n' % (transactionType, n, stockPrice))
         f.write('current price is %s \n' % self.last10TradesPrices[0].text)
         f.write('=====================================>\n')

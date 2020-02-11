@@ -8,7 +8,6 @@ from tinydb import TinyDB, Query
 from threading import Thread
 import talib
 import math
-import sys
 
 yahooFinanceURL = "https://query1.finance.yahoo.com/v8/finance/chart/{0}?symbol={0}&period1={1}&period2={2}&interval={3}&includePrePost=true&events=div%7Csplit%7Cearn&lang=en-US&region=US&crumb=ED2zlWJHcMa&corsDomain=finance.yahoo.com"
 
@@ -48,10 +47,6 @@ class ANALYZER:
             print('afterhours', not self.running)
         except: 
             print('afterhours problem')
-#        if (self.db.search(record.type == 'current_state'))[0]['afterhours'] == True:
-#            print('exiting')
-#            self.running = False
-##            sys.exit('exiting')
         return df
     
     def get_SP500_5minStateEvery1min(self):
