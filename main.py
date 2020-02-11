@@ -43,6 +43,8 @@ if __name__=='__main__':
 #            break
 #        sleep(10)
             
+ 
+ # create a batch file that would monitor internet connection and restart wi-fi if necessary
 
 
 

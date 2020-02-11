@@ -73,8 +73,6 @@ class ANALYZER:
             Trade = Query()
             self.db.update({'SP500_5mMF': fiveMinMF_lastValue }, Trade.type == 'current_state')
             self.db.update({'SP500_5mROC': fiveMinROC_lastValue }, Trade.type == 'current_state')
-#            if fiveMinMF_lastValue != 'NaN' and fiveMinROC_lastValue != 'NaN':
-#                fiveMinUltimateIndicator = fiveMinMF_lastValue 
             time.sleep(60)
 
 
@@ -84,6 +82,7 @@ class ANALYZER:
             sp_df = self.get_Yahoo_Data('%5EGSPC', str(monthAgo).split('.')[0], '30m')
             moneyFlow = talib.MFI(sp_df, 14)
             thirtyMinMF_lastValue = moneyFlow.values[-1:][0]
+#            if moneyFlow.values[]
             
             print('last 10 values of latest 30 min Money Flow:')
             print(moneyFlow[-10:])

@@ -89,3 +89,66 @@ cash is 20786.0
 purchase 50 tvix at 43.4 
 current price is 43.36 
 =====================================>
+------2020-02-11 11:06:53.337946-------
+<=================trade number 0===================
+only limit order True 
+cash is 20786.0 
+portfolio value is 20786.0purchase 50 tvix at 40.85 
+current price is 40.96 
+=====================================>
+------2020-02-11 11:07:58.980121-------
+<=================trade number 1===================
+only limit order True 
+cash is 20786.0 
+portfolio value is 20786.0purchase 50 tvix at 40.85 
+current price is 40.96 
+=====================================>
+------2020-02-11 11:09:04.566948-------
+<=================trade number 2===================
+only limit order True 
+cash is 20786.0 
+portfolio value is 20786.0purchase 50 tvix at 40.85 
+current price is 40.96 
+=====================================>
+------2020-02-11 15:41:41.807120-------
+<=================trade number 0===================
+only limit order True 
+cash is 20786.0 
+portfolio value is 20786.0purchase 50 tvix at 42.02 
+current price is 42.20 
+=====================================>
+------2020-02-11 15:42:47.528774-------
+<=================trade number 1===================
+only limit order True 
+cash is 20786.0 
+portfolio value is 20786.0purchase 50 tvix at 42.02 
+current price is 42.13 
+=====================================>
+------2020-02-11 16:05:01.731188-------
+<=================trade number 0===================
+only limit order True 
+cash is 20786.0 
+portfolio value is 20786.0purchase 50 tvix at 42.4 
+current price is 42.48 
+=====================================>
+------2020-02-11 16:09:07.402868-------
+<=================trade number 1===================
+only limit order True 
+cash is 20786.0 
+portfolio value is 20786.0purchase 50 tvix at 42.4 
+current price is 42.57 
+=====================================>
+------2020-02-11 16:13:13.013514-------
+<=================trade number 2===================
+only limit order True 
+cash is 20786.0 
+portfolio value is 20786.0purchase 50 tvix at 42.48 
+current price is 42.57 
+=====================================>
+------2020-02-11 16:15:06.266334-------
+<=================trade number 3===================
+only limit order False 
+cash is 18662.0 
+portfolio value is 20784.5purchase 50 tvix at 42.48 
+current price is 42.45 
+=====================================>

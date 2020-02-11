@@ -7,14 +7,11 @@ Created on Thu Dec 26 19:57:19 2019
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
-# from bs4 import BeautifulSoup
 
-# import matplotlib.pyplot as plt
 import time
 from datetime import datetime
 from tinydb import TinyDB, Query
 import sys
-
 
 
 class TRADER:
@@ -29,7 +26,7 @@ class TRADER:
         self.db = TinyDB('DB.json')
         print('db length', len(self.db))
         last_record = (self.db.search(Query().type == 'trade'))[-1]
-        print('last trade ======>', last_record)
+        print('last trade ======> ', last_record)
         current_state = (self.db.search(Query().type == 'current_state'))[0]
         self.maCash = current_state['cash_amount']
         self.fiveHourPending = current_state['five_hour_pending']
@@ -73,13 +70,13 @@ class TRADER:
         self.limit_order_pending = True
         self.register_the_trade(n, price, transaction)
         
-        oneMinTimer = time.time() + 60
+        oneMinTimer = time.time() + 240
         if transaction == 'purchase':
             while self.stock_purchased == False:
                 self.buy(price, n)
                 time.sleep(1)
                 if time.time() > oneMinTimer:
-                    print('One minute elapsed. Limit order cancelled.')
+                    print('4 minutes elapsed. Limit order cancelled.')
                     self.limit_order_pending = False
                     break
         else:
@@ -87,7 +84,7 @@ class TRADER:
                 self.sell(price, n)
                 time.sleep(1)
                 if time.time() > oneMinTimer:
-                    print('One minute elapsed. Limit order cancelled.')
+                    print('4 minutes elapsed. Limit order cancelled.')
                     self.limit_order_pending = False
                     break
 
@@ -134,19 +131,20 @@ class TRADER:
             if self.stock_purchased == False:
                 i = 0
                 for j in self.topBidShares:
-                    if int((j.text).replace(',','')) >= 500:
-                        print('A 500 share -BID- detected. Placing a buy limit order for tvix at %s' % float(self.topBidsPrice[i].text))
+                    if int((j.text).replace(',','')) >= 2000:
+                        print('A 2000 share -BID- detected. Placing a buy limit order for tvix at %s' % float(self.topBidsPrice[i].text))
                         self.set_limit_order(float(self.topBidsPrice[i].text), 50, 'purchase')
+                        self.monitor_for_5hours_until_1percent_is_gained()
                         break
                     i = i + 1
             else:
                 b = 0
                 for s in self.topAskShares:
-                    if int((s.text).replace(',','')) >= 500:
+                    if int((s.text).replace(',','')) >= 2000:
                         Trade = Query()
                         price = (self.db.search(Trade.type == 'trade'))[-1]['stock']['price']
                         if price + price * 0.01 < float(self.topAskPrice[b].text):
-                            print('A 500 share -ASK- detected. Placing a sale limit order for tvix at %s' % float(self.topAskPrice[b].text))
+                            print('A 2000 share -ASK- detected. Placing a sale limit order for tvix at %s' % float(self.topAskPrice[b].text))
                             self.set_limit_order(float(self.topAskPrice[b].text), 50, 'sale')
                             break
                     b = b + 1
@@ -197,13 +195,18 @@ class TRADER:
                 time.sleep(sleepTime)
             else:
                 self.reevaluate_state()
-                self.limit_order_pending == False
+                self.limit_order_pending = False
+                self.fiveHourPending = 0
+                self.db.update({ 'five_hour_pending': self.fiveHourPending }, Query().type == 'current_state')
                 print('five hour wait was fruitless...')
                 break
-    
+
     def reevaluate_state(self):
-        print('is current 30min MF bullinsh?')
-        print('is current 5min MF bullish?')
+        fiveMinMF = (self.db.search(Query().type == 'current_state'))[0]['SP500_5mMF']
+        thirtyMinMF = (self.db.search(Query().type == 'current_state'))[0]['SP500_30mMF']
+        print('is current 30min MF bullinsh? = ', thirtyMinMF)
+        print('is current 5min MF bullish? = ', fiveMinMF)
+        # distinguish between 5m moneyflow strategy and level II strategy maybe
 
     def get_info_table(self):
         self.last10TradesPrices = self.browser.find_elements_by_class_name("book-viewer__trades-price")
@@ -228,7 +231,10 @@ class TRADER:
     def register_the_trade(self, n, stockPrice, transactionType):
         print('registering the trade')
         print('cash_amount:', self.maCash)
-        portfolio_value = self.maCash + self.currentPrice * n
+        if self.limit_order_pending:
+            portfolio_value = self.maCash
+        else:
+            portfolio_value = self.maCash + self.currentPrice * n
             
         self.db.update({'cash_amount': self.maCash, 
                         'last_trade': transactionType,
@@ -246,14 +252,11 @@ class TRADER:
         f.write('<=================trade number %s===================\n' % self.tradeNumber)
         f.write('only limit order %s \n' % self.limit_order_pending)
         f.write('cash is %s \n' % self.maCash)
-        f.write('portfolio value is %s' % portfolio_value)
+        f.write('portfolio value is %s \n' % portfolio_value)
         f.write('%s %s tvix at %s \n' % (transactionType, n, stockPrice))
         f.write('current price is %s \n' % self.last10TradesPrices[0].text)
         f.write('=====================================>\n')
         f.close()
         self.tradeNumber = self.tradeNumber + 1
-        
-#if __name__ == "__main__":
-#    print('trader name main')
-#    TRADER().__init__()
+
         
