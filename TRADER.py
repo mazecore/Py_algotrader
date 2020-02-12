@@ -119,14 +119,16 @@ class TRADER:
         timestamp_now = time.time()
         deltaTillClose = datetime(*today, 16,0) - datetime.now()
         print('setting five hour timestamp. %s seconds till close.' % deltaTillClose.seconds)
-        if deltaTillClose.seconds > 18000:
+        if deltaTillClose.seconds > 18000 and deltaTillClose.seconds > 0:
             if date(*today).weekday() == 4:
                 self.fiveHourPending = timestamp_now + 234000
                 print('fivehour deadline set for Monday at ', datetime.fromtimestamp(self.fiveHourPending))
             else:
                 self.fiveHourPending = timestamp_now + 81000
                 print('fivehour deadline set for tomorrow at ', datetime.fromtimestamp(self.fiveHourPending))
-            
+        elif deltaTillClose.seconds < 0:
+                self.fiveHourPending = timestamp_now + 81000 + deltaTillClose.seconds
+                print('fivehour deadline set for tomorrow at ', datetime.fromtimestamp(self.fiveHourPending))
         else:
             self.fiveHourPending = timestamp_now + 18000
             print('fivehour deadline set for today at ', datetime.fromtimestamp(self.fiveHourPending))
@@ -177,7 +179,7 @@ class TRADER:
                        self.sell(self.currentPrice, 50)
                     
         except:
-            print('no 5 min MF')
+            print('No 5 minute Money Flow data')
             
     def monitor_for_5hours_until_1percent_is_gained(self):
         print('monitoring for 5 hours. %s minutes elapsed' % str(round((self.fiveHourPending - time.time()) / 60)))
