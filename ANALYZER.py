@@ -17,7 +17,6 @@ yahooFinanceURL = "https://query1.finance.yahoo.com/v8/finance/chart/{0}?symbol=
 class ANALYZER:
     
     def __init__(self):
-        # self.stock = stock
         print('analizer initialized...')
         self.db = TinyDB('DB.json')
         self.running = True
@@ -83,6 +82,9 @@ class ANALYZER:
             moneyFlow = talib.MFI(sp_df, 14)
             thirtyMinMF_lastValue = moneyFlow.values[-1:][0]
 #            if moneyFlow.values[]
+            # crete a numeric score 10 to -10 to evaluate bullishness or bearishness
+            # long-term prediction and short-term
+            # scrub data. Remove NaN's
             
             print('last 10 values of latest 30 min Money Flow:')
             print(moneyFlow[-10:])

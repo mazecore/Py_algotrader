@@ -9,7 +9,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 
 import time
-from datetime import datetime
+from datetime import datetime, date
 from tinydb import TinyDB, Query
 import sys
 
@@ -24,7 +24,7 @@ class TRADER:
         self.stock_purchased = False
         self.stock_sold = False
         self.db = TinyDB('DB.json')
-        print('db length', len(self.db))
+        print('database length', len(self.db))
         last_record = (self.db.search(Query().type == 'trade'))[-1]
         print('last trade ======> ', last_record)
         current_state = (self.db.search(Query().type == 'current_state'))[0]
@@ -115,15 +115,22 @@ class TRADER:
             print('S O L D')
             
     def set_five_hour_timestamp(self):
-        deltaTillClose = datetime(datetime.now().year, datetime.now().month, datetime.now().day, 16,0) - datetime.now()
-        print(deltaTillClose.seconds)
-        if deltaTillClose.seconds < 18000:
-            self.fiveHourPending = time.time() + 81000
-            print('fivehour deadline set for tomorrow at ', datetime.fromtimestamp(self.fiveHourPending))
+        today = [ datetime.now().year, datetime.now().month, datetime.now().day ]
+        timestamp_now = time.time()
+        deltaTillClose = datetime(*today, 16,0) - datetime.now()
+        print('setting five hour timestamp. %s seconds till close.' % deltaTillClose.seconds)
+        if deltaTillClose.seconds > 18000:
+            if date(*today).weekday() == 4:
+                self.fiveHourPending = timestamp_now + 234000
+                print('fivehour deadline set for Monday at ', datetime.fromtimestamp(self.fiveHourPending))
+            else:
+                self.fiveHourPending = timestamp_now + 81000
+                print('fivehour deadline set for tomorrow at ', datetime.fromtimestamp(self.fiveHourPending))
+            
         else:
-            self.fiveHourPending = time.time() + 18000
+            self.fiveHourPending = timestamp_now + 18000
             print('fivehour deadline set for today at ', datetime.fromtimestamp(self.fiveHourPending))
-        
+
 
     def check_against_EDGX_bids(self):
         print('checking against EDGX bids...')

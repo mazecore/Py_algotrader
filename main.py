@@ -44,7 +44,8 @@ if __name__=='__main__':
 #        sleep(10)
             
  
- # create a batch file that would monitor internet connection and restart wi-fi if necessary
+# create a batch file that would monitor internet connection and restart wi-fi if necessary
+# replace tinydb with sql-lite
 
 
 
