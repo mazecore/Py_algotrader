@@ -56,17 +56,18 @@ class ANALYZER:
             weekAgo = time.time() - 386329
             sp_df = self.get_Yahoo_Data('%5EGSPC', str(weekAgo).split('.')[0], '5m')
             moneyFlow = talib.MFI(sp_df, 14)
-            rateOfChange = talib.ROC(sp_df, 14)
+
             
             print('last 10 values of latest 5 min Money Flow:')
             print(moneyFlow[-10:])
-            
-            print('last 10 values of latest 5 min Rate Of Change:')
-            print(rateOfChange[-10:])
-            
             fiveMinMF_lastValue = moneyFlow.values[-1:][0]
-            fiveMinROC_lastValue = rateOfChange.values[-1:][0]
+
+#           rateOfChange = talib.ROC(sp_df, 14)
+#            print('last 10 values of latest 5 min Rate Of Change:')
+#            print(rateOfChange[-10:])
+#            fiveMinROC_lastValue = rateOfChange.values[-1:][0]
             
+
             if math.isnan(fiveMinMF_lastValue):
                 fiveMinMF_lastValue = moneyFlow.values[-2:][0]
                 if math.isnan(moneyFlow.values[-2:][0]):
@@ -74,7 +75,7 @@ class ANALYZER:
             print('5min Money Flow is = ', fiveMinMF_lastValue)
             Trade = Query()
             self.db.update({'SP500_5mMF': fiveMinMF_lastValue }, Trade.type == 'current_state')
-            self.db.update({'SP500_5mROC': fiveMinROC_lastValue }, Trade.type == 'current_state')
+          #  self.db.update({'SP500_5mROC': fiveMinROC_lastValue }, Trade.type == 'current_state')
             if fiveMinMF_lastValue > 0.7:
                 message = self.client.messages \
                             .create(
