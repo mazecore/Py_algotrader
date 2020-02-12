@@ -1,6 +1,5 @@
 
 import requests
-# import matplotlib.pyplot as plt
 import pandas as pd  
 import time
 from datetime import datetime
@@ -52,6 +51,7 @@ class ANALYZER:
         return df
     
     def get_SP500_5minStateEvery1min(self):
+        sleepTime = 120
         while self.running == True:
             weekAgo = time.time() - 386329
             sp_df = self.get_Yahoo_Data('%5EGSPC', str(weekAgo).split('.')[0], '5m')
@@ -73,9 +73,8 @@ class ANALYZER:
                 if math.isnan(moneyFlow.values[-2:][0]):
                    fiveMinMF_lastValue = moneyFlow.values[-3:][0]
             print('5min Money Flow is = ', fiveMinMF_lastValue)
-            Trade = Query()
-            self.db.update({'SP500_5mMF': fiveMinMF_lastValue }, Trade.type == 'current_state')
-          #  self.db.update({'SP500_5mROC': fiveMinROC_lastValue }, Trade.type == 'current_state')
+            self.db.update({'SP500_5mMF': fiveMinMF_lastValue }, Query().type == 'current_state')
+          #  self.db.update({'SP500_5mROC': fiveMinROC_lastValue }, Query().type == 'current_state')
             if fiveMinMF_lastValue > 0.7:
                 message = self.client.messages \
                             .create(
@@ -84,7 +83,10 @@ class ANALYZER:
                                  to=configs.maPhoneNumba
                              )
                 print('sent SMS message: ', message.sid)
-            time.sleep(60)
+                sleepTime = 60
+            if fiveMinMF_lastValue < 0.56:
+                sleepTime = 180
+            time.sleep(sleepTime)
 
 
     def get_SP500_30minStateEvery15min(self):
