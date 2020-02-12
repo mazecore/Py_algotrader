@@ -152,3 +152,19 @@ cash is 18662.0
 portfolio value is 20784.5purchase 50 tvix at 42.48 
 current price is 42.45 
 =====================================>
+------2020-02-12 11:01:11.719107-------
+<=================trade number 0===================
+only limit order True 
+cash is 18662.0 
+portfolio value is 18662.0 
+purchase 50 tvix at 40.81 
+current price is 40.83 
+=====================================================>
+------2020-02-12 11:02:25.564032-------
+<=================trade number 1===================
+only limit order False 
+cash is 16621.5 
+portfolio value is 18661.0 
+purchase 50 tvix at 40.81 
+current price is 40.79 
+=====================================================>

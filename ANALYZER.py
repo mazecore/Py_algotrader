@@ -8,6 +8,8 @@ from tinydb import TinyDB, Query
 from threading import Thread
 import talib
 import math
+from twilio.rest import Client
+import configs
 
 yahooFinanceURL = "https://query1.finance.yahoo.com/v8/finance/chart/{0}?symbol={0}&period1={1}&period2={2}&interval={3}&includePrePost=true&events=div%7Csplit%7Cearn&lang=en-US&region=US&crumb=ED2zlWJHcMa&corsDomain=finance.yahoo.com"
 
@@ -20,6 +22,7 @@ class ANALYZER:
         print('analizer initialized...')
         self.db = TinyDB('DB.json')
         self.running = True
+        self.client = Client(configs.account_sid, configs.auth_token)
         Thread(target = self.look_for_SP500_volumeSpikes).start()
         Thread(target = self.get_SP500_5minStateEvery1min).start()
         Thread(target = self.get_SP500_30minStateEvery15min).start()
@@ -72,6 +75,14 @@ class ANALYZER:
             Trade = Query()
             self.db.update({'SP500_5mMF': fiveMinMF_lastValue }, Trade.type == 'current_state')
             self.db.update({'SP500_5mROC': fiveMinROC_lastValue }, Trade.type == 'current_state')
+            if fiveMinMF_lastValue > 0.7:
+                message = self.client.messages \
+                            .create(
+                                 body="Money Flow is %s." % fiveMinMF_lastValue,
+                                 from_=configs.fromNumba,
+                                 to=configs.maPhoneNumba
+                             )
+                print('sent SMS message: ', message.sid)
             time.sleep(60)
 
 

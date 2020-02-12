@@ -29,20 +29,21 @@ class TRADER:
         print('last trade ======> ', last_record)
         current_state = (self.db.search(Query().type == 'current_state'))[0]
         self.maCash = current_state['cash_amount']
-        self.fiveHourPending = current_state['five_hour_pending']
 
 #        if (self.db.search(record.type == 'current_state'))[0]['limit_order_pending'] == True:
         if current_state['five_hour_pending'] > 0 and last_record['transaction'] == 'purchase' or last_record['transaction'] == 'sale' and last_record['closed'] == False:
             print('There is a stock that needs to be sold.')
+            self.fiveHourPending = current_state['five_hour_pending']
             self.limit_order_pending = True        
             self.stock_purchased = True
-#        if last_record['transaction'] == 'sale' and current_state['five_hour_pending'] > 0:
-#            self.stock_purchased = True
+        else:
+            self.fiveHourPending = 0
 
         print('ma cash: ', self.maCash)
         self.tradeNumber = 0
         self.change_Stock_and_go_to_EDGX('TVIX')
         
+
     def change_Stock_and_go_to_EDGX(self, stock):
         inputt = self.browser.find_element_by_xpath('//*[@id="symbol0"]')
         print('switching stock to tvix')
@@ -94,31 +95,30 @@ class TRADER:
         print('trying to buy at %s. current price is: %s' % (stockPrice, self.currentPrice))
         if self.currentPrice <= stockPrice:
             self.maCash = self.maCash - stockPrice * n
-            print('bought at %s' % stockPrice)
             self.stock_purchased = True
             self.limit_order_pending = False
             self.set_five_hour_timestamp()
             self.register_the_trade(n, stockPrice, 'purchase')
-            print('B O U G H T')
+            print('\n B O U G H T  at   %s \n' % stockPrice)
         
     def sell(self, stockPrice, n):
         self.currentPrice = float(self.last10TradesPrices[0].text)
         print('trying to sell at %s. current price is: %s' % (stockPrice, self.currentPrice))
         if self.currentPrice >= stockPrice:
             self.maCash = self.maCash + stockPrice * n
-            print('sold at %s' % stockPrice)
             self.stock_sold = True
             self.stock_purchased = False
             self.limit_order_pending = False
             self.fiveHourPending = 0
             self.register_the_trade(n, stockPrice, 'sale')
-            print('S O L D')
+            print('\n S O L D   at   %s \n' % stockPrice)
             
+
     def set_five_hour_timestamp(self):
         today = [ datetime.now().year, datetime.now().month, datetime.now().day ]
         timestamp_now = time.time()
         deltaTillClose = datetime(*today, 16,0) - datetime.now()
-        print('setting five hour timestamp. %s seconds till close.' % deltaTillClose.seconds)
+        print('setting five hour timestamp. %s minutes till close.' % deltaTillClose.seconds/60)
         if deltaTillClose.seconds > 18000 and deltaTillClose.seconds > 0:
             if date(*today).weekday() == 4:
                 self.fiveHourPending = timestamp_now + 234000
@@ -129,6 +129,9 @@ class TRADER:
         elif deltaTillClose.seconds < 0:
                 self.fiveHourPending = timestamp_now + 81000 + deltaTillClose.seconds
                 print('fivehour deadline set for tomorrow at ', datetime.fromtimestamp(self.fiveHourPending))
+                if date(*today).weekday() == 4:
+                    self.fiveHourPending = timestamp_now + 234000 + deltaTillClose.seconds
+                    print('fivehour deadline set for Monday at ', datetime.fromtimestamp(self.fiveHourPending))
         else:
             self.fiveHourPending = timestamp_now + 18000
             print('fivehour deadline set for today at ', datetime.fromtimestamp(self.fiveHourPending))
@@ -264,7 +267,7 @@ class TRADER:
         f.write('portfolio value is %s \n' % portfolio_value)
         f.write('%s %s tvix at %s \n' % (transactionType, n, stockPrice))
         f.write('current price is %s \n' % self.last10TradesPrices[0].text)
-        f.write('=====================================>\n')
+        f.write('=====================================================>\n')
         f.close()
         self.tradeNumber = self.tradeNumber + 1
 
