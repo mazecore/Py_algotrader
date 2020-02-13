@@ -41,6 +41,7 @@ class TRADER:
 
         print('ma cash: ', self.maCash)
         self.tradeNumber = 0
+        self.attempt = 0
         self.change_Stock_and_go_to_EDGX('TVIX')
         
 
@@ -92,7 +93,7 @@ class TRADER:
 
     def buy(self, stockPrice, n):
         self.currentPrice = float(self.last10TradesPrices[0].text)
-        print('trying to buy at %s. current price is: %s' % (stockPrice, self.currentPrice))
+        print('Trying to buy at %s. Current price is: %s' % (stockPrice, self.currentPrice))
         if self.currentPrice <= stockPrice:
             self.maCash = self.maCash - stockPrice * n
             self.stock_purchased = True
@@ -100,10 +101,11 @@ class TRADER:
             self.set_five_hour_timestamp()
             self.register_the_trade(n, stockPrice, 'purchase')
             print('\n B O U G H T  at   %s \n' % stockPrice)
+            self.monitor_for_5hours_until_1percent_is_gained()
         
     def sell(self, stockPrice, n):
         self.currentPrice = float(self.last10TradesPrices[0].text)
-        print('trying to sell at %s. current price is: %s' % (stockPrice, self.currentPrice))
+        print('Trying to sell at %s. Current price is: %s' % (stockPrice, self.currentPrice))
         if self.currentPrice >= stockPrice:
             self.maCash = self.maCash + stockPrice * n
             self.stock_sold = True
@@ -122,19 +124,19 @@ class TRADER:
         if deltaTillClose.seconds > 18000 and deltaTillClose.seconds > 0:
             if date(*today).weekday() == 4:
                 self.fiveHourPending = timestamp_now + 234000
-                print('fivehour deadline set for Monday at ', datetime.fromtimestamp(self.fiveHourPending))
+                print('five hour deadline set for Monday at ', datetime.fromtimestamp(self.fiveHourPending))
             else:
                 self.fiveHourPending = timestamp_now + 81000
-                print('fivehour deadline set for tomorrow at ', datetime.fromtimestamp(self.fiveHourPending))
+                print('five hour deadline set for tomorrow at ', datetime.fromtimestamp(self.fiveHourPending))
         elif deltaTillClose.seconds < 0:
                 self.fiveHourPending = timestamp_now + 81000 + deltaTillClose.seconds
-                print('fivehour deadline set for tomorrow at ', datetime.fromtimestamp(self.fiveHourPending))
+                print('five hour deadline set for tomorrow at ', datetime.fromtimestamp(self.fiveHourPending))
                 if date(*today).weekday() == 4:
                     self.fiveHourPending = timestamp_now + 234000 + deltaTillClose.seconds
-                    print('fivehour deadline set for Monday at ', datetime.fromtimestamp(self.fiveHourPending))
+                    print('five hour deadline set for Monday at ', datetime.fromtimestamp(self.fiveHourPending))
         else:
             self.fiveHourPending = timestamp_now + 18000
-            print('fivehour deadline set for today at ', datetime.fromtimestamp(self.fiveHourPending))
+            print('five hour deadline set for today at ', datetime.fromtimestamp(self.fiveHourPending))
 
 
     def check_against_EDGX_bids(self):
@@ -146,7 +148,7 @@ class TRADER:
                     if int((j.text).replace(',','')) >= 2000:
                         print('A 2000 share -BID- detected. Placing a buy limit order for tvix at %s' % float(self.topBidsPrice[i].text))
                         self.set_limit_order(float(self.topBidsPrice[i].text), 50, 'purchase')
-                        self.monitor_for_5hours_until_1percent_is_gained()
+                        
                         break
                     i = i + 1
             else:
@@ -160,11 +162,15 @@ class TRADER:
                             self.set_limit_order(float(self.topAskPrice[b].text), 50, 'sale')
                             break
                     b = b + 1
-        except:
-            self.db.update({'afterhours': True, 
-                        }, Query().type == 'current_state')
-            sys.exit('No bids or asks. Arrivederci...')
-                
+        except Exception as e:
+            print('exception', e)
+            if self.attempt > 2:
+                self.db.update({'afterhours': True, 
+                            }, Query().type == 'current_state')
+                sys.exit('No bids or asks. Arrivederci...')
+            self.attempt += 1
+            print('attempting again... attempt number ', self.attempt)
+
     def check_5min_MF(self):
         print('checking 5 min MF...')
         try:
@@ -173,7 +179,6 @@ class TRADER:
                 if self.stock_purchased == False:
                     # add control for momentum. Momentum shouldn't be higher than 16
                     self.buy(self.currentPrice, 50)
-                    self.monitor_for_5hours_until_1percent_is_gained()
             if fiveMinMF < 0.3:
                 if self.stock_purchased == True:
                     record = Query()
@@ -185,7 +190,7 @@ class TRADER:
             print('No 5 minute Money Flow data')
             
     def monitor_for_5hours_until_1percent_is_gained(self):
-        print('monitoring for 5 hours. %s minutes elapsed' % str(round((self.fiveHourPending - time.time()) / 60)))
+        print('monitoring for 5 hours. %s minutes left till deadline.' % str(round((self.fiveHourPending - time.time()) / 60)))
         sleepTime = 10
         last_record = (self.db.search(Query().type == 'trade'))[-1]['stock']
         target_price = last_record['price'] + last_record['price'] * 0.01
@@ -206,19 +211,24 @@ class TRADER:
                     break
                 time.sleep(sleepTime)
             else:
-                self.reevaluate_state()
-                self.limit_order_pending = False
-                self.fiveHourPending = 0
-                self.db.update({ 'five_hour_pending': self.fiveHourPending }, Query().type == 'current_state')
+                # self.reevaluate_state()
+                self.sell(self.currentPrice, last_record['shares']) # temporary solution
                 print('five hour wait was fruitless...')
                 break
 
     def reevaluate_state(self):
+        
         fiveMinMF = (self.db.search(Query().type == 'current_state'))[0]['SP500_5mMF']
         thirtyMinMF = (self.db.search(Query().type == 'current_state'))[0]['SP500_30mMF']
         print('is current 30min MF bullinsh? = ', thirtyMinMF)
         print('is current 5min MF bullish? = ', fiveMinMF)
-        # distinguish between 5m moneyflow strategy and level II strategy maybe
+        self.fiveHourPending = 0
+        self.db.update({ 'five_hour_pending': self.fiveHourPending }, Query().type == 'current_state')
+        # self.limit_order_pending = False  ?
+        # distinguish between 5m moneyflow strategy and level II strategy maybe. Probably not. 
+        # combine the strategies for a very good trade ( possibly large number of shares ) 
+        # alternatively let separate strategies go for a very short term shot
+        # reevaluate situation and either extend the wait or find the best timing to sell or sell immediately
 
     def get_info_table(self):
         self.last10TradesPrices = self.browser.find_elements_by_class_name("book-viewer__trades-price")
@@ -243,32 +253,47 @@ class TRADER:
     def register_the_trade(self, n, stockPrice, transactionType):
         print('registering the trade')
         print('cash_amount:', self.maCash)
-        if self.limit_order_pending:
-            portfolio_value = self.maCash
-        else:
-            portfolio_value = self.maCash + self.currentPrice * n
-            
-        self.db.update({'cash_amount': self.maCash, 
-                        'last_trade': transactionType,
-                        'portfolio_value': portfolio_value,
-                        'five_hour_pending': self.fiveHourPending
-                        }, Query().type == 'current_state')
-
         self.db.insert({'type': 'trade', 
                         'stock': {'name': 'tvix', 'shares': n, 'price': stockPrice }, 
                         'transaction': transactionType, 
                         'closed': not self.limit_order_pending })
 
+        if self.limit_order_pending:
+            portfolio_value = self.maCash
+            self.db.update({'cash_amount': self.maCash,
+                        'portfolio_value': portfolio_value,
+                        'five_hour_pending': self.fiveHourPending
+                        }, Query().type == 'current_state')
+
+        else:
+            portfolio_value = self.maCash + self.currentPrice * n
+            self.db.update({'cash_amount': self.maCash, 
+                        'last_closed_trade': transactionType,
+                        'portfolio_value': portfolio_value,
+                        'five_hour_pending': self.fiveHourPending
+                        }, Query().type == 'current_state')
+    
         f = open("trading_log.txt", "a")
         f.write('------%s-------\n' % str(datetime.now()))
-        f.write('<=================trade number %s===================\n' % self.tradeNumber)
-        f.write('only limit order %s \n' % self.limit_order_pending)
+        if self.limit_order_pending:
+            f.write('<===trade number %s==\n' % self.tradeNumber)
+            f.write('only limit order \n')
+        else:
+            f.write('<=================trade number %s===================\n' % self.tradeNumber)
+        
+        f.write('five hour pending: %s \n' % self.fiveHourPending)
         f.write('cash is %s \n' % self.maCash)
         f.write('portfolio value is %s \n' % portfolio_value)
         f.write('%s %s tvix at %s \n' % (transactionType, n, stockPrice))
         f.write('current price is %s \n' % self.last10TradesPrices[0].text)
-        f.write('=====================================================>\n')
+        if self.limit_order_pending:
+            f.write('==================>\n')
+        else:
+            f.write('=====================================================>\n')
         f.close()
         self.tradeNumber = self.tradeNumber + 1
+
+
+        
 
         
