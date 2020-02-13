@@ -61,7 +61,7 @@ class ANALYZER:
             print('last 10 values of latest 5 min Money Flow:')
             print(moneyFlow[-10:])
             fiveMinMF_lastValue = moneyFlow.values[-1:][0]
-
+            descending = False
 #           rateOfChange = talib.ROC(sp_df, 14)
 #            print('last 10 values of latest 5 min Rate Of Change:')
 #            print(rateOfChange[-10:])
@@ -72,8 +72,11 @@ class ANALYZER:
                 fiveMinMF_lastValue = moneyFlow.values[-2:][0]
                 if math.isnan(moneyFlow.values[-2:][0]):
                    fiveMinMF_lastValue = moneyFlow.values[-3:][0]
+                   
+            if moneyFlow.values[-20:].mean() > fiveMinMF_lastValue:
+                descending = True
             print('5min Money Flow is = ', fiveMinMF_lastValue)
-            self.db.update({'SP500_5mMF': fiveMinMF_lastValue }, Query().type == 'current_state')
+            self.db.update({'SP500_5mMF': { 'value': fiveMinMF_lastValue, 'descending': descending } }, Query().type == 'current_state')
           #  self.db.update({'SP500_5mROC': fiveMinROC_lastValue }, Query().type == 'current_state')
             if fiveMinMF_lastValue > 0.7:
                 message = self.client.messages \
@@ -94,7 +97,9 @@ class ANALYZER:
             monthAgo = time.time() - 2419200
             sp_df = self.get_Yahoo_Data('%5EGSPC', str(monthAgo).split('.')[0], '30m')
             moneyFlow = talib.MFI(sp_df, 14)
+            descending = False
             thirtyMinMF_lastValue = moneyFlow.values[-1:][0]
+            
 #            if moneyFlow.values[]
             # crete a numeric score 10 to -10 to evaluate bullishness or bearishness
             # long-term prediction and short-term
@@ -107,8 +112,11 @@ class ANALYZER:
                 thirtyMinMF_lastValue = moneyFlow.values[-2:][0]
                 if math.isnan(moneyFlow.values[-2:][0]):
                    thirtyMinMF_lastValue = moneyFlow.values[-3:][0]
+
+            if moneyFlow.values[-20:].mean() > thirtyMinMF_lastValue:
+                descending = True
             Trade = Query()
-            self.db.update({'SP500_30mMF': thirtyMinMF_lastValue }, Trade.type == 'current_state')
+            self.db.update({'SP500_30mMF': { 'value': thirtyMinMF_lastValue, 'descending': descending } }, Trade.type == 'current_state')
             time.sleep(900)
 
 #           this still tracks only 1 hr Money Flow

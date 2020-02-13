@@ -147,7 +147,11 @@ class TRADER:
                 for j in self.topBidShares:
                     if int((j.text).replace(',','')) >= 2000:
                         print('A 2000 share -BID- detected. Placing a buy limit order for tvix at %s' % float(self.topBidsPrice[i].text))
-                        self.set_limit_order(float(self.topBidsPrice[i].text), 50, 'purchase')
+                        fiveMinMF = (self.db.search(Query().type == 'current_state'))[0]['SP500_5mMF']['value']
+                        if fiveMinMF > 0.7:
+                            self.set_limit_order(float(self.topBidsPrice[i].text), 100, 'purchase')
+                        else:
+                            self.set_limit_order(float(self.topBidsPrice[i].text), 50, 'purchase')
                         
                         break
                     i = i + 1
@@ -155,8 +159,7 @@ class TRADER:
                 b = 0
                 for s in self.topAskShares:
                     if int((s.text).replace(',','')) >= 2000:
-                        Trade = Query()
-                        price = (self.db.search(Trade.type == 'trade'))[-1]['stock']['price']
+                        price = (self.db.search(Query().type == 'trade'))[-1]['stock']['price']
                         if price + price * 0.01 < float(self.topAskPrice[b].text):
                             print('A 2000 share -ASK- detected. Placing a sale limit order for tvix at %s' % float(self.topAskPrice[b].text))
                             self.set_limit_order(float(self.topAskPrice[b].text), 50, 'sale')
@@ -171,24 +174,25 @@ class TRADER:
             self.attempt += 1
             print('attempting again... attempt number ', self.attempt)
 
+
     def check_5min_MF(self):
-        print('checking 5 min MF...')
+        print('checking 5 minute Money Flow...')
         try:
-            fiveMinMF = (self.db.search(Query().type == 'current_state'))[0]['SP500_5mMF']
+            fiveMinMF = (self.db.search(Query().type == 'current_state'))[0]['SP500_5mMF']['value']
             if fiveMinMF > 0.76:
                 if self.stock_purchased == False:
                     # add control for momentum. Momentum shouldn't be higher than 16
-                    self.buy(self.currentPrice, 50)
+                    self.buy(self.currentPrice, 100)
             if fiveMinMF < 0.3:
                 if self.stock_purchased == True:
                     record = Query()
                     last_record = (self.db.search(record.type == 'trade'))[-1]
                     if last_record['price'] + last_record['price'] * 0.01 < self.currentPrice:
                        self.sell(self.currentPrice, 50)
-                    
         except:
             print('No 5 minute Money Flow data')
             
+
     def monitor_for_5hours_until_1percent_is_gained(self):
         print('monitoring for 5 hours. %s minutes left till deadline.' % str(round((self.fiveHourPending - time.time()) / 60)))
         sleepTime = 10
@@ -220,8 +224,8 @@ class TRADER:
         
         fiveMinMF = (self.db.search(Query().type == 'current_state'))[0]['SP500_5mMF']
         thirtyMinMF = (self.db.search(Query().type == 'current_state'))[0]['SP500_30mMF']
-        print('is current 30min MF bullinsh? = ', thirtyMinMF)
-        print('is current 5min MF bullish? = ', fiveMinMF)
+        print('is current 30min MF descending? = ', thirtyMinMF['descending'])
+        print('is current 5min MF descending? = ', fiveMinMF['descending'])
         self.fiveHourPending = 0
         self.db.update({ 'five_hour_pending': self.fiveHourPending }, Query().type == 'current_state')
         # self.limit_order_pending = False  ?
@@ -243,7 +247,7 @@ class TRADER:
         while True:
             time.sleep(5)
             self.currentPrice = float(self.last10TradesPrices[0].text)
-            print('current price ===>', self.currentPrice)
+            print(self.currentPrice)
             if self.limit_order_pending == False:
                 self.check_5min_MF()
                 self.check_against_EDGX_bids()
@@ -279,7 +283,7 @@ class TRADER:
             f.write('<===trade number %s==\n' % self.tradeNumber)
             f.write('only limit order \n')
         else:
-            f.write('<=================trade number %s===================\n' % self.tradeNumber)
+            f.write('<=================trade number %s=======================\n' % self.tradeNumber)
         
         f.write('five hour pending: %s \n' % self.fiveHourPending)
         f.write('cash is %s \n' % self.maCash)
@@ -289,7 +293,7 @@ class TRADER:
         if self.limit_order_pending:
             f.write('==================>\n')
         else:
-            f.write('=====================================================>\n')
+            f.write('========================================================>\n')
         f.close()
         self.tradeNumber = self.tradeNumber + 1
 
