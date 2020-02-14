@@ -226,6 +226,7 @@ class TRADER:
                 self.sell(self.currentPrice, last_record['shares']) # temporary solution
                 print('five hour wait was fruitless...')
                 break
+            self.check_time_of_day()
 
     def reevaluate_state(self):
         
@@ -240,6 +241,12 @@ class TRADER:
         # combine the strategies for a very good trade ( possibly large number of shares ) 
         # alternatively let separate strategies go for a very short term shot
         # reevaluate situation and either extend the wait or find the best timing to sell or sell immediately
+    
+    def check_time_of_day(self):
+        if datetime.now().hour > 20:
+            self.db.update({'afterhours': True, 
+                            }, Query().type == 'current_state')
+            sys.exit('8 pm. Arrivederci...')
 
     def get_info_table(self):
         self.last10TradesPrices = self.browser.find_elements_by_class_name("book-viewer__trades-price")
@@ -248,7 +255,6 @@ class TRADER:
         self.topAskPrice = self.browser.find_elements_by_class_name("book-viewer__ask-price")
         self.topAskShares = self.browser.find_elements_by_class_name("book-viewer__ask-shares")
         self.set_interval()
-
 
     def set_interval(self):
         while True:
