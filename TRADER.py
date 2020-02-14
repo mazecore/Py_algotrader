@@ -117,26 +117,31 @@ class TRADER:
             
 
     def set_five_hour_timestamp(self):
+        print('setting five hour timestamp...')
         today = [ datetime.now().year, datetime.now().month, datetime.now().day ]
         timestamp_now = time.time()
-        deltaTillClose = datetime(*today, 16,0) - datetime.now()
-        print('setting five hour timestamp. %s minutes till close.' % deltaTillClose.seconds/60)
-        if deltaTillClose.seconds > 18000 and deltaTillClose.seconds > 0:
-            if date(*today).weekday() == 4:
-                self.fiveHourPending = timestamp_now + 234000
-                print('five hour deadline set for Monday at ', datetime.fromtimestamp(self.fiveHourPending))
-            else:
-                self.fiveHourPending = timestamp_now + 81000
-                print('five hour deadline set for tomorrow at ', datetime.fromtimestamp(self.fiveHourPending))
-        elif deltaTillClose.seconds < 0:
-                self.fiveHourPending = timestamp_now + 81000 + deltaTillClose.seconds
-                print('five hour deadline set for tomorrow at ', datetime.fromtimestamp(self.fiveHourPending))
+        
+        if datetime.now().hour < 16:
+            deltaTillClose = datetime(*today, 16,0) - datetime.now()
+            print('{} minutes till close.'.format(deltaTillClose.seconds/60))
+            if deltaTillClose.seconds > 18000:
                 if date(*today).weekday() == 4:
-                    self.fiveHourPending = timestamp_now + 234000 + deltaTillClose.seconds
+                    self.fiveHourPending = timestamp_now + 253800
                     print('five hour deadline set for Monday at ', datetime.fromtimestamp(self.fiveHourPending))
+                else:
+                    self.fiveHourPending = timestamp_now + 81000
+                    print('five hour deadline set for tomorrow at ', datetime.fromtimestamp(self.fiveHourPending))
+            else:
+                self.fiveHourPending = timestamp_now + 18000
+                print('five hour deadline set for today at ', datetime.fromtimestamp(self.fiveHourPending))
         else:
-            self.fiveHourPending = timestamp_now + 18000
-            print('five hour deadline set for today at ', datetime.fromtimestamp(self.fiveHourPending))
+            deltaTill8pm = (datetime(*today, 20,0) - datetime.now()).seconds
+            self.fiveHourPending = timestamp_now + 66600 + deltaTill8pm
+            print('five hour deadline set for tomorrow at ', datetime.fromtimestamp(self.fiveHourPending))
+            if date(*today).weekday() == 4:
+                self.fiveHourPending = timestamp_now + 239400 + deltaTill8pm
+                print('five hour deadline set for Monday at ', datetime.fromtimestamp(self.fiveHourPending))
+            
 
 
     def check_against_EDGX_bids(self):
@@ -179,6 +184,7 @@ class TRADER:
         print('checking 5 minute Money Flow...')
         try:
             fiveMinMF = (self.db.search(Query().type == 'current_state'))[0]['SP500_5mMF']['value']
+            print('5 minute Money Flow is %s.' % fiveMinMF)
             if fiveMinMF > 0.76:
                 if self.stock_purchased == False:
                     # add control for momentum. Momentum shouldn't be higher than 16
@@ -194,6 +200,7 @@ class TRADER:
             
 
     def monitor_for_5hours_until_1percent_is_gained(self):
+        print('setting monitoring.', type(self.fiveHourPending), type(time.time()))
         print('monitoring for 5 hours. %s minutes left till deadline.' % str(round((self.fiveHourPending - time.time()) / 60)))
         sleepTime = 10
         last_record = (self.db.search(Query().type == 'trade'))[-1]['stock']
