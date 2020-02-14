@@ -25,7 +25,7 @@ class TRADER:
         self.stock_sold = False
         self.db = TinyDB('DB.json', sort_keys=True, indent=4, separators=(',', ': '))
         print('database length', len(self.db))
-        # print('doc_id db length: ', self.db.get(doc_id=len(self.db)))
+        print('last record: ', self.db.get(doc_id=len(self.db)))
         last_trade = (self.db.search(Query().type == 'trade'))[-1]
         print('last trade ======> ', last_trade)
         current_state = (self.db.search(Query().type == 'current_state'))[0]
@@ -125,7 +125,7 @@ class TRADER:
         if datetime.now().hour < 16:
             deltaTillClose = datetime(*today, 16,0) - datetime.now()
             print('{} minutes till close.'.format(deltaTillClose.seconds/60))
-            if deltaTillClose.seconds > 18000:
+            if deltaTillClose.seconds < 18000:
                 if date(*today).weekday() == 4:
                     self.fiveHourPending = timestamp_now + 253800
                     print('five hour deadline set for Monday at ', datetime.fromtimestamp(self.fiveHourPending))
@@ -303,7 +303,7 @@ class TRADER:
         if self.limit_order_pending:
             f.write('==================>\n')
             self.db.insert({'type':'attempt', 
-                            'date': datetime.now(),
+                            'date': str(datetime.now()),
                             'stock': {'name': 'tvix', 'shares': n, 'price': stockPrice }, 
                             'transaction': transactionType,
                             'profit': profit,
@@ -313,12 +313,12 @@ class TRADER:
                prices = (self.db.search(Query().type == 'trade'))
                purchasePrices = list(filter(lambda x: x['transaction'] == 'purchase', prices))
                profit = n * stockPrice - n* purchasePrices[-1]['stock']['price']
-               f.write('profit : {}'.format(profit))
+               f.write('profit : {} \n'.format(profit))
         
             f.write('========================================================>\n')
             
             self.db.insert({'type':'trade', 
-                            'date': datetime.now(),
+                            'date': str(datetime.now()),
                             'stock': {'name': 'tvix', 'shares': n, 'price': stockPrice }, 
                             'transaction': transactionType,
                             'profit': profit,

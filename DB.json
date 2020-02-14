@@ -3,19 +3,19 @@
         "1": {
             "SP500_30mMF": {
                 "descending": false,
-                "value": 0.35714285714285715
+                "value": 0.21428571428571427
             },
             "SP500_5mMF": {
                 "descending": false,
-                "value": 0.42857142857142855
+                "value": 0.6428571428571429
             },
             "SP500_5mROC": 9.780005574313829e-05,
             "SP500_lastVolumeSpike": null,
             "afterhours": false,
-            "cash_amount": 18623.75,
-            "five_hour_pending": 0,
-            "last_closed_trade": "sale",
-            "portfolio_value": 20642.0,
+            "cash_amount": 16627.25,
+            "five_hour_pending": 1581726192.9273221,
+            "last_closed_trade": "purchase",
+            "portfolio_value": 18623.75,
             "type": "current_state"
         },
         "2": {
@@ -375,6 +375,61 @@
                 "shares": 50
             },
             "transaction": "sale",
+            "type": "trade"
+        },
+        "39": {
+            "date": "2020-02-14 13:47:27.257950",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 39.89,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "40": {
+            "date": "2020-02-14 13:52:08.383611",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 39.89,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "41": {
+            "date": "2020-02-14 14:08:15.834142",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 39.89,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "42": {
+            "date": "2020-02-14 14:23:02.824327",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 39.93,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "43": {
+            "date": "2020-02-14 14:23:12.943112",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 39.93,
+                "shares": 50
+            },
+            "transaction": "purchase",
             "type": "trade"
         }
     }
