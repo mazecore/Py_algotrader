@@ -23,15 +23,16 @@ class TRADER:
         self.limit_order_pending = False
         self.stock_purchased = False
         self.stock_sold = False
-        self.db = TinyDB('DB.json')
+        self.db = TinyDB('DB.json', sort_keys=True, indent=4, separators=(',', ': '))
         print('database length', len(self.db))
-        last_record = (self.db.search(Query().type == 'trade'))[-1]
-        print('last trade ======> ', last_record)
+        # print('doc_id db length: ', self.db.get(doc_id=len(self.db)))
+        last_trade = (self.db.search(Query().type == 'trade'))[-1]
+        print('last trade ======> ', last_trade)
         current_state = (self.db.search(Query().type == 'current_state'))[0]
         self.maCash = current_state['cash_amount']
 
 #        if (self.db.search(record.type == 'current_state'))[0]['limit_order_pending'] == True:
-        if current_state['five_hour_pending'] > 0 and last_record['transaction'] == 'purchase' or last_record['transaction'] == 'sale' and last_record['closed'] == False:
+        if current_state['five_hour_pending'] > 0 and last_trade['transaction'] == 'purchase':
             print('There is a stock that needs to be sold.')
             self.fiveHourPending = current_state['five_hour_pending']
             self.limit_order_pending = True        
@@ -213,10 +214,9 @@ class TRADER:
                 else:
                     sleepTime = 10
                 print('monitoring for 5 hours... trying to sell at %s. And current price is: %s ' % (target_price, self.currentPrice))
-                
-                prices = (self.db.search(Query().type == 'trade'))
-                purchasePrices = list(filter(lambda x: x['transaction'] == 'purchase', prices))
-                print('profit : {}'.format(50 * self.currentPrice - 50* purchasePrices[-1]['stock']['price']))
+
+                print('profit : {}'.format(last_record['shares'] * self.currentPrice - last_record['shares']* last_record['price']))
+                print('target profit: {}'.format(last_record['shares'] * target_price - last_record['shares']* last_record['price']))
 
                 if target_price < self.currentPrice:
                    self.sell(self.currentPrice, last_record['shares'])
@@ -275,18 +275,17 @@ class TRADER:
     def register_the_trade(self, n, stockPrice, transactionType):
         print('registering the trade')
         print('cash_amount:', self.maCash)
-        self.db.insert({'type': 'trade', 
-                        'stock': {'name': 'tvix', 'shares': n, 'price': stockPrice }, 
-                        'transaction': transactionType, 
-                        'closed': not self.limit_order_pending })
-
+        profit = None
+        portfolio_value = self.maCash
+        f = open("trading_log.txt", "a")
+        f.write('------%s-------\n' % str(datetime.now()))
         if self.limit_order_pending:
-            portfolio_value = self.maCash
             self.db.update({'cash_amount': self.maCash,
                         'portfolio_value': portfolio_value,
                         'five_hour_pending': self.fiveHourPending
                         }, Query().type == 'current_state')
-
+            f.write('<===trade number %s==\n' % self.tradeNumber)
+            f.write('only limit order \n')
         else:
             portfolio_value = self.maCash + self.currentPrice * n
             self.db.update({'cash_amount': self.maCash, 
@@ -294,29 +293,39 @@ class TRADER:
                         'portfolio_value': portfolio_value,
                         'five_hour_pending': self.fiveHourPending
                         }, Query().type == 'current_state')
-    
-        f = open("trading_log.txt", "a")
-        f.write('------%s-------\n' % str(datetime.now()))
-        if self.limit_order_pending:
-            f.write('<===trade number %s==\n' % self.tradeNumber)
-            f.write('only limit order \n')
-        else:
             f.write('<=================trade number %s=======================\n' % self.tradeNumber)
-        
-        f.write('five hour deadline: %s \n' % datetime.fromtimestamp(self.fiveHourPending))
+            if transactionType == 'purchase':
+                f.write('five hour deadline: %s \n' % datetime.fromtimestamp(self.fiveHourPending))
         f.write('cash is %s \n' % self.maCash)
         f.write('portfolio value is %s \n' % portfolio_value)
         f.write('%s %s tvix at %s \n' % (transactionType, n, stockPrice))
         f.write('current price is %s \n' % self.last10TradesPrices[0].text)
         if self.limit_order_pending:
             f.write('==================>\n')
+            self.db.insert({'type':'attempt', 
+                            'date': datetime.now(),
+                            'stock': {'name': 'tvix', 'shares': n, 'price': stockPrice }, 
+                            'transaction': transactionType,
+                            'profit': profit,
+                           })
         else:
             if transactionType == 'sale':
                prices = (self.db.search(Query().type == 'trade'))
                purchasePrices = list(filter(lambda x: x['transaction'] == 'purchase', prices))
-               f.write('profit : {}'.format(n * stockPrice - n* purchasePrices[-1]['stock']['price']))
+               profit = n * stockPrice - n* purchasePrices[-1]['stock']['price']
+               f.write('profit : {}'.format(profit))
+        
             f.write('========================================================>\n')
+            
+            self.db.insert({'type':'trade', 
+                            'date': datetime.now(),
+                            'stock': {'name': 'tvix', 'shares': n, 'price': stockPrice }, 
+                            'transaction': transactionType,
+                            'profit': profit,
+                           })
         f.close()
+        
+
         self.tradeNumber = self.tradeNumber + 1
 
 

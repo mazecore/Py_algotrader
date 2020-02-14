@@ -19,7 +19,7 @@ class ANALYZER:
     
     def __init__(self):
         print('analizer initialized...')
-        self.db = TinyDB('DB.json')
+        self.db = TinyDB('DB.json', sort_keys=True, indent=4, separators=(',', ': '))
         self.running = True
         self.client = Client(configs.account_sid, configs.auth_token)
         Thread(target = self.look_for_SP500_volumeSpikes).start()
@@ -52,6 +52,7 @@ class ANALYZER:
     
     def get_SP500_5minStateEvery1min(self):
         sleepTime = 120
+        db = TinyDB('DB.json', sort_keys=True, indent=4, separators=(',', ': '))
         while self.running == True:
             weekAgo = time.time() - 386329
             sp_df = self.get_Yahoo_Data('%5EGSPC', str(weekAgo).split('.')[0], '5m')
@@ -76,7 +77,7 @@ class ANALYZER:
             if moneyFlow.values[-20:].mean() > fiveMinMF_lastValue:
                 descending = True
             print('5min Money Flow is = ', fiveMinMF_lastValue)
-            self.db.update({'SP500_5mMF': { 'value': fiveMinMF_lastValue, 'descending': descending } }, Query().type == 'current_state')
+            db.update({'SP500_5mMF': { 'value': fiveMinMF_lastValue, 'descending': descending } }, Query().type == 'current_state')
           #  self.db.update({'SP500_5mROC': fiveMinROC_lastValue }, Query().type == 'current_state')
             if fiveMinMF_lastValue > 0.7:
                 message = self.client.messages \
@@ -93,6 +94,7 @@ class ANALYZER:
 
 
     def get_SP500_30minStateEvery15min(self):
+        db = TinyDB('DB.json', sort_keys=True, indent=4, separators=(',', ': '))
         while self.running == True:
             monthAgo = time.time() - 2419200
             sp_df = self.get_Yahoo_Data('%5EGSPC', str(monthAgo).split('.')[0], '30m')
@@ -116,7 +118,7 @@ class ANALYZER:
             if moneyFlow.values[-20:].mean() > thirtyMinMF_lastValue:
                 descending = True
             Trade = Query()
-            self.db.update({'SP500_30mMF': { 'value': thirtyMinMF_lastValue, 'descending': descending } }, Trade.type == 'current_state')
+            db.update({'SP500_30mMF': { 'value': thirtyMinMF_lastValue, 'descending': descending } }, Trade.type == 'current_state')
             time.sleep(900)
 
 #           this still tracks only 1 hr Money Flow
