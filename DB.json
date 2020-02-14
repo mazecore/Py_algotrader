@@ -3,11 +3,11 @@
         "1": {
             "SP500_30mMF": {
                 "descending": false,
-                "value": 0.21428571428571427
+                "value": 0.5
             },
             "SP500_5mMF": {
                 "descending": false,
-                "value": 0.6428571428571429
+                "value": 0.7857142857142857
             },
             "SP500_5mROC": 9.780005574313829e-05,
             "SP500_lastVolumeSpike": null,
