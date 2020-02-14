@@ -200,7 +200,7 @@ class TRADER:
             
 
     def monitor_for_5hours_until_1percent_is_gained(self):
-        print('setting monitoring.', type(self.fiveHourPending), type(time.time()))
+        print('setting monitoring. five hour deadline : ', datetime.fromtimestamp(self.fiveHourPending))
         print('monitoring for 5 hours. %s minutes left till deadline.' % str(round((self.fiveHourPending - time.time()) / 60)))
         sleepTime = 10
         last_record = (self.db.search(Query().type == 'trade'))[-1]['stock']
@@ -213,6 +213,11 @@ class TRADER:
                 else:
                     sleepTime = 10
                 print('monitoring for 5 hours... trying to sell at %s. And current price is: %s ' % (target_price, self.currentPrice))
+                
+                prices = (self.db.search(Query().type == 'trade'))
+                purchasePrices = list(filter(lambda x: x['transaction'] == 'purchase', prices))
+                print('profit : {}'.format(50 * self.currentPrice - 50* purchasePrices[-1]['stock']['price']))
+
                 if target_price < self.currentPrice:
                    self.sell(self.currentPrice, last_record['shares'])
                    break
@@ -298,7 +303,7 @@ class TRADER:
         else:
             f.write('<=================trade number %s=======================\n' % self.tradeNumber)
         
-        f.write('five hour pending: %s \n' % self.fiveHourPending)
+        f.write('five hour deadline: %s \n' % datetime.fromtimestamp(self.fiveHourPending))
         f.write('cash is %s \n' % self.maCash)
         f.write('portfolio value is %s \n' % portfolio_value)
         f.write('%s %s tvix at %s \n' % (transactionType, n, stockPrice))
@@ -306,6 +311,10 @@ class TRADER:
         if self.limit_order_pending:
             f.write('==================>\n')
         else:
+            if transactionType == 'sale':
+               prices = (self.db.search(Query().type == 'trade'))
+               purchasePrices = list(filter(lambda x: x['transaction'] == 'purchase', prices))
+               f.write('profit : {}'.format(n * stockPrice - n* purchasePrices[-1]['stock']['price']))
             f.write('========================================================>\n')
         f.close()
         self.tradeNumber = self.tradeNumber + 1
