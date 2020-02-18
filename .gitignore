@@ -2,4 +2,5 @@ TradingBot-checkpoint.ipynb
 __pycache__
 .ipynb_checkpoints
 configs.py
-debug.log
+*.log
+yahooTechIndicators.js
