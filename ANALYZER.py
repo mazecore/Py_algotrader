@@ -24,6 +24,7 @@ class ANALYZER:
         self.client = Client(configs.account_sid, configs.auth_token)
         Thread(target = self.look_for_SP500_volumeSpikes).start()
         Thread(target = self.get_SP500_5minStateEvery1min).start()
+        time.sleep(2)
         Thread(target = self.get_SP500_30minStateEvery15min).start()
         Thread(target = self.get_daily_Volume, args=('TVIX',)).start()
         
@@ -55,7 +56,7 @@ class ANALYZER:
         db = TinyDB('DB.json', sort_keys=True, indent=4, separators=(',', ': '))
         today = [ datetime.now().year, datetime.now().month, datetime.now().day ]
         while self.running == True:
-            if datetime(*today, 9,28) > datetime.now():
+            if datetime(*today, 9,28) < datetime.now():
                 weekAgo = time.time() - 386329
                 sp_df = self.get_Yahoo_Data('%5EGSPC', str(weekAgo).split('.')[0], '5m')
                 moneyFlow = talib.MFI(sp_df, 14)
@@ -65,10 +66,10 @@ class ANALYZER:
                 print(moneyFlow[-10:])
                 fiveMinMF_lastValue = moneyFlow.values[-1:][0]
                 descending = False
-    #           rateOfChange = talib.ROC(sp_df, 14)
-    #            print('last 10 values of latest 5 min Rate Of Change:')
-    #            print(rateOfChange[-10:])
-    #            fiveMinROC_lastValue = rateOfChange.values[-1:][0]
+                rateOfChange = talib.ROC(sp_df, 14)
+                print('last 10 values of latest 5 min Rate Of Change:')
+                print(rateOfChange[-10:])
+                fiveMinROC_lastValue = rateOfChange.values[-1:][0]
                 
     
                 if math.isnan(fiveMinMF_lastValue):
@@ -80,12 +81,12 @@ class ANALYZER:
                     descending = True
                 print('5min Money Flow is = ', fiveMinMF_lastValue)
                 db.update({'SP500_5mMF': { 'value': fiveMinMF_lastValue, 'descending': descending } }, Query().type == 'current_state')
-              #  self.db.update({'SP500_5mROC': fiveMinROC_lastValue }, Query().type == 'current_state')
+                self.db.update({'SP500_5mROC': fiveMinROC_lastValue }, Query().type == 'current_state')
                 
                 if fiveMinMF_lastValue > 0.7:
                     message = self.client.messages \
                                 .create(
-                                     body="Money Flow is %s." % fiveMinMF_lastValue,
+                                     body="M F is %s. ROC is %s" % (fiveMinMF_lastValue, fiveMinROC_lastValue),
                                      from_=configs.fromNumba,
                                      to=configs.maPhoneNumba
                                  )

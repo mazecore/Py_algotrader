@@ -22,7 +22,7 @@ def MFI(df, n):
     PosMF = pd.Series(PosMF)
     TotMF = PP * df['Volume']
     MFR = pd.Series(PosMF / TotMF)
-    result = pd.Series(MFR.rolling(n).mean(), name='MFI_' + str(n))
+    result = pd.Series( round(MFR.rolling(n).mean(), 2), name='MFI_' + str(n))
     return result
 
 def ROC(df, n, price='Close'):
@@ -31,7 +31,7 @@ def ROC(df, n, price='Close'):
     """
     M = df[price].diff(n - 1)
     N = df[price].shift(n - 1)
-    result = pd.Series(M / N, name='ROC_' + str(n))
+    result = pd.Series( round( M / N * 100, 2), name='ROC_' + str(n))
     return result
 
 def RVI(df, n, high='High', low='Low'):
