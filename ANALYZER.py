@@ -24,7 +24,7 @@ class ANALYZER:
         self.client = Client(configs.account_sid, configs.auth_token)
         Thread(target = self.look_for_SP500_volumeSpikes).start()
         Thread(target = self.get_SP500_5minStateEvery1min).start()
-        time.sleep(2)
+        time.sleep(1)
         Thread(target = self.get_SP500_30minStateEvery15min).start()
         Thread(target = self.get_daily_Volume, args=('TVIX',)).start()
         
@@ -57,6 +57,12 @@ class ANALYZER:
         today = [ datetime.now().year, datetime.now().month, datetime.now().day ]
         while self.running == True:
             if datetime(*today, 9,28) < datetime.now():
+                if datetime.now().hour >= 16:
+                    print('Technical Analyzer is off. Its afterhours: %s:%s PM' % ( datetime.now().hour, datetime.now().minute ))
+                    self.running = False
+                    self.db.update({'afterhours': True, 
+                                }, Query().type == 'current_state')
+                    break
                 weekAgo = time.time() - 386329
                 sp_df = self.get_Yahoo_Data('%5EGSPC', str(weekAgo).split('.')[0], '5m')
                 moneyFlow = talib.MFI(sp_df, 14)
@@ -94,9 +100,6 @@ class ANALYZER:
                     sleepTime = 60
                 if fiveMinMF_lastValue < 0.56:
                     sleepTime = 180
-
-            if datetime.now().hour > 16:
-                self.running = False
 
             time.sleep(sleepTime)
 

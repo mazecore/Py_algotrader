@@ -217,6 +217,8 @@ class TRADER:
 
                 print('profit : {}'.format(last_record['shares'] * self.currentPrice - last_record['shares']* last_record['price']))
                 print('target profit: {}'.format(last_record['shares'] * target_price - last_record['shares']* last_record['price']))
+                
+                # consider not selling if MF is above .7. Wait till the MF starts to turn downward.
 
                 if target_price < self.currentPrice:
                    self.sell(self.currentPrice, last_record['shares'])

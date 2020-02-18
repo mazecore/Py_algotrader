@@ -3,15 +3,15 @@
         "1": {
             "SP500_30mMF": {
                 "descending": false,
-                "value": 0.57
+                "value": 0.5
             },
             "SP500_5mMF": {
-                "descending": false,
-                "value": 0.64
+                "descending": true,
+                "value": 0.21
             },
-            "SP500_5mROC": 0.32,
+            "SP500_5mROC": -0.08,
             "SP500_lastVolumeSpike": null,
-            "afterhours": false,
+            "afterhours": true,
             "cash_amount": 14577.25,
             "five_hour_pending": 1582127079.7601628,
             "last_closed_trade": "purchase",
