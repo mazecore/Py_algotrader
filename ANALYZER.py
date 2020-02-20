@@ -84,7 +84,7 @@ class ANALYZER:
                     print('moneyFlow.values[-2:][0]', moneyFlow.values[-2:][0])
                     fiveMinMF_lastValue = moneyFlow.values[-2:][0]
                     if math.isnan(moneyFlow.values[-2:][0]):
-                       print(' moneyFlow.values[-3:][0]',  moneyFlow.values[-3:][0])
+                       print('moneyFlow.values[-3:][0]',  moneyFlow.values[-3:][0])
                        fiveMinMF_lastValue = moneyFlow.values[-3:][0]
                        
 
