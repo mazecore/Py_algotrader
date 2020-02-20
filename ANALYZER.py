@@ -61,7 +61,8 @@ class ANALYZER:
                 if datetime.now().hour >= 16:
                     print('\n Technical Analyzer is off. Its afterhours: %s:%s PM \n' % ( datetime.now().hour, datetime.now().minute ))
                     self.running = False
-                    self.db.update({'afterhours': True, 
+                    self.db.update({'afterhours': True,
+                                    'SP500_5mMF': { 'value': None, 'descending': None } 
                                 }, Query().type == 'current_state')
                     break
 
