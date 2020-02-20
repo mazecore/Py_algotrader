@@ -388,3 +388,91 @@ portfolio value is 18678.25
 purchase 100 tvix at 41.01 
 current price is 41.01 
 ========================================================>
+------2020-02-19 11:59:27.520490-------
+<=================trade number 0=======================
+cash is 18509.25 
+portfolio value is 22441.25 
+sale 100 tvix at 39.32 
+current price is 39.3200 
+profit : -169.0 
+========================================================>
+------2020-02-19 12:15:31.430988-------
+<===trade number 1==
+only limit order 
+cash is 18509.25 
+portfolio value is 18509.25 
+purchase 100 tvix at 39.2 
+current price is 39.2700 
+==================>
+------2020-02-19 12:17:23.558109-------
+<=================trade number 2=======================
+five hour deadline: 2020-02-20 10:47:23.554152 
+cash is 14589.25 
+portfolio value is 18506.25 
+purchase 100 tvix at 39.2 
+current price is 39.17 
+========================================================>
+------2020-02-20 08:46:44.032103-------
+<=================trade number 0=======================
+cash is 18565.25 
+portfolio value is 22541.25 
+sale 100 tvix at 39.76 
+current price is 39.76 
+profit : 55.999999999999545 
+========================================================>
+------2020-02-20 11:03:11.545793-------
+<===trade number 0==
+only limit order 
+cash is 18565.25 
+portfolio value is 18565.25 
+purchase 50 tvix at 39.17 
+current price is 39.20 
+==================>
+------2020-02-20 11:07:17.542325-------
+<===trade number 1==
+only limit order 
+cash is 18565.25 
+portfolio value is 18565.25 
+purchase 50 tvix at 39.3 
+current price is 39.30 
+==================>
+------2020-02-20 11:07:17.564396-------
+<=================trade number 2=======================
+five hour deadline: 2020-02-21 09:37:17.562402 
+cash is 16600.25 
+portfolio value is 16600.25 
+purchase 50 tvix at 39.3 
+current price is 39.30 
+========================================================>
+------2020-02-20 11:11:10.843534-------
+<=================trade number 3=======================
+cash is 18587.75 
+portfolio value is 18587.75 
+sale 50 tvix at 39.75 
+current price is 39.75 
+profit : 22.500000000000227 
+========================================================>
+------2020-02-20 11:11:22.971729-------
+<===trade number 4==
+only limit order 
+cash is 18587.75 
+portfolio value is 18587.75 
+purchase 50 tvix at 39.74 
+current price is 39.76 
+==================>
+------2020-02-20 11:11:31.081718-------
+<=================trade number 5=======================
+five hour deadline: 2020-02-21 09:41:31.078727 
+cash is 16600.75 
+portfolio value is 16600.75 
+purchase 50 tvix at 39.74 
+current price is 39.74 
+========================================================>
+------2020-02-20 11:15:23.251655-------
+<=================trade number 0=======================
+cash is 18608.25 
+portfolio value is 18608.25 
+sale 50 tvix at 40.15 
+current price is 40.15 
+profit : 20.5 
+========================================================>

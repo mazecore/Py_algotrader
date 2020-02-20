@@ -57,12 +57,14 @@ class ANALYZER:
         today = [ datetime.now().year, datetime.now().month, datetime.now().day ]
         while self.running == True:
             if datetime(*today, 9,28) < datetime.now():
+                
                 if datetime.now().hour >= 16:
-                    print('Technical Analyzer is off. Its afterhours: %s:%s PM' % ( datetime.now().hour, datetime.now().minute ))
+                    print('\n Technical Analyzer is off. Its afterhours: %s:%s PM \n' % ( datetime.now().hour, datetime.now().minute ))
                     self.running = False
                     self.db.update({'afterhours': True, 
                                 }, Query().type == 'current_state')
                     break
+
                 weekAgo = time.time() - 386329
                 sp_df = self.get_Yahoo_Data('%5EGSPC', str(weekAgo).split('.')[0], '5m')
                 moneyFlow = talib.MFI(sp_df, 14)
@@ -79,27 +81,31 @@ class ANALYZER:
                 
     
                 if math.isnan(fiveMinMF_lastValue):
+                    print('moneyFlow.values[-2:][0]', moneyFlow.values[-2:][0])
                     fiveMinMF_lastValue = moneyFlow.values[-2:][0]
                     if math.isnan(moneyFlow.values[-2:][0]):
+                       print(' moneyFlow.values[-3:][0]',  moneyFlow.values[-3:][0])
                        fiveMinMF_lastValue = moneyFlow.values[-3:][0]
                        
-                if moneyFlow.values[-20:].mean() > fiveMinMF_lastValue:
-                    descending = True
-                print('5min Money Flow is = ', fiveMinMF_lastValue)
+
+                if fiveMinMF_lastValue:
+                    if moneyFlow.values[-20:].mean() > fiveMinMF_lastValue:
+                        descending = True
+                        print('5min Money Flow is = ', fiveMinMF_lastValue)
+                    if fiveMinMF_lastValue > 0.7:
+                        message = self.client.messages \
+                                    .create(
+                                         body="M F is %s. ROC is %s" % (fiveMinMF_lastValue, fiveMinROC_lastValue),
+                                         from_=configs.fromNumba,
+                                         to=configs.maPhoneNumba
+                                     )
+                        print('sent SMS message: ', message.sid)
+                        sleepTime = 60
+                    if fiveMinMF_lastValue < 0.56:
+                        sleepTime = 180
+                        
                 db.update({'SP500_5mMF': { 'value': fiveMinMF_lastValue, 'descending': descending } }, Query().type == 'current_state')
                 self.db.update({'SP500_5mROC': fiveMinROC_lastValue }, Query().type == 'current_state')
-                
-                if fiveMinMF_lastValue > 0.7:
-                    message = self.client.messages \
-                                .create(
-                                     body="M F is %s. ROC is %s" % (fiveMinMF_lastValue, fiveMinROC_lastValue),
-                                     from_=configs.fromNumba,
-                                     to=configs.maPhoneNumba
-                                 )
-                    print('sent SMS message: ', message.sid)
-                    sleepTime = 60
-                if fiveMinMF_lastValue < 0.56:
-                    sleepTime = 180
 
             time.sleep(sleepTime)
 

@@ -152,13 +152,14 @@ class TRADER:
                 i = 0
                 for j in self.topBidShares:
                     if int((j.text).replace(',','')) >= 2000:
-                        print('A 2000 share -BID- detected. Placing a buy limit order for tvix at %s' % float(self.topBidsPrice[i].text))
+                        print('A %s share -BID- detected. Placing a buy limit order for tvix at %s' % (self.topBidShares[i].text, float(self.topBidsPrice[i].text)))
                         fiveMinMF = (self.db.search(Query().type == 'current_state'))[0]['SP500_5mMF']['value']
-                        if fiveMinMF > 0.7:
-                            self.set_limit_order(float(self.topBidsPrice[i].text), 100, 'purchase')
-                        else:
-                            self.set_limit_order(float(self.topBidsPrice[i].text), 50, 'purchase')
-                        
+                        if fiveMinMF:
+                            if fiveMinMF > 0.7:
+                                self.set_limit_order(float(self.topBidsPrice[i].text), 100, 'purchase')
+                                break
+
+                        self.set_limit_order(float(self.topBidsPrice[i].text), 50, 'purchase')
                         break
                     i = i + 1
             else:
@@ -186,16 +187,17 @@ class TRADER:
         try:
             fiveMinMF = (self.db.search(Query().type == 'current_state'))[0]['SP500_5mMF']['value']
             print('5 minute Money Flow is %s.' % fiveMinMF)
-            if fiveMinMF > 0.76:
-                if self.stock_purchased == False:
-                    # add control for momentum. Momentum shouldn't be higher than 16
-                    self.buy(self.currentPrice, 100)
-            if fiveMinMF < 0.3:
-                if self.stock_purchased == True:
-                    record = Query()
-                    last_record = (self.db.search(record.type == 'trade'))[-1]
-                    if last_record['price'] + last_record['price'] * 0.01 < self.currentPrice:
-                       self.sell(self.currentPrice, 50)
+            if fiveMinMF:
+                if fiveMinMF > 0.76:
+                    if self.stock_purchased == False:
+                        # add control for momentum. Momentum shouldn't be higher than 16
+                        self.buy(self.currentPrice, 100)
+                if fiveMinMF < 0.3:
+                    if self.stock_purchased == True:
+                        record = Query()
+                        last_record = (self.db.search(record.type == 'trade'))[-1]
+                        if last_record['price'] + last_record['price'] * 0.01 < self.currentPrice:
+                           self.sell(self.currentPrice, 50)
         except:
             print('No 5 minute Money Flow data')
             
@@ -219,7 +221,8 @@ class TRADER:
                 print('target profit: {}'.format(last_record['shares'] * target_price - last_record['shares']* last_record['price']))
                 
                 # consider not selling if MF is above .7. Wait till the MF starts to turn downward.
-
+                # consider adding a 20 day moving average on 2 min frequency as a possible spot for short term (mostly) or 
+                # maybe even long term (if it's close enough to the 0.001 % target) sell target
                 if target_price < self.currentPrice:
                    self.sell(self.currentPrice, last_record['shares'])
                    break
@@ -236,7 +239,7 @@ class TRADER:
             self.check_time_of_day()
 
     def reevaluate_state(self):
-        
+        # if 30m money flow and 4hr money flow is descending then hold 5 hours more
         fiveMinMF = (self.db.search(Query().type == 'current_state'))[0]['SP500_5mMF']
         thirtyMinMF = (self.db.search(Query().type == 'current_state'))[0]['SP500_30mMF']
         print('is current 30min MF descending? = ', thirtyMinMF['descending'])
@@ -277,31 +280,43 @@ class TRADER:
     def register_the_trade(self, n, stockPrice, transactionType):
         print('registering the trade')
         print('cash_amount:', self.maCash)
+        cashAmount = self.maCash
         profit = None
-        portfolio_value = self.maCash
         f = open("trading_log.txt", "a")
-        f.write('------%s-------\n' % str(datetime.now()))
+        
         if self.limit_order_pending:
-            self.db.update({'cash_amount': self.maCash,
-                        'portfolio_value': portfolio_value,
+            f.write('------%s-------\n' % str(datetime.now()))
+            self.db.update({'cash_amount': cashAmount,
+                        'portfolio_value': self.maCash,
                         'five_hour_pending': self.fiveHourPending
                         }, Query().type == 'current_state')
             f.write('<===trade number %s==\n' % self.tradeNumber)
             f.write('only limit order \n')
+            
         else:
-            portfolio_value = self.maCash + self.currentPrice * n
-            self.db.update({'cash_amount': self.maCash, 
-                        'last_closed_trade': transactionType,
-                        'portfolio_value': portfolio_value,
-                        'five_hour_pending': self.fiveHourPending
-                        }, Query().type == 'current_state')
-            f.write('<=================trade number %s=======================\n' % self.tradeNumber)
             if transactionType == 'purchase':
+                cashAmount = self.maCash - stockPrice*n
+                self.db.update({'cash_amount': cashAmount, 
+                            'last_closed_trade': transactionType,
+                            'portfolio_value': self.maCash,
+                            'five_hour_pending': self.fiveHourPending
+                            }, Query().type == 'current_state')
                 f.write('five hour deadline: %s \n' % datetime.fromtimestamp(self.fiveHourPending))
-        f.write('cash is %s \n' % self.maCash)
-        f.write('portfolio value is %s \n' % portfolio_value)
+            else:
+                self.db.update({'cash_amount': cashAmount, 
+                            'last_closed_trade': transactionType,
+                            'portfolio_value': self.maCash,
+                            'five_hour_pending': self.fiveHourPending
+                            }, Query().type == 'current_state')
+            f.write('<=================trade number %s=======================\n' % self.tradeNumber)
+                
+    
+        f.write('cash is %s \n' % cashAmount)
+        f.write('portfolio value is %s \n' % self.maCash)
         f.write('%s %s tvix at %s \n' % (transactionType, n, stockPrice))
         f.write('current price is %s \n' % self.last10TradesPrices[0].text)
+        
+
         if self.limit_order_pending:
             f.write('==================>\n')
             self.db.insert({'type':'attempt', 
