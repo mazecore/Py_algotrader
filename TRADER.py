@@ -281,6 +281,7 @@ class TRADER:
         print('registering the trade')
         print('cash_amount:', self.maCash)
         profit = None
+        portfolio_value = self.maCash
         f = open("trading_log.txt", "a")
         f.write('\n------%s-------\n' % str(datetime.now()))
         if self.limit_order_pending:
@@ -294,22 +295,22 @@ class TRADER:
         else:
             f.write('<$$$$$$$$$$$$$$$ trade number %s $$$$$$$$$$$$$$$\n' % self.tradeNumber)
             if transactionType == 'purchase':
+                portfolio_value = self.maCash + stockPrice * n
                 self.db.update({'cash_amount': self.maCash, 
                             'last_closed_trade': transactionType,
-                            'portfolio_value': self.maCash + stockPrice*n,
+                            'portfolio_value': portfolio_value,
                             'five_hour_pending': self.fiveHourPending
                             }, Query().type == 'current_state')
                 f.write('five hour deadline: %s \n' % datetime.fromtimestamp(self.fiveHourPending))
             else:
                 self.db.update({'cash_amount': self.maCash, 
                             'last_closed_trade': transactionType,
-                            'portfolio_value': self.maCash,
+                            'portfolio_value': portfolio_value,
                             'five_hour_pending': self.fiveHourPending
                             }, Query().type == 'current_state')
-
     
         f.write('cash is %s \n' % self.maCash)
-        f.write('portfolio value is %s \n' % self.maCash)
+        f.write('portfolio value is %s \n' % portfolio_value)
         f.write('%s %s tvix at %s \n' % (transactionType.upper(), n, stockPrice))
         f.write('current price is %s \n' % self.last10TradesPrices[0].text)
         

@@ -7,9 +7,9 @@
             },
             "SP500_5mMF": {
                 "descending": false,
-                "value": 0.64
+                "value": 0.57
             },
-            "SP500_5mROC": 0.0,
+            "SP500_5mROC": 0.06,
             "SP500_lastVolumeSpike": null,
             "afterhours": false,
             "cash_amount": 12289.75,
