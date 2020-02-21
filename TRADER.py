@@ -94,19 +94,19 @@ class TRADER:
 
     def buy(self, stockPrice, n):
         self.currentPrice = float(self.last10TradesPrices[0].text)
-        print('Trying to buy at %s. Current price is: %s' % (stockPrice, self.currentPrice))
+        print('Trying to buy %s shares at %s. Current price is: %s' % (n, stockPrice, self.currentPrice))
         if self.currentPrice <= stockPrice:
             self.maCash = self.maCash - stockPrice * n
             self.stock_purchased = True
             self.limit_order_pending = False
             self.set_five_hour_timestamp()
             self.register_the_trade(n, stockPrice, 'purchase')
-            print('\n B O U G H T  at   %s \n' % stockPrice)
+            print('\n B O U G H T  %s shares at   %s \n' % (n, stockPrice))
             self.monitor_for_5hours_until_1percent_is_gained()
         
     def sell(self, stockPrice, n):
         self.currentPrice = float(self.last10TradesPrices[0].text)
-        print('Trying to sell at %s. Current price is: %s' % (stockPrice, self.currentPrice))
+        print('Trying to sell %s shares at %s. Current price is: %s' % (n, stockPrice, self.currentPrice))
         if self.currentPrice >= stockPrice:
             self.maCash = self.maCash + stockPrice * n
             self.stock_sold = True
@@ -114,7 +114,7 @@ class TRADER:
             self.limit_order_pending = False
             self.fiveHourPending = 0
             self.register_the_trade(n, stockPrice, 'sale')
-            print('\n S O L D   at   %s \n' % stockPrice)
+            print('\n S O L D  %s shares at   %s \n' % (n,stockPrice))
             
 
     def set_five_hour_timestamp(self):
@@ -203,8 +203,8 @@ class TRADER:
             
 
     def monitor_for_5hours_until_1percent_is_gained(self):
-        print('setting monitoring. five hour deadline : ', datetime.fromtimestamp(self.fiveHourPending))
-        print('monitoring for 5 hours. %s minutes left till deadline.' % str(round((self.fiveHourPending - time.time()) / 60)))
+        print('starting to monitor. five hour deadline : ', datetime.fromtimestamp(self.fiveHourPending))
+        
         sleepTime = 10
         last_record = (self.db.search(Query().type == 'trade'))[-1]['stock']
         target_price = last_record['price'] + last_record['price'] * 0.01
@@ -215,11 +215,11 @@ class TRADER:
                     sleepTime = 1
                 else:
                     sleepTime = 10
-                print('monitoring for 5 hours... trying to sell at %s. And current price is: %s ' % (target_price, self.currentPrice))
+                print('monitoring for 5 hours... trying to sell %s shares of %s at %s. And current price is: %s ' % (last_record['shares'], last_record['name'], target_price, self.currentPrice))
 
                 print('profit : {}'.format(last_record['shares'] * self.currentPrice - last_record['shares']* last_record['price']))
                 print('target profit: {}'.format(last_record['shares'] * target_price - last_record['shares']* last_record['price']))
-                
+                print('%s minutes left till the end of 5 hour deadline.' % str(round((self.fiveHourPending - time.time()) / 60)))
                 # consider not selling if MF is above .7. Wait till the MF starts to turn downward.
                 # consider adding a 20 day moving average on 2 min frequency as a possible spot for short term (mostly) or 
                 # maybe even long term (if it's close enough to the 0.001 % target) sell target
@@ -329,6 +329,7 @@ class TRADER:
                purchasePrices = list(filter(lambda x: x['transaction'] == 'purchase', prices))
                profit = n * stockPrice - n* purchasePrices[-1]['stock']['price']
                f.write('profit : {} \n'.format(profit))
+               print('made %s dollars.' % profit)
         
             f.write('=======================================================>\n')
             
