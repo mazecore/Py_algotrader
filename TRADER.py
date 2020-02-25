@@ -184,22 +184,26 @@ class TRADER:
 
     def check_5min_MF(self):
         print('checking 5 minute Money Flow...')
+        fvMinMF = self.db.get(doc_id=1)['SP500_5mMF']['value']
+        print('fvMinMF ==>', fvMinMF)
+        fiveMinMFlow = (self.db.search(Query().type == 'current_state'))[0]['SP500_5mMF']['value']
+        print('old five min MF', fiveMinMFlow)
         try:
-            fiveMinMF = (self.db.search(Query().type == 'current_state'))[0]['SP500_5mMF']['value']
-            print('5 minute Money Flow is %s.' % fiveMinMF)
-            if fiveMinMF:
-                if fiveMinMF > 0.76:
-                    if self.stock_purchased == False:
-                        # add control for momentum. Momentum shouldn't be higher than 16
-                        self.buy(self.currentPrice, 100)
-                if fiveMinMF < 0.3:
-                    if self.stock_purchased == True:
-                        record = Query()
-                        last_record = (self.db.search(record.type == 'trade'))[-1]
-                        if last_record['price'] + last_record['price'] * 0.01 < self.currentPrice:
-                           self.sell(self.currentPrice, 50)
-        except:
-            print('No 5 minute Money Flow data')
+#            fiveMinMF = fiveMinMFlow[0]['SP500_5mMF']['value']
+            print('5 minute Money Flow is %s.' % fvMinMF)
+            if fvMinMF > 0.76:
+                if self.stock_purchased == False:
+                    # add control for momentum. Momentum shouldn't be higher than 16
+                    # go full conservative (buy only when 5 min MF obove .7) when SP descends and gets close to 20 day MA on daily.
+                    self.buy(self.currentPrice, 100)
+            if fvMinMF < 0.3:
+                if self.stock_purchased == True:
+                    record = Query()
+                    last_record = (self.db.search(record.type == 'trade'))[-1]
+                    if last_record['price'] + last_record['price'] * 0.01 < self.currentPrice:
+                       self.sell(self.currentPrice, 50)
+        except Exception as e:
+            print('No 5 minute Money Flow data', e)
             
 
     def monitor_for_5hours_until_1percent_is_gained(self):
@@ -227,7 +231,7 @@ class TRADER:
                    self.sell(self.currentPrice, last_record['shares'])
                    break
                 if self.currentPrice < last_record['price'] - last_record['price'] * 0.03:
-                    print('S T O P  L O S S triggered...')
+                    print('\n S T O P  L O S S triggered...\n')
                     self.sell(self.currentPrice, last_record['shares'])
                     break
                 time.sleep(sleepTime)

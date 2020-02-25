@@ -34,6 +34,32 @@ def ROC(df, n, price='Close'):
     result = pd.Series( round( M / N * 100, 2), name='ROC_' + str(n))
     return result
 
+def BBANDS(df, n, price='Close'):
+    """
+    Bollinger Bands
+    """
+    MA = pd.Series(df[price].rolling(n).mean())
+    MSD = pd.Series(df[price].rolling(n).std())
+    b1 = 4 * MSD / MA
+    B1 = pd.Series(b1, name='BollingerB_' + str(n))
+    b2 = (df[price] - MA + 2 * MSD) / (4 * MSD)
+    B2 = pd.Series(b2, name='Bollinger%b_' + str(n))
+    result = pd.DataFrame([B1, B2]).transpose()
+    return result
+
+
+def MACD(df, n_fast, n_slow, price='Close'):
+    """
+    MACD, MACD Signal and MACD difference
+    """
+    EMAfast = pd.Series(df[price].ewm(span=n_fast, min_periods=n_slow - 1).mean())
+    EMAslow = pd.Series(df[price].ewm(span=n_slow, min_periods=n_slow - 1).mean())
+    MACD = pd.Series(EMAfast - EMAslow, name='MACD_%d_%d' % (n_fast, n_slow))
+    MACDsign = pd.Series(MACD.ewm(span=9, min_periods=8).mean(), name='MACDsign_%d_%d' % (n_fast, n_slow))
+    MACDdiff = pd.Series(MACD - MACDsign, name='MACDdiff_%d_%d' % (n_fast, n_slow))
+    result = pd.DataFrame([MACD, MACDsign, MACDdiff]).transpose()
+    return result
+
 def RVI(df, n, high='High', low='Low'):
     """
     Relative Volatility Index

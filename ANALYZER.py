@@ -26,7 +26,7 @@ class ANALYZER:
         Thread(target = self.get_SP500_5minStateEvery1min).start()
         time.sleep(1)
         Thread(target = self.get_SP500_30minStateEvery15min).start()
-        Thread(target = self.get_daily_Volume, args=('TVIX',)).start()
+#        Thread(target = self.get_daily_Volume, args=('TVIX',)).start()
         
         
     def get_Yahoo_Data(self, stock, beginning, interval):
@@ -106,7 +106,7 @@ class ANALYZER:
                         sleepTime = 180
                         
                 db.update({'SP500_5mMF': { 'value': fiveMinMF_lastValue, 'descending': descending } }, Query().type == 'current_state')
-                self.db.update({'SP500_5mROC': fiveMinROC_lastValue }, Query().type == 'current_state')
+                db.update({'SP500_5mROC': fiveMinROC_lastValue }, Query().type == 'current_state')
 
             time.sleep(sleepTime)
 
@@ -167,6 +167,9 @@ class ANALYZER:
         print('checking daily volume spikes...')
         monthAgo = time.time() - 2419200
         sp_df = self.get_Yahoo_Data('%5EGSPC', str(monthAgo).split('.')[0], '1d')
+        
+        
+        
         volSpkIndxes = sp_df.index[sp_df['Volume'] > sp_df['Volume'].mean() / 100 * 134]
         print('The number of volume spikes in the last month is %s' % len(volSpkIndxes))
         Trade = Query()
