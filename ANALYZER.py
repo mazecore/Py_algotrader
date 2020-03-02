@@ -167,21 +167,22 @@ class ANALYZER:
         print('checking daily volume spikes...')
         monthAgo = time.time() - 2419200
         sp_df = self.get_Yahoo_Data('%5EGSPC', str(monthAgo).split('.')[0], '1d')
+        db = TinyDB('DB.json', sort_keys=True, indent=4, separators=(',', ': '))
         
         
         
         volSpkIndxes = sp_df.index[sp_df['Volume'] > sp_df['Volume'].mean() / 100 * 134]
         print('The number of volume spikes in the last month is %s' % len(volSpkIndxes))
-        Trade = Query()
         for i in range(len(volSpkIndxes)):
-            spike = { 'volume': sp_df['Volume'][volSpkIndxes[i]], 'date': sp_df['Timestamp'][volSpkIndxes[i]], 'sentiment': None }
+            spike = { 'volume': int(sp_df['Volume'][volSpkIndxes[i]]), 'date': int(sp_df['Timestamp'][volSpkIndxes[i]]), 'sentiment': None }
+            print('spike', spike)
             if int(sp_df['Close'][volSpkIndxes[i]-1]) > int(sp_df['Close'][volSpkIndxes[i]]):
                 spike['sentiment'] = 'Bearish'
                 print ('bearish volume', sp_df['Volume'][volSpkIndxes[i]])
             else:
                 spike['sentiment'] = 'Bullish'
                 print ('bullish volume', sp_df['Volume'][volSpkIndxes[i]])
-            self.db.update({'SP500_lastVolumeSpike': spike }, Trade.type == 'current_state')
+        db.update({'SP500_lastVolumeSpike': spike }, Query().type == 'current_state')
         # don't forget to mark attitude towards long term prospect depending on these spikes
         
         

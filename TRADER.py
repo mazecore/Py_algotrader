@@ -75,13 +75,18 @@ class TRADER:
         
         oneMinTimer = time.time() + 240
         if transaction == 'purchase':
-            while self.stock_purchased == False:
-                self.buy(price, n)
-                time.sleep(1)
+            loop_n = 0
+            while self.stock_purchased == False and self.limit_order_pending == True:
+                print('buy loop: ', loop_n )
                 if time.time() > oneMinTimer:
                     print('4 minutes elapsed. Limit order cancelled.')
                     self.limit_order_pending = False
                     break
+                else:
+                    self.buy(price, n)
+                loop_n = loop_n + 1
+                time.sleep(1)
+
         else:
             while self.stock_sold == False:
                 self.sell(price, n)
@@ -149,6 +154,7 @@ class TRADER:
         print('checking against EDGX bids...')
         try:
             if self.stock_purchased == False:
+                n_shares = 50
                 i = 0
                 for j in self.topBidShares:
                     if int((j.text).replace(',','')) >= 2000:
@@ -156,10 +162,9 @@ class TRADER:
                         fiveMinMF = self.db.get(doc_id=1)['SP500_5mMF']['value']
                         if fiveMinMF:
                             if fiveMinMF > 0.7:
-                                self.set_limit_order(float(self.topBidsPrice[i].text), 100, 'purchase')
-                                break
+                                n_shares = 100
                         # set shares amount equal to a percentage of portfolio
-                        self.set_limit_order(float(self.topBidsPrice[i].text), 50, 'purchase')
+                        self.set_limit_order(float(self.topBidsPrice[i].text), n_shares, 'purchase')
                         break
                     i = i + 1
             else:

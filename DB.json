@@ -2,20 +2,24 @@
     "_default": {
         "1": {
             "SP500_30mMF": {
-                "descending": null,
-                "value": null
+                "descending": false,
+                "value": 0.64
             },
             "SP500_5mMF": {
-                "descending": null,
-                "value": null
+                "descending": false,
+                "value": 0.43
             },
-            "SP500_5mROC": -0.51,
-            "SP500_lastVolumeSpike": null,
-            "afterhours": true,
-            "cash_amount": 25947.5,
+            "SP500_5mROC": -0.93,
+            "SP500_lastVolumeSpike": {
+                "date": 1582900200,
+                "sentiment": "Bearish",
+                "volume": 8563850000
+            },
+            "afterhours": false,
+            "cash_amount": 25387.68,
             "five_hour_pending": 0,
             "last_closed_trade": "sale",
-            "portfolio_value": 25947.5,
+            "portfolio_value": 25387.68,
             "type": "current_state"
         },
         "2": {
@@ -1304,6 +1308,3317 @@
             },
             "transaction": "sale",
             "type": "trade"
+        },
+        "119": {
+            "date": "2020-02-26 09:31:09.554900",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 70.21,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "120": {
+            "date": "2020-02-26 09:33:07.033757",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 70.21,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "121": {
+            "date": "2020-02-26 09:34:47.240582",
+            "profit": 40.00000000000091,
+            "stock": {
+                "name": "tvix",
+                "price": 71.01,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "122": {
+            "date": "2020-02-26 09:53:35.738158",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 68.84,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "123": {
+            "date": "2020-02-26 09:53:35.773172",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 68.84,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "124": {
+            "date": "2020-02-26 09:56:06.219307",
+            "profit": 39.0,
+            "stock": {
+                "name": "tvix",
+                "price": 69.62,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "125": {
+            "date": "2020-02-26 09:59:17.155468",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 70.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "126": {
+            "date": "2020-02-26 09:59:23.227899",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 70.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "127": {
+            "date": "2020-02-26 10:02:06.043253",
+            "profit": 35.499999999999545,
+            "stock": {
+                "name": "tvix",
+                "price": 70.71,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "128": {
+            "date": "2020-02-26 10:06:04.495543",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 70.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "129": {
+            "date": "2020-02-26 10:11:31.258730",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 70.7,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "130": {
+            "date": "2020-02-26 10:12:23.944932",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 70.7,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "131": {
+            "date": "2020-02-26 10:41:47.154645",
+            "profit": -181.50000000000045,
+            "stock": {
+                "name": "tvix",
+                "price": 67.07,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "132": {
+            "date": "2020-02-26 11:10:34.123357",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 69.18,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "133": {
+            "date": "2020-02-26 11:59:50.449138",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 69.7,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "134": {
+            "date": "2020-02-26 12:00:39.065793",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 69.7,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "135": {
+            "date": "2020-02-26 12:01:19.170908",
+            "profit": 47.0,
+            "stock": {
+                "name": "tvix",
+                "price": 70.64,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "136": {
+            "date": "2020-02-26 12:09:49.267872",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 72.25,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "137": {
+            "date": "2020-02-26 12:13:55.259389",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 73.11,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "138": {
+            "date": "2020-02-26 12:14:04.380008",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 73.11,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "139": {
+            "date": "2020-02-26 12:15:36.054808",
+            "profit": 40.0,
+            "stock": {
+                "name": "tvix",
+                "price": 73.91,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "140": {
+            "date": "2020-02-26 12:20:37.197107",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 72.5,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "141": {
+            "date": "2020-02-26 12:20:45.310485",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 72.5,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "142": {
+            "date": "2020-02-26 12:21:35.770782",
+            "profit": 40.0,
+            "stock": {
+                "name": "tvix",
+                "price": 73.3,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "143": {
+            "date": "2020-02-26 12:24:48.084881",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 72.56,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "144": {
+            "date": "2020-02-26 12:35:27.382113",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 71.28,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "145": {
+            "date": "2020-02-26 12:35:36.535846",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 71.28,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "146": {
+            "date": "2020-02-26 12:37:12.862086",
+            "profit": 43.500000000000455,
+            "stock": {
+                "name": "tvix",
+                "price": 72.15,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "147": {
+            "date": "2020-02-26 12:51:44.318108",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 71.5,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "148": {
+            "date": "2020-02-26 13:03:44.728680",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 72.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "149": {
+            "date": "2020-02-26 13:13:28.601807",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 73.35,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "150": {
+            "date": "2020-02-26 13:13:48.870204",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 73.35,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "151": {
+            "date": "2020-02-26 13:33:28.207030",
+            "profit": 43.500000000000455,
+            "stock": {
+                "name": "tvix",
+                "price": 74.22,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "152": {
+            "date": "2020-02-26 13:33:39.342058",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 74.2,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "153": {
+            "date": "2020-02-26 13:37:45.132625",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 76.91,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "154": {
+            "date": "2020-02-26 13:37:52.230582",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 76.91,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "155": {
+            "date": "2020-02-26 13:40:14.564097",
+            "profit": 39.0,
+            "stock": {
+                "name": "tvix",
+                "price": 77.69,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "156": {
+            "date": "2020-02-26 13:48:39.292967",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 76.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "157": {
+            "date": "2020-02-26 13:48:45.426251",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 76.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "158": {
+            "date": "2020-02-26 13:56:41.778607",
+            "profit": 49.499999999999545,
+            "stock": {
+                "name": "tvix",
+                "price": 76.99,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "159": {
+            "date": "2020-02-26 14:18:59.536504",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 75.65,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "160": {
+            "date": "2020-02-26 14:19:15.761745",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 75.65,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "161": {
+            "date": "2020-02-26 14:31:02.085504",
+            "profit": 43.499999999999545,
+            "stock": {
+                "name": "tvix",
+                "price": 76.52,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "162": {
+            "date": "2020-02-26 14:33:04.179796",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 75.58,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "163": {
+            "date": "2020-02-26 14:33:13.307641",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 75.58,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "164": {
+            "date": "2020-02-26 14:42:25.799098",
+            "profit": 53.500000000000455,
+            "stock": {
+                "name": "tvix",
+                "price": 76.65,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "165": {
+            "date": "2020-02-26 14:52:16.749828",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 76.4,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "166": {
+            "date": "2020-02-26 14:55:16.878711",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 76.4,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "167": {
+            "date": "2020-02-26 14:56:43.224392",
+            "profit": 49.499999999999545,
+            "stock": {
+                "name": "tvix",
+                "price": 77.39,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "168": {
+            "date": "2020-02-26 14:57:19.521997",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 76.68,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "169": {
+            "date": "2020-02-26 15:00:35.927985",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 76.68,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "170": {
+            "date": "2020-02-26 15:06:06.196899",
+            "profit": 57.499999999999545,
+            "stock": {
+                "name": "tvix",
+                "price": 77.83,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "171": {
+            "date": "2020-02-26 15:06:12.258810",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 77.73,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "172": {
+            "date": "2020-02-26 15:06:56.804421",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 77.73,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "173": {
+            "date": "2020-02-26 15:12:57.289856",
+            "profit": -117.0,
+            "stock": {
+                "name": "tvix",
+                "price": 75.39,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "174": {
+            "date": "2020-02-26 15:13:03.361557",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 75.06,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "175": {
+            "date": "2020-02-26 15:13:11.477843",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 75.06,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "176": {
+            "date": "2020-02-26 15:14:48.161376",
+            "profit": 44.999999999999545,
+            "stock": {
+                "name": "tvix",
+                "price": 75.96,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "177": {
+            "date": "2020-02-26 15:19:14.808474",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 74.41,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "178": {
+            "date": "2020-02-26 15:19:14.834311",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 74.41,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "179": {
+            "date": "2020-02-26 15:21:08.316405",
+            "profit": 39.0,
+            "stock": {
+                "name": "tvix",
+                "price": 75.19,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "180": {
+            "date": "2020-02-26 15:28:27.587421",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 76.1,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "181": {
+            "date": "2020-02-26 15:29:14.144625",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 76.1,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "182": {
+            "date": "2020-02-26 15:50:15.838851",
+            "profit": -117.49999999999955,
+            "stock": {
+                "name": "tvix",
+                "price": 73.75,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "183": {
+            "date": "2020-02-26 16:01:56.668276",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 74.21,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "184": {
+            "date": "2020-02-26 16:02:26.066771",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 74.21,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "185": {
+            "date": "2020-02-26 16:14:16.537317",
+            "profit": 44.5,
+            "stock": {
+                "name": "tvix",
+                "price": 75.1,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "186": {
+            "date": "2020-02-26 16:25:03.421577",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 75.45,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "187": {
+            "date": "2020-02-26 16:25:10.543831",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 75.45,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "188": {
+            "date": "2020-02-26 16:51:47.772294",
+            "profit": 47.500000000000455,
+            "stock": {
+                "name": "tvix",
+                "price": 76.4,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "189": {
+            "date": "2020-02-27 09:30:59.644150",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 85.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "190": {
+            "date": "2020-02-27 09:31:05.731533",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 85.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "191": {
+            "date": "2020-02-27 09:31:25.816822",
+            "profit": 55.5,
+            "stock": {
+                "name": "tvix",
+                "price": 86.11,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "192": {
+            "date": "2020-02-27 09:39:22.169363",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 85.5,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "193": {
+            "date": "2020-02-27 09:39:30.264237",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 85.5,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "194": {
+            "date": "2020-02-27 09:41:19.008619",
+            "profit": 47.0,
+            "stock": {
+                "name": "tvix",
+                "price": 86.44,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "195": {
+            "date": "2020-02-27 09:50:36.870961",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 89.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "196": {
+            "date": "2020-02-27 09:52:48.431905",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 89.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "197": {
+            "date": "2020-02-27 10:19:29.739680",
+            "profit": 57.0,
+            "stock": {
+                "name": "tvix",
+                "price": 90.14,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "198": {
+            "date": "2020-02-27 10:20:21.236598",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 89.65,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "199": {
+            "date": "2020-02-27 10:20:41.531885",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 89.65,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "200": {
+            "date": "2020-02-27 10:24:03.939647",
+            "profit": 50.5,
+            "stock": {
+                "name": "tvix",
+                "price": 90.66,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "201": {
+            "date": "2020-02-27 10:30:29.987045",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 91.7,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "202": {
+            "date": "2020-02-27 10:35:51.641108",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 93.95,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "203": {
+            "date": "2020-02-27 10:36:09.883693",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 93.95,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "204": {
+            "date": "2020-02-27 10:37:19.995391",
+            "profit": -144.5,
+            "stock": {
+                "name": "tvix",
+                "price": 91.06,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "205": {
+            "date": "2020-02-27 10:37:21.035201",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 93.95,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "206": {
+            "date": "2020-02-27 10:37:21.072124",
+            "profit": -144.5,
+            "stock": {
+                "name": "tvix",
+                "price": 91.06,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "207": {
+            "date": "2020-02-27 10:37:22.110061",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 93.95,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "208": {
+            "date": "2020-02-27 10:37:22.155015",
+            "profit": -144.5,
+            "stock": {
+                "name": "tvix",
+                "price": 91.06,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "209": {
+            "date": "2020-02-27 10:37:23.188496",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 93.95,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "210": {
+            "date": "2020-02-27 10:37:23.230384",
+            "profit": -144.5,
+            "stock": {
+                "name": "tvix",
+                "price": 91.06,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "211": {
+            "date": "2020-02-27 10:37:24.268627",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 93.95,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "212": {
+            "date": "2020-02-27 10:37:24.312510",
+            "profit": -144.5,
+            "stock": {
+                "name": "tvix",
+                "price": 91.06,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "213": {
+            "date": "2020-02-27 10:37:25.347563",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 93.95,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "214": {
+            "date": "2020-02-27 10:37:25.393381",
+            "profit": -147.5,
+            "stock": {
+                "name": "tvix",
+                "price": 91.0,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "215": {
+            "date": "2020-02-27 10:37:26.443100",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 93.95,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "216": {
+            "date": "2020-02-27 10:37:26.486982",
+            "profit": -147.5,
+            "stock": {
+                "name": "tvix",
+                "price": 91.0,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "217": {
+            "date": "2020-02-27 10:37:27.524686",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 93.95,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "218": {
+            "date": "2020-02-27 10:37:27.563717",
+            "profit": -147.5,
+            "stock": {
+                "name": "tvix",
+                "price": 91.0,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "219": {
+            "date": "2020-02-27 10:37:28.592549",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 93.95,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "220": {
+            "date": "2020-02-27 10:37:28.638404",
+            "profit": -147.5,
+            "stock": {
+                "name": "tvix",
+                "price": 91.0,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "221": {
+            "date": "2020-02-27 10:37:29.680168",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 93.95,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "222": {
+            "date": "2020-02-27 10:37:29.717227",
+            "profit": -147.5,
+            "stock": {
+                "name": "tvix",
+                "price": 91.0,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "223": {
+            "date": "2020-02-27 10:37:30.757129",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 93.95,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "224": {
+            "date": "2020-02-27 10:40:00.964126",
+            "profit": -157.5,
+            "stock": {
+                "name": "tvix",
+                "price": 90.8,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "225": {
+            "date": "2020-02-27 10:40:07.037879",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 90.5,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "226": {
+            "date": "2020-02-27 10:40:28.262332",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 90.5,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "227": {
+            "date": "2020-02-27 10:42:39.662354",
+            "profit": 63.5,
+            "stock": {
+                "name": "tvix",
+                "price": 91.77,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "228": {
+            "date": "2020-02-27 10:45:28.106646",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 91.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "229": {
+            "date": "2020-02-27 10:45:37.197785",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 91.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "230": {
+            "date": "2020-02-27 11:01:58.277718",
+            "profit": -147.5,
+            "stock": {
+                "name": "tvix",
+                "price": 88.05,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "231": {
+            "date": "2020-02-27 11:05:20.944994",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 88.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "232": {
+            "date": "2020-02-27 11:06:11.369128",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 88.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "233": {
+            "date": "2020-02-27 11:16:02.983314",
+            "profit": 50.0,
+            "stock": {
+                "name": "tvix",
+                "price": 89.0,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "234": {
+            "date": "2020-02-27 11:18:50.425065",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 87.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "235": {
+            "date": "2020-02-27 11:23:30.771177",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 88.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "236": {
+            "date": "2020-02-27 11:34:25.211586",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 90.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "237": {
+            "date": "2020-02-27 11:39:41.733376",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 90.9,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "238": {
+            "date": "2020-02-27 11:40:01.932548",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 90.9,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "239": {
+            "date": "2020-02-27 11:45:56.677481",
+            "profit": 55.0,
+            "stock": {
+                "name": "tvix",
+                "price": 92.0,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "240": {
+            "date": "2020-02-27 11:51:15.208703",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 90.57,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "241": {
+            "date": "2020-02-27 11:51:25.321273",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 90.57,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "242": {
+            "date": "2020-02-27 12:08:30.683854",
+            "profit": -136.5,
+            "stock": {
+                "name": "tvix",
+                "price": 87.84,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "243": {
+            "date": "2020-02-27 12:09:41.324908",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 87.36,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "244": {
+            "date": "2020-02-27 12:09:51.439153",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 87.36,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "245": {
+            "date": "2020-02-27 12:22:40.061534",
+            "profit": 52.0,
+            "stock": {
+                "name": "tvix",
+                "price": 88.4,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "246": {
+            "date": "2020-02-27 12:27:53.725518",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 87.4,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "247": {
+            "date": "2020-02-27 12:29:16.474905",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 87.4,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "248": {
+            "date": "2020-02-27 12:32:56.752294",
+            "profit": -133.0,
+            "stock": {
+                "name": "tvix",
+                "price": 84.74,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "249": {
+            "date": "2020-02-27 12:34:48.711507",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 84.5,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "250": {
+            "date": "2020-02-27 12:34:55.806644",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 84.5,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "251": {
+            "date": "2020-02-27 12:58:43.185757",
+            "profit": 44.0,
+            "stock": {
+                "name": "tvix",
+                "price": 85.38,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "252": {
+            "date": "2020-02-27 13:08:29.270804",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 84.75,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "253": {
+            "date": "2020-02-27 13:10:37.384507",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 84.75,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "254": {
+            "date": "2020-02-27 13:16:21.437568",
+            "profit": 51.0,
+            "stock": {
+                "name": "tvix",
+                "price": 85.77,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "255": {
+            "date": "2020-02-27 14:05:11.807901",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 91.3,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "256": {
+            "date": "2020-02-27 14:09:22.733395",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 92.3,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "257": {
+            "date": "2020-02-27 14:09:22.764868",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 92.3,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "258": {
+            "date": "2020-02-27 14:36:20.158416",
+            "profit": -142.5,
+            "stock": {
+                "name": "tvix",
+                "price": 89.45,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "259": {
+            "date": "2020-02-27 14:45:50.847179",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 88.45,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "260": {
+            "date": "2020-02-27 14:57:55.673341",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 90.5,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "261": {
+            "date": "2020-02-27 15:11:31.221342",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 90.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "262": {
+            "date": "2020-02-27 15:11:31.249527",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 90.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "263": {
+            "date": "2020-02-27 15:19:49.873825",
+            "profit": 45.5,
+            "stock": {
+                "name": "tvix",
+                "price": 90.91,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "264": {
+            "date": "2020-02-27 15:20:31.235125",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 90.1,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "265": {
+            "date": "2020-02-27 15:21:41.088889",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 90.1,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "266": {
+            "date": "2020-02-27 15:27:26.397328",
+            "profit": 53.5,
+            "stock": {
+                "name": "tvix",
+                "price": 91.17,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "267": {
+            "date": "2020-02-27 15:46:41.826611",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 92.5,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "268": {
+            "date": "2020-02-27 15:47:17.256025",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 92.5,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "269": {
+            "date": "2020-02-27 15:51:04.933923",
+            "profit": 49.5,
+            "stock": {
+                "name": "tvix",
+                "price": 93.49,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "270": {
+            "date": "2020-02-27 15:53:47.279266",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 94.35,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "271": {
+            "date": "2020-02-27 16:06:12.202956",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 99.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "272": {
+            "date": "2020-02-27 16:06:37.538692",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 99.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "273": {
+            "date": "2020-02-27 16:08:08.967191",
+            "profit": 52.5,
+            "stock": {
+                "name": "tvix",
+                "price": 100.05,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "274": {
+            "date": "2020-02-27 16:08:49.476459",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 99.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "275": {
+            "date": "2020-02-27 16:12:58.375300",
+            "profit": 74.0,
+            "stock": {
+                "name": "tvix",
+                "price": 100.48,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "276": {
+            "date": "2020-02-27 16:26:15.834566",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 96.69,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "277": {
+            "date": "2020-02-27 16:30:21.838132",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 96.69,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "278": {
+            "date": "2020-02-27 16:34:42.956737",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 96.69,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "279": {
+            "date": "2020-02-27 16:50:04.252375",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 100.74,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "280": {
+            "date": "2020-02-27 17:26:15.658538",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 102.27,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "281": {
+            "date": "2020-02-27 17:30:21.614502",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 102.5,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "282": {
+            "date": "2020-02-27 17:34:27.292851",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 102.87,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "283": {
+            "date": "2020-02-27 17:37:18.870102",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 102.87,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "284": {
+            "date": "2020-02-27 17:46:03.612926",
+            "profit": 51.5,
+            "stock": {
+                "name": "tvix",
+                "price": 103.9,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "285": {
+            "date": "2020-02-27 17:46:09.671996",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 103.75,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "286": {
+            "date": "2020-02-27 17:46:30.913375",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 103.75,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "287": {
+            "date": "2020-02-27 18:01:35.545001",
+            "profit": 62.5,
+            "stock": {
+                "name": "tvix",
+                "price": 105.0,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "288": {
+            "date": "2020-02-27 18:02:16.946533",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 102.06,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "289": {
+            "date": "2020-02-27 18:26:16.820580",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 98.5,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "290": {
+            "date": "2020-02-27 18:30:32.141749",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 98.5,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "291": {
+            "date": "2020-02-27 18:32:31.165469",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 98.5,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "292": {
+            "date": "2020-02-27 18:37:09.427622",
+            "profit": 58.0,
+            "stock": {
+                "name": "tvix",
+                "price": 99.66,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "293": {
+            "date": "2020-02-27 19:47:15.274750",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 98.7,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "294": {
+            "date": "2020-02-27 19:47:30.492313",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 98.7,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "295": {
+            "date": "2020-02-27 19:55:10.935010",
+            "profit": 65.0,
+            "stock": {
+                "name": "tvix",
+                "price": 100.0,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "296": {
+            "date": "2020-02-28 08:41:19.891027",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 111.5,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "297": {
+            "date": "2020-02-28 08:45:30.251288",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 112.5,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "298": {
+            "date": "2020-02-28 08:45:30.301356",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 112.5,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "299": {
+            "date": "2020-02-28 08:45:57.523665",
+            "profit": 74.0,
+            "stock": {
+                "name": "tvix",
+                "price": 113.98,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "300": {
+            "date": "2020-02-28 08:52:11.723162",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 113.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "301": {
+            "date": "2020-02-28 08:56:48.014977",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 115.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "302": {
+            "date": "2020-02-28 09:00:53.192364",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 116.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "303": {
+            "date": "2020-02-28 09:01:58.824124",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 116.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "304": {
+            "date": "2020-02-28 09:08:44.607470",
+            "profit": 62.0,
+            "stock": {
+                "name": "tvix",
+                "price": 117.24,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "305": {
+            "date": "2020-02-28 09:09:36.073529",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 118.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "306": {
+            "date": "2020-02-28 09:10:15.406361",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 118.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "307": {
+            "date": "2020-02-28 09:11:21.748695",
+            "profit": 63.0,
+            "stock": {
+                "name": "tvix",
+                "price": 119.26,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "308": {
+            "date": "2020-02-28 09:12:52.646220",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 118.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "309": {
+            "date": "2020-02-28 09:16:51.082467",
+            "profit": 75.5,
+            "stock": {
+                "name": "tvix",
+                "price": 119.51,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "310": {
+            "date": "2020-02-28 09:17:12.336008",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 119.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "311": {
+            "date": "2020-02-28 09:21:32.848364",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 120.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "312": {
+            "date": "2020-02-28 09:31:00.610399",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 115.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "313": {
+            "date": "2020-02-28 09:31:58.253895",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 115.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "314": {
+            "date": "2020-02-28 09:34:08.437045",
+            "profit": 78.0,
+            "stock": {
+                "name": "tvix",
+                "price": 116.56,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "315": {
+            "date": "2020-02-28 09:34:25.617102",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 115.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "316": {
+            "date": "2020-02-28 09:45:49.589304",
+            "profit": 89.0,
+            "stock": {
+                "name": "tvix",
+                "price": 116.78,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "317": {
+            "date": "2020-02-28 09:58:01.815267",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 118.75,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "318": {
+            "date": "2020-02-28 09:59:02.324255",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 118.75,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "319": {
+            "date": "2020-02-28 10:01:53.758756",
+            "profit": 62.5,
+            "stock": {
+                "name": "tvix",
+                "price": 120.0,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "320": {
+            "date": "2020-02-28 10:09:16.382044",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 120.25,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "321": {
+            "date": "2020-02-28 10:09:25.489340",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 120.25,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "322": {
+            "date": "2020-02-28 10:11:16.755605",
+            "profit": 105.5,
+            "stock": {
+                "name": "tvix",
+                "price": 122.36,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "323": {
+            "date": "2020-02-28 10:17:33.695998",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 119.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "324": {
+            "date": "2020-02-28 10:17:51.881906",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 119.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "325": {
+            "date": "2020-02-28 10:22:20.426894",
+            "profit": 85.5,
+            "stock": {
+                "name": "tvix",
+                "price": 120.71,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "326": {
+            "date": "2020-02-28 10:23:11.856142",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 120.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "327": {
+            "date": "2020-02-28 10:23:51.166640",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 120.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "328": {
+            "date": "2020-02-28 10:27:11.429988",
+            "profit": 70.0,
+            "stock": {
+                "name": "tvix",
+                "price": 121.4,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "329": {
+            "date": "2020-02-28 10:31:29.478684",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 122.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "330": {
+            "date": "2020-02-28 10:34:54.104529",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 122.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "331": {
+            "date": "2020-02-28 10:54:25.337529",
+            "profit": -315.5,
+            "stock": {
+                "name": "tvix",
+                "price": 115.69,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "332": {
+            "date": "2020-02-28 10:54:31.452156",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 114.8,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "333": {
+            "date": "2020-02-28 10:54:59.721853",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 114.8,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "334": {
+            "date": "2020-02-28 10:55:50.004680",
+            "profit": 60.0,
+            "stock": {
+                "name": "tvix",
+                "price": 116.0,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "335": {
+            "date": "2020-02-28 11:02:39.310958",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 120.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "336": {
+            "date": "2020-02-28 11:02:56.512665",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 120.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "337": {
+            "date": "2020-02-28 11:31:40.575834",
+            "profit": -318.5,
+            "stock": {
+                "name": "tvix",
+                "price": 113.63,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "338": {
+            "date": "2020-02-28 11:32:06.850387",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 113.03,
+                "shares": 100
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "339": {
+            "date": "2020-02-28 11:32:13.935549",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 113.03,
+                "shares": 100
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "340": {
+            "date": "2020-02-28 11:33:30.084561",
+            "profit": 117.0,
+            "stock": {
+                "name": "tvix",
+                "price": 114.2,
+                "shares": 100
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "341": {
+            "date": "2020-02-28 11:38:03.274030",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 113.0,
+                "shares": 100
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "342": {
+            "date": "2020-02-28 11:43:13.574980",
+            "profit": -610.0,
+            "stock": {
+                "name": "tvix",
+                "price": 106.9,
+                "shares": 100
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "343": {
+            "date": "2020-02-28 11:43:18.653412",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 106.77,
+                "shares": 100
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "344": {
+            "date": "2020-02-28 11:46:34.220916",
+            "profit": 158.0,
+            "stock": {
+                "name": "tvix",
+                "price": 108.35,
+                "shares": 100
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "345": {
+            "date": "2020-02-28 11:46:39.298669",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 108.35,
+                "shares": 100
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "346": {
+            "date": "2020-02-28 11:47:25.509901",
+            "profit": 165.0,
+            "stock": {
+                "name": "tvix",
+                "price": 110.0,
+                "shares": 100
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "347": {
+            "date": "2020-02-28 11:47:30.590325",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 110.0,
+                "shares": 100
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "348": {
+            "date": "2020-02-28 11:52:08.560442",
+            "profit": 115.0,
+            "stock": {
+                "name": "tvix",
+                "price": 111.15,
+                "shares": 100
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "349": {
+            "date": "2020-02-28 12:01:58.323419",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 113.65,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "350": {
+            "date": "2020-02-28 12:02:05.415346",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 113.65,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "351": {
+            "date": "2020-02-28 12:03:16.865715",
+            "profit": 57.0,
+            "stock": {
+                "name": "tvix",
+                "price": 114.79,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "352": {
+            "date": "2020-02-28 12:04:32.517962",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 113.65,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "353": {
+            "date": "2020-02-28 12:14:40.213246",
+            "profit": 83.0,
+            "stock": {
+                "name": "tvix",
+                "price": 115.31,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "354": {
+            "date": "2020-02-28 12:17:47.807338",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 115.86,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "355": {
+            "date": "2020-02-28 12:19:28.694683",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 115.86,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "356": {
+            "date": "2020-02-28 12:42:30.023133",
+            "profit": -303.0,
+            "stock": {
+                "name": "tvix",
+                "price": 109.8,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "357": {
+            "date": "2020-02-28 12:56:42.546483",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 110.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "358": {
+            "date": "2020-02-28 13:00:48.520526",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 110.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "359": {
+            "date": "2020-02-28 13:01:38.987745",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 110.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "360": {
+            "date": "2020-02-28 13:03:05.161260",
+            "profit": 94.5,
+            "stock": {
+                "name": "tvix",
+                "price": 111.89,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "361": {
+            "date": "2020-02-28 13:08:10.693413",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 110.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "362": {
+            "date": "2020-02-28 13:08:59.065629",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 110.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "363": {
+            "date": "2020-02-28 13:10:10.291117",
+            "profit": 65.0,
+            "stock": {
+                "name": "tvix",
+                "price": 111.3,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "364": {
+            "date": "2020-02-28 13:15:32.956030",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 112.75,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "365": {
+            "date": "2020-02-28 13:18:18.317968",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 112.75,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "366": {
+            "date": "2020-02-28 13:21:54.593875",
+            "profit": 57.5,
+            "stock": {
+                "name": "tvix",
+                "price": 113.9,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "367": {
+            "date": "2020-02-28 13:35:02.110480",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 116.56,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "368": {
+            "date": "2020-02-28 13:36:03.637725",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 116.56,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "369": {
+            "date": "2020-02-28 13:45:45.804195",
+            "profit": 66.0,
+            "stock": {
+                "name": "tvix",
+                "price": 117.88,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "370": {
+            "date": "2020-02-28 13:48:28.145461",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 116.5,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "371": {
+            "date": "2020-02-28 13:48:37.245306",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 116.5,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "372": {
+            "date": "2020-02-28 13:53:41.977889",
+            "profit": 62.5,
+            "stock": {
+                "name": "tvix",
+                "price": 117.75,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "373": {
+            "date": "2020-02-28 14:00:56.477616",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 116.5,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "374": {
+            "date": "2020-02-28 14:11:25.541364",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 118.96,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "375": {
+            "date": "2020-02-28 14:11:55.824305",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 118.96,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "376": {
+            "date": "2020-02-28 14:14:52.916534",
+            "profit": 62.0,
+            "stock": {
+                "name": "tvix",
+                "price": 120.2,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "377": {
+            "date": "2020-02-28 14:24:15.334026",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 117.7,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "378": {
+            "date": "2020-02-28 14:30:22.300629",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 118.97,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "379": {
+            "date": "2020-02-28 14:30:31.403287",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 118.97,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "380": {
+            "date": "2020-02-28 15:04:40.219428",
+            "profit": 71.5,
+            "stock": {
+                "name": "tvix",
+                "price": 120.4,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "381": {
+            "date": "2020-02-28 15:10:29.093110",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 120.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "382": {
+            "date": "2020-02-28 15:12:05.899184",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 120.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "383": {
+            "date": "2020-02-28 15:24:15.345335",
+            "profit": 82.5,
+            "stock": {
+                "name": "tvix",
+                "price": 121.65,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "384": {
+            "date": "2020-02-28 15:27:53.224660",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 122.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "385": {
+            "date": "2020-02-28 15:28:03.351287",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 122.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "386": {
+            "date": "2020-02-28 15:41:58.158341",
+            "profit": 70.0,
+            "stock": {
+                "name": "tvix",
+                "price": 123.4,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "387": {
+            "date": "2020-02-28 15:45:46.098870",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 122.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "388": {
+            "date": "2020-02-28 15:45:51.171744",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 122.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "389": {
+            "date": "2020-02-28 15:51:31.490903",
+            "profit": -325.0,
+            "stock": {
+                "name": "tvix",
+                "price": 115.5,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "390": {
+            "date": "2020-02-28 15:53:23.420433",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 115.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "391": {
+            "date": "2020-02-28 15:55:20.335291",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 115.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "392": {
+            "date": "2020-02-28 15:59:30.585605",
+            "profit": -320.5,
+            "stock": {
+                "name": "tvix",
+                "price": 108.59,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "393": {
+            "date": "2020-02-28 16:06:40.201350",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 102.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "394": {
+            "date": "2020-02-28 16:06:59.425986",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 102.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "395": {
+            "date": "2020-02-28 16:35:52.188825",
+            "profit": -285.5,
+            "stock": {
+                "name": "tvix",
+                "price": 96.29,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "396": {
+            "date": "2020-02-28 17:26:58.564065",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 100.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "397": {
+            "date": "2020-02-28 17:26:58.599042",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 100.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "398": {
+            "date": "2020-03-02 09:35:56.310589",
+            "profit": 175.0,
+            "stock": {
+                "name": "tvix",
+                "price": 103.5,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "399": {
+            "date": "2020-03-02 09:57:32.065189",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 103.53,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "400": {
+            "date": "2020-03-02 09:57:41.189421",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 103.53,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "401": {
+            "date": "2020-03-02 09:59:12.624636",
+            "profit": 53.5,
+            "stock": {
+                "name": "tvix",
+                "price": 104.6,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "402": {
+            "date": "2020-03-02 10:00:13.318774",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 103.53,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "403": {
+            "date": "2020-03-02 10:00:33.409786",
+            "profit": 98.5,
+            "stock": {
+                "name": "tvix",
+                "price": 105.5,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "404": {
+            "date": "2020-03-02 11:08:20.635469",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 105.35,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "405": {
+            "date": "2020-03-02 11:08:20.681653",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 105.35,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "406": {
+            "date": "2020-03-02 11:09:07.134275",
+            "profit": 57.5,
+            "stock": {
+                "name": "tvix",
+                "price": 106.5,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "407": {
+            "date": "2020-03-02 11:38:42.956541",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 99.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "408": {
+            "date": "2020-03-02 11:38:51.093385",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 99.0,
+                "shares": 8
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "409": {
+            "date": "2020-03-02 11:43:14.935790",
+            "profit": 8.0,
+            "stock": {
+                "name": "tvix",
+                "price": 100.0,
+                "shares": 8
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "410": {
+            "date": "2020-03-02 11:58:39.325448",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 97.15,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "411": {
+            "date": "2020-03-02 11:58:47.447861",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 97.15,
+                "shares": 8
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "412": {
+            "date": "2020-03-02 12:11:09.023307",
+            "profit": 11.67999999999995,
+            "stock": {
+                "name": "tvix",
+                "price": 98.61,
+                "shares": 8
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "413": {
+            "date": "2020-03-02 12:30:36.560272",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 100.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "414": {
+            "date": "2020-03-02 12:31:30.349915",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 100.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "415": {
+            "date": "2020-03-02 13:07:57.155696",
+            "profit": 62.5,
+            "stock": {
+                "name": "tvix",
+                "price": 101.25,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "416": {
+            "date": "2020-03-02 13:28:41.575960",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 105.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
+        },
+        "417": {
+            "date": "2020-03-02 13:28:59.818326",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 105.0,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "418": {
+            "date": "2020-03-02 14:37:19.338801",
+            "profit": 58.5,
+            "stock": {
+                "name": "tvix",
+                "price": 106.17,
+                "shares": 50
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "419": {
+            "date": "2020-03-02 14:38:10.792549",
+            "profit": null,
+            "stock": {
+                "name": "tvix",
+                "price": 105.85,
+                "shares": 50
+            },
+            "transaction": "purchase",
+            "type": "attempt"
         }
     }
 }
