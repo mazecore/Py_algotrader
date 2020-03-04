@@ -154,15 +154,19 @@ class TRADER:
         print('checking against EDGX bids...')
         try:
             if self.stock_purchased == False:
-                n_shares = 50
+                n_shares = 100
                 i = 0
                 for j in self.topBidShares:
                     if int((j.text).replace(',','')) >= 2000:
                         print('A %s share -BID- detected. Placing a buy limit order for tvix at %s' % (self.topBidShares[i].text, float(self.topBidsPrice[i].text)))
-                        fiveMinMF = self.db.get(doc_id=1)['SP500_5mMF']['value']
+                        currentState = self.db.get(doc_id=1)
+                        fiveMinMF = currentState['SP500_5mMF']['value']
                         if fiveMinMF:
                             if fiveMinMF > 0.7:
-                                n_shares = 100
+                                n_shares = 200
+                                if not currentState['SP500_30mMF']['descending']:
+                                    print('30 min money flow is going up...')
+                                    n_shares = 50
                         # set shares amount equal to a percentage of portfolio
                         self.set_limit_order(float(self.topBidsPrice[i].text), n_shares, 'purchase')
                         break
@@ -322,16 +326,16 @@ class TRADER:
         f.write('--%s-- %s tvix at %s \n' % (transactionType.upper(), n, stockPrice))
         f.write('current price is %s \n' % self.last10TradesPrices[0].text)
         
-
-        if self.limit_order_pending:
-            f.write('==================>\n')
-            self.db.insert({'type':'attempt', 
-                            'date': str(datetime.now()),
-                            'stock': {'name': 'tvix', 'shares': n, 'price': stockPrice }, 
-                            'transaction': transactionType,
-                            'profit': profit,
-                           })
-        else:
+        if not self.limit_order_pending:
+#        if self.limit_order_pending:
+#            f.write('==================>\n')
+#            self.db.insert({'type':'attempt', 
+#                            'date': str(datetime.now()),
+#                            'stock': {'name': 'tvix', 'shares': n, 'price': stockPrice }, 
+#                            'transaction': transactionType,
+#                            'profit': profit,
+#                           })
+#        else:
             if transactionType == 'sale':
                prices = (self.db.search(Query().type == 'trade'))
                purchasePrices = list(filter(lambda x: x['transaction'] == 'purchase', prices))

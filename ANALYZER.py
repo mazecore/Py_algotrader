@@ -108,7 +108,7 @@ class ANALYZER:
                 db.update({'SP500_5mMF': { 'value': fiveMinMF_lastValue, 'descending': descending } }, Query().type == 'current_state')
                 db.update({'SP500_5mROC': fiveMinROC_lastValue }, Query().type == 'current_state')
 
-            time.sleep(sleepTime)
+            time.sleep(60)
 
 
     def get_SP500_30minStateEvery15min(self):
