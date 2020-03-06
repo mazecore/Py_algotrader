@@ -74,7 +74,8 @@ class ANALYZER:
                 print('last 10 values of latest 5 min Money Flow:')
                 print(moneyFlow[-10:])
                 fiveMinMF_lastValue = moneyFlow.values[-1:][0]
-                descending = False
+                MFdescending = False
+                ROCdescending = False
                 rateOfChange = talib.ROC(sp_df, 14)
                 print('last 10 values of latest 5 min Rate Of Change:')
                 print(rateOfChange[-10:])
@@ -91,7 +92,7 @@ class ANALYZER:
 
                 if fiveMinMF_lastValue:
                     if moneyFlow.values[-20:].mean() > fiveMinMF_lastValue:
-                        descending = True
+                        MFdescending = True
                         print('5min Money Flow is = ', fiveMinMF_lastValue)
                     if fiveMinMF_lastValue > 0.7:
                         message = self.client.messages \
@@ -105,8 +106,14 @@ class ANALYZER:
 #                    if fiveMinMF_lastValue < 0.56:
 #                        sleepTime = 180
                         
-                db.update({'SP500_5mMF': { 'value': fiveMinMF_lastValue, 'descending': descending } }, Query().type == 'current_state')
-                db.update({'SP500_5mROC': fiveMinROC_lastValue }, Query().type == 'current_state')
+                db.update({'SP500_5mMF': { 'value': fiveMinMF_lastValue, 'descending': MFdescending } }, Query().type == 'current_state')
+                
+                
+                if fiveMinROC_lastValue:
+                    if rateOfChange.values[-20:].mean() > fiveMinROC_lastValue:
+                        ROCdescending = True
+                        print('5min Rate Of Change is = ', fiveMinROC_lastValue)
+                db.update({'SP500_5mROC': { 'value': fiveMinROC_lastValue, 'descending': ROCdescending } }, Query().type == 'current_state')
 
             time.sleep(60)
 

@@ -331,9 +331,10 @@ class TRADER:
         currentState = self.db.get(doc_id=1)
         fiveMinMF = currentState['SP500_5mMF']
         thirtyMinMF = currentState['SP500_30mMF']
+        fiveMinROC = currentState['SP500_5minROC']
         f.write('current 5min MF is %s and descending is %s \n' % (fiveMinMF['value'], fiveMinMF['descending']) )
         f.write('current 30min MF is %s and descending is %s \n' % (thirtyMinMF['value'], thirtyMinMF['descending']) )
-        
+        f.write('current 5min ROC is %s and descending is %s \n' % (fiveMinROC['value'], fiveMinROC['descending']) )
         
         if not self.limit_order_pending:
 #        if self.limit_order_pending:
