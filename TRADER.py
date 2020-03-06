@@ -65,13 +65,13 @@ class TRADER:
         self.get_info_table()
 
 
-    def set_limit_order(self, price, n, transaction):
+    def set_limit_order(self, price, n, trigger, transaction):
         print('setting limit order')
         # register rate of change on the minute range
         # if tvix rate of change goes up, cancel tvix purchase
         # and if tvix rate of change goes down, cancel tvix limit order sale.. maybe idk
         self.limit_order_pending = True
-        self.register_the_trade(n, price, transaction)
+        self.register_the_trade(n, price, transaction, trigger)
         
         oneMinTimer = time.time() + 240
         if transaction == 'purchase':
@@ -105,7 +105,7 @@ class TRADER:
             self.stock_purchased = True
             self.limit_order_pending = False
             self.set_five_hour_timestamp()
-            self.register_the_trade(n, stockPrice, 'purchase')
+            self.register_the_trade(n, stockPrice, 'purchase', None)
             print('\n B O U G H T  %s shares at   %s \n' % (n, stockPrice))
             self.monitor_for_5hours_until_1percent_is_gained()
         
@@ -118,7 +118,7 @@ class TRADER:
             self.stock_purchased = False
             self.limit_order_pending = False
             self.fiveHourPending = 0
-            self.register_the_trade(n, stockPrice, 'sale')
+            self.register_the_trade(n, stockPrice, 'sale', None)
             print('\n S O L D  %s shares at   %s \n' % (n,stockPrice))
             
 
@@ -158,7 +158,8 @@ class TRADER:
                 i = 0
                 for j in self.topBidShares:
                     if int((j.text).replace(',','')) >= 2000:
-                        print('A %s share -BID- detected. Placing a buy limit order for tvix at %s' % (self.topBidShares[i].text, float(self.topBidsPrice[i].text)))
+                        triggerbidShares = self.topBidShares[i].text
+                        print('A %s share -BID- detected. Placing a buy limit order for tvix at %s' % (triggerbidShares, float(self.topBidsPrice[i].text)))
                         currentState = self.db.get(doc_id=1)
                         fiveMinMF = currentState['SP500_5mMF']['value']
                         if fiveMinMF:
@@ -168,7 +169,8 @@ class TRADER:
                                     print('30 min money flow is going up...')
                                     n_shares = 50
                         # set shares amount equal to a percentage of portfolio
-                        self.set_limit_order(float(self.topBidsPrice[i].text), n_shares, 'purchase')
+                        # prevent overnight trades. Stop buying at specified time unless there is a huge demand calculated by repeated block trades.
+                        self.set_limit_order(float(self.topBidsPrice[i].text), n_shares, triggerbidShares, 'purchase')
                         break
                     i = i + 1
             else:
@@ -219,7 +221,7 @@ class TRADER:
         
         sleepTime = 10
         last_record = (self.db.search(Query().type == 'trade'))[-1]['stock']
-        target_price = last_record['price'] + last_record['price'] * 0.01
+        target_price = last_record['price'] + last_record['price'] * 0.02
         while  self.stock_purchased == True:
             if time.time() < self.fiveHourPending:
                 self.currentPrice = float(self.last10TradesPrices[0].text)
@@ -238,7 +240,7 @@ class TRADER:
                 if target_price < self.currentPrice:
                    self.sell(self.currentPrice, last_record['shares'])
                    break
-                if self.currentPrice < last_record['price'] - last_record['price'] * 0.05:
+                if self.currentPrice < last_record['price'] - last_record['price'] * 0.04:
                     print('\n S T O P  L O S S triggered...\n')
                     self.sell(self.currentPrice, last_record['shares'])
                     break
@@ -289,7 +291,7 @@ class TRADER:
             else: 
                 self.monitor_for_5hours_until_1percent_is_gained()
 
-    def register_the_trade(self, n, stockPrice, transactionType):
+    def register_the_trade(self, n, stockPrice, transactionType, trigger):
         print('registering the trade')
         print('cash_amount:', self.maCash)
         profit = None
@@ -302,7 +304,8 @@ class TRADER:
                         'five_hour_pending': self.fiveHourPending
                         }, Query().type == 'current_state')
             f.write('<==={ trade number %s }==\n' % self.tradeNumber)
-            f.write('only limit order \n')
+            f.write('only --LIMIT-- order \n')
+            f.write('triggered by a bid with %s shares.\n' % trigger)
             
         else:
             f.write('<================={ trade number %s }===================\n' % self.tradeNumber)
@@ -320,11 +323,17 @@ class TRADER:
                             'portfolio_value': portfolio_value,
                             'five_hour_pending': self.fiveHourPending
                             }, Query().type == 'current_state')
-    
+        
         f.write('cash is %s \n' % self.maCash)
         f.write('portfolio value is %s \n' % portfolio_value)
         f.write('--%s-- %s tvix at %s \n' % (transactionType.upper(), n, stockPrice))
         f.write('current price is %s \n' % self.last10TradesPrices[0].text)
+        currentState = self.db.get(doc_id=1)
+        fiveMinMF = currentState['SP500_5mMF']
+        thirtyMinMF = currentState['SP500_30mMF']
+        f.write('current 5min MF is %s and descending is %s \n' % (fiveMinMF['value'], fiveMinMF['descending']) )
+        f.write('current 30min MF is %s and descending is %s \n' % (thirtyMinMF['value'], thirtyMinMF['descending']) )
+        
         
         if not self.limit_order_pending:
 #        if self.limit_order_pending:

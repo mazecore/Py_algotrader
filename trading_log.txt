@@ -5073,3 +5073,791 @@ portfolio value is 25615.18
 --PURCHASE-- 100 tvix at 119.5 
 current price is 119.50 
 =======================================================>
+
+---2020-03-04 09:41:02.764737---
+<================={ trade number 0 }===================
+cash is 24815.18 
+portfolio value is 24815.18 
+--SALE-- 100 tvix at 111.5 
+current price is 111.50 
+profit : -800.0 
+=======================================================>
+
+---2020-03-04 09:41:07.882533---
+<==={ trade number 1 }==
+only limit order 
+cash is 24815.18 
+portfolio value is 24815.18 
+--PURCHASE-- 100 tvix at 111.0 
+current price is 111.50 
+
+---2020-03-04 09:57:49.897952---
+<==={ trade number 2 }==
+only limit order 
+cash is 24815.18 
+portfolio value is 24815.18 
+--PURCHASE-- 100 tvix at 116.0 
+current price is 116.49 
+
+---2020-03-04 09:59:56.185806---
+<================={ trade number 3 }===================
+five hour deadline: 2020-03-04 14:59:56.177091 
+cash is 13215.18 
+portfolio value is 24815.18 
+--PURCHASE-- 100 tvix at 116.0 
+current price is 115.48 
+=======================================================>
+
+---2020-03-04 10:24:02.064459---
+<================={ trade number 4 }===================
+cash is 24220.18 
+portfolio value is 24220.18 
+--SALE-- 100 tvix at 110.05 
+current price is 110.05 
+profit : -595.0 
+=======================================================>
+
+---2020-03-04 10:24:08.156400---
+<==={ trade number 5 }==
+only limit order 
+cash is 24220.18 
+portfolio value is 24220.18 
+--PURCHASE-- 100 tvix at 110.0 
+current price is 110.28 
+
+---2020-03-04 10:24:27.390373---
+<================={ trade number 6 }===================
+five hour deadline: 2020-03-04 15:24:27.386372 
+cash is 13220.18 
+portfolio value is 24220.18 
+--PURCHASE-- 100 tvix at 110.0 
+current price is 110.00 
+=======================================================>
+
+---2020-03-04 10:28:36.231999---
+<================={ trade number 7 }===================
+cash is 24345.18 
+portfolio value is 24345.18 
+--SALE-- 100 tvix at 111.25 
+current price is 111.25 
+profit : 125.0 
+=======================================================>
+
+---2020-03-04 10:31:43.826289---
+<==={ trade number 8 }==
+only limit order 
+cash is 24345.18 
+portfolio value is 24345.18 
+--PURCHASE-- 100 tvix at 111.9 
+current price is 112.02 
+
+---2020-03-04 11:00:52.173300---
+<==={ trade number 9 }==
+only limit order 
+cash is 24345.18 
+portfolio value is 24345.18 
+--PURCHASE-- 100 tvix at 111.0 
+current price is 112.1600 
+
+---2020-03-04 11:03:15.600519---
+<================={ trade number 10 }===================
+five hour deadline: 2020-03-05 09:33:15.597527 
+cash is 13245.18 
+portfolio value is 24345.18 
+--PURCHASE-- 100 tvix at 111.0 
+current price is 111.00 
+=======================================================>
+
+---2020-03-04 11:04:07.060664---
+<================={ trade number 11 }===================
+cash is 24520.18 
+portfolio value is 24520.18 
+--SALE-- 100 tvix at 112.75 
+current price is 112.75 
+profit : 175.0 
+=======================================================>
+
+---2020-03-04 11:04:13.154774---
+<==={ trade number 12 }==
+only limit order 
+cash is 24520.18 
+portfolio value is 24520.18 
+--PURCHASE-- 100 tvix at 111.8 
+current price is 112.75 
+
+---2020-03-04 11:05:37.982406---
+<================={ trade number 13 }===================
+five hour deadline: 2020-03-05 09:35:37.978407 
+cash is 13340.18 
+portfolio value is 24520.18 
+--PURCHASE-- 100 tvix at 111.8 
+current price is 111.50 
+=======================================================>
+
+---2020-03-04 11:08:25.654931---
+<================={ trade number 14 }===================
+cash is 24632.18 
+portfolio value is 24632.18 
+--SALE-- 100 tvix at 112.92 
+current price is 112.92 
+profit : 112.0 
+=======================================================>
+
+---2020-03-04 11:14:14.738053---
+<==={ trade number 15 }==
+only limit order 
+cash is 24632.18 
+portfolio value is 24632.18 
+--PURCHASE-- 100 tvix at 110.0 
+current price is 110.13 
+
+---2020-03-04 11:15:15.330925---
+<================={ trade number 16 }===================
+five hour deadline: 2020-03-05 09:45:15.327935 
+cash is 13632.18 
+portfolio value is 24632.18 
+--PURCHASE-- 100 tvix at 110.0 
+current price is 109.76 
+=======================================================>
+
+---2020-03-04 11:17:12.615121---
+<================={ trade number 17 }===================
+cash is 24782.18 
+portfolio value is 24782.18 
+--SALE-- 100 tvix at 111.5 
+current price is 111.50 
+profit : 150.0 
+=======================================================>
+
+---2020-03-04 11:28:54.925131---
+<==={ trade number 18 }==
+only limit order 
+cash is 24782.18 
+portfolio value is 24782.18 
+--PURCHASE-- 100 tvix at 108.0 
+current price is 108.38 
+
+---2020-03-04 11:30:07.712204---
+<================={ trade number 19 }===================
+five hour deadline: 2020-03-05 10:00:07.712205 
+cash is 13982.18 
+portfolio value is 24782.18 
+--PURCHASE-- 100 tvix at 108.0 
+current price is 107.80 
+=======================================================>
+
+---2020-03-04 11:36:47.968924---
+<================={ trade number 20 }===================
+cash is 24932.18 
+portfolio value is 24932.18 
+--SALE-- 100 tvix at 109.5 
+current price is 109.50 
+profit : 150.0 
+=======================================================>
+
+---2020-03-04 11:59:30.903933---
+<==={ trade number 21 }==
+only limit order 
+cash is 24932.18 
+portfolio value is 24932.18 
+--PURCHASE-- 100 tvix at 108.5 
+current price is 108.90 
+
+---2020-03-04 11:59:41.030016---
+<================={ trade number 22 }===================
+five hour deadline: 2020-03-05 10:29:41.030017 
+cash is 14082.18 
+portfolio value is 24932.18 
+--PURCHASE-- 100 tvix at 108.5 
+current price is 108.50 
+=======================================================>
+
+---2020-03-04 13:05:22.736874---
+<================={ trade number 23 }===================
+cash is 24389.18 
+portfolio value is 24389.18 
+--SALE-- 100 tvix at 103.07 
+current price is 103.0700 
+profit : -543.0 
+=======================================================>
+
+---2020-03-04 13:05:28.838878---
+<================={ trade number 24 }===================
+five hour deadline: 2020-03-05 11:35:28.838879 
+cash is 14082.18 
+portfolio value is 24389.18 
+--PURCHASE-- 100 tvix at 103.07 
+current price is 103.0700 
+=======================================================>
+
+---2020-03-04 13:10:33.322707---
+<================={ trade number 25 }===================
+cash is 24502.190000000002 
+portfolio value is 24502.190000000002 
+--SALE-- 100 tvix at 104.2001 
+current price is 104.2001 
+profit : 113.01000000000022 
+=======================================================>
+
+---2020-03-04 13:10:38.425059---
+<================={ trade number 26 }===================
+five hour deadline: 2020-03-05 11:40:38.425060 
+cash is 14082.180000000002 
+portfolio value is 24502.190000000002 
+--PURCHASE-- 100 tvix at 104.2001 
+current price is 104.2001 
+=======================================================>
+
+---2020-03-04 14:30:40.496280---
+<==={ trade number 0 }==
+only limit order 
+cash is 24628.18 
+portfolio value is 24628.18 
+--PURCHASE-- 100 tvix at 105.0 
+current price is 106.30 
+
+---2020-03-04 15:04:45.461004---
+<================={ trade number 0 }===================
+cash is 35528.18 
+portfolio value is 35528.18 
+--SALE-- 100 tvix at 109.0 
+current price is 109.0000 
+current 5min MF is 0.5 and descending is False 
+current 30min MF is 0.79 and descending is False 
+profit : 479.9899999999998 
+=======================================================>
+
+---2020-03-04 15:30:27.506062---
+<==={ trade number 1 }==
+only limit order 
+cash is 35528.18 
+portfolio value is 35528.18 
+--PURCHASE-- 100 tvix at 105.0 
+current price is 105.11 
+current 5min MF is 0.64 and descending is False 
+current 30min MF is 0.79 and descending is False 
+
+---2020-03-04 15:37:23.905900---
+<==={ trade number 2 }==
+only limit order 
+cash is 35528.18 
+portfolio value is 35528.18 
+--PURCHASE-- 100 tvix at 105.0 
+current price is 105.30 
+current 5min MF is 0.64 and descending is False 
+current 30min MF is 0.86 and descending is False 
+
+---2020-03-04 15:38:19.400640---
+<================={ trade number 3 }===================
+five hour deadline: 2020-03-05 14:08:19.396652 
+cash is 25028.18 
+portfolio value is 35528.18 
+--PURCHASE-- 100 tvix at 105.0 
+current price is 105.00 
+current 5min MF is 0.64 and descending is False 
+current 30min MF is 0.86 and descending is False 
+=======================================================>
+
+---2020-03-04 15:44:33.945150---
+<================={ trade number 4 }===================
+cash is 35636.18 
+portfolio value is 35636.18 
+--SALE-- 100 tvix at 106.08 
+current price is 106.08 
+current 5min MF is 0.57 and descending is False 
+current 30min MF is 0.86 and descending is False 
+profit : 108.0 
+=======================================================>
+
+---2020-03-04 16:18:46.392137---
+<==={ trade number 5 }==
+only limit order 
+cash is 35636.18 
+portfolio value is 35636.18 
+--PURCHASE-- 100 tvix at 107.8 
+current price is 107.82 
+current 5min MF is None and descending is None 
+current 30min MF is 0.86 and descending is False 
+
+---2020-03-04 16:22:51.566121---
+<==={ trade number 6 }==
+only limit order 
+cash is 35636.18 
+portfolio value is 35636.18 
+--PURCHASE-- 100 tvix at 107.9 
+current price is 108.36 
+current 5min MF is None and descending is None 
+current 30min MF is 0.86 and descending is False 
+
+---2020-03-04 16:26:56.796302---
+<==={ trade number 7 }==
+only limit order 
+cash is 35636.18 
+portfolio value is 35636.18 
+--PURCHASE-- 100 tvix at 107.9 
+current price is 108.30 
+current 5min MF is None and descending is None 
+current 30min MF is 0.86 and descending is False 
+
+---2020-03-04 16:31:02.019063---
+<==={ trade number 8 }==
+only limit order 
+cash is 35636.18 
+portfolio value is 35636.18 
+--PURCHASE-- 100 tvix at 107.9 
+current price is 108.75 
+current 5min MF is None and descending is None 
+current 30min MF is 0.86 and descending is False 
+
+---2020-03-04 16:39:30.062860---
+<==={ trade number 9 }==
+only limit order 
+cash is 35636.18 
+portfolio value is 35636.18 
+--PURCHASE-- 100 tvix at 107.9 
+current price is 108.86 
+current 5min MF is None and descending is None 
+current 30min MF is 0.86 and descending is False 
+
+---2020-03-04 16:46:21.506969---
+<==={ trade number 10 }==
+only limit order 
+cash is 35636.18 
+portfolio value is 35636.18 
+--PURCHASE-- 100 tvix at 107.9 
+current price is 108.78 
+current 5min MF is None and descending is None 
+current 30min MF is 0.86 and descending is False 
+
+---2020-03-04 16:51:07.932967---
+<==={ trade number 11 }==
+only limit order 
+cash is 35636.18 
+portfolio value is 35636.18 
+--PURCHASE-- 100 tvix at 107.9 
+current price is 108.92 
+current 5min MF is None and descending is None 
+current 30min MF is 0.86 and descending is False 
+
+---2020-03-04 16:55:13.903889---
+<==={ trade number 12 }==
+only limit order 
+cash is 35636.18 
+portfolio value is 35636.18 
+--PURCHASE-- 100 tvix at 107.9 
+current price is 109.15 
+current 5min MF is None and descending is None 
+current 30min MF is 0.86 and descending is False 
+
+
+reset the portfolio to 25000 again ================================== { R E S E T } ===================================================>
+
+---2020-03-04 17:02:33.035646---
+<==={ trade number 0 }==
+only limit order 
+cash is 25000 
+portfolio value is 25000 
+--PURCHASE-- 100 tvix at 107.9 
+current price is 108.60 
+current 5min MF is None and descending is None 
+current 30min MF is None and descending is None 
+
+---2020-03-04 17:06:38.976278---
+<==={ trade number 1 }==
+only limit order 
+cash is 25000 
+portfolio value is 25000 
+--PURCHASE-- 100 tvix at 107.9 
+current price is 108.03 
+current 5min MF is None and descending is None 
+current 30min MF is None and descending is None 
+
+---2020-03-04 17:10:44.152861---
+<==={ trade number 2 }==
+only limit order 
+cash is 25000 
+portfolio value is 25000 
+--PURCHASE-- 100 tvix at 107.9 
+current price is 108.00 
+current 5min MF is None and descending is None 
+current 30min MF is None and descending is None 
+
+---2020-03-04 17:12:12.893312---
+<================={ trade number 3 }===================
+five hour deadline: 2020-03-05 14:29:59.889333 
+cash is 14210.0 
+portfolio value is 25000.0 
+--PURCHASE-- 100 tvix at 107.9 
+current price is 107.90 
+current 5min MF is None and descending is None 
+current 30min MF is None and descending is None 
+=======================================================>
+
+---2020-03-04 18:06:00.168434---
+<================={ trade number 4 }===================
+cash is 25110.0 
+portfolio value is 25110.0 
+--SALE-- 100 tvix at 109.0 
+current price is 109.00 
+current 5min MF is None and descending is None 
+current 30min MF is None and descending is None 
+profit : 110.0 
+=======================================================>
+
+---2020-03-04 18:06:06.250408---
+<==={ trade number 5 }==
+only limit order 
+cash is 25110.0 
+portfolio value is 25110.0 
+--PURCHASE-- 100 tvix at 107.8 
+current price is 109.00 
+current 5min MF is None and descending is None 
+current 30min MF is None and descending is None 
+
+---2020-03-04 18:10:11.435905---
+<==={ trade number 6 }==
+only limit order 
+cash is 25110.0 
+portfolio value is 25110.0 
+--PURCHASE-- 100 tvix at 107.8 
+current price is 109.70 
+current 5min MF is None and descending is None 
+current 30min MF is None and descending is None 
+
+---2020-03-04 18:19:03.935797---
+<==={ trade number 7 }==
+only limit order 
+cash is 25110.0 
+portfolio value is 25110.0 
+--PURCHASE-- 100 tvix at 107.8 
+current price is 109.74 
+current 5min MF is None and descending is None 
+current 30min MF is None and descending is None 
+
+---2020-03-04 18:33:13.681527---
+<==={ trade number 8 }==
+only limit order 
+cash is 25110.0 
+portfolio value is 25110.0 
+--PURCHASE-- 100 tvix at 107.8 
+current price is 110.50 
+current 5min MF is None and descending is None 
+current 30min MF is None and descending is None 
+
+---2020-03-04 19:34:42.328711---
+<==={ trade number 9 }==
+only limit order 
+cash is 25110.0 
+portfolio value is 25110.0 
+--PURCHASE-- 100 tvix at 111.0 
+current price is 111.25 
+current 5min MF is None and descending is None 
+current 30min MF is None and descending is None 
+
+---2020-03-04 19:34:59.566090---
+<================={ trade number 10 }===================
+five hour deadline: 2020-03-05 14:29:59.566091 
+cash is 14010.0 
+portfolio value is 25110.0 
+--PURCHASE-- 100 tvix at 111.0 
+current price is 111.00 
+current 5min MF is None and descending is None 
+current 30min MF is None and descending is None 
+=======================================================>
+
+---2020-03-05 09:08:38.198113---
+<================={ trade number 0 }===================
+cash is 26657.0 
+portfolio value is 26657.0 
+--SALE-- 100 tvix at 126.47 
+current price is 126.47 
+current 5min MF is None and descending is None 
+current 30min MF is 0.86 and descending is False 
+profit : 1547.0 
+=======================================================>
+
+---2020-03-05 09:20:02.897700---
+<==={ trade number 0 }==
+only limit order 
+cash is 26657.0 
+portfolio value is 26657.0 
+--PURCHASE-- 100 tvix at 127.63 
+current price is 127.65 
+current 5min MF is None and descending is None 
+current 30min MF is 0.86 and descending is False 
+
+---2020-03-05 09:20:09.965792---
+<================={ trade number 1 }===================
+five hour deadline: 2020-03-05 14:20:09.964795 
+cash is 13894.0 
+portfolio value is 26657.0 
+--PURCHASE-- 100 tvix at 127.63 
+current price is 127.63 
+current 5min MF is None and descending is None 
+current 30min MF is 0.86 and descending is False 
+=======================================================>
+
+---2020-03-05 11:02:19.620091---
+<================={ trade number 0 }===================
+cash is 26144.0 
+portfolio value is 26144.0 
+--SALE-- 100 tvix at 122.5 
+current price is 122.50 
+current 5min MF is 0.5 and descending is False 
+current 30min MF is 0.86 and descending is False 
+profit : -513.0 
+=======================================================>
+
+---2020-03-05 11:06:21.727224---
+<==={ trade number 1 }==
+only limit order 
+cash is 26144.0 
+portfolio value is 26144.0 
+--PURCHASE-- 100 tvix at 121.74 
+current price is 122.00 
+current 5min MF is 0.57 and descending is False 
+current 30min MF is 0.86 and descending is False 
+
+---2020-03-05 11:06:51.959837---
+<================={ trade number 2 }===================
+five hour deadline: 2020-03-06 09:36:51.955838 
+cash is 13970.0 
+portfolio value is 26144.0 
+--PURCHASE-- 100 tvix at 121.74 
+current price is 121.74 
+current 5min MF is 0.57 and descending is False 
+current 30min MF is 0.86 and descending is False 
+=======================================================>
+
+---2020-03-05 11:37:37.719477---
+<================={ trade number 3 }===================
+cash is 26400.0 
+portfolio value is 26400.0 
+--SALE-- 100 tvix at 124.3 
+current price is 124.30 
+current 5min MF is 0.57 and descending is False 
+current 30min MF is 0.93 and descending is False 
+profit : 256.0 
+=======================================================>
+
+---2020-03-05 12:23:45.481190---
+<==={ trade number 4 }==
+only limit order 
+cash is 26400.0 
+portfolio value is 26400.0 
+--PURCHASE-- 100 tvix at 129.5 
+current price is 129.76 
+current 5min MF is 0.29 and descending is False 
+current 30min MF is 0.79 and descending is False 
+
+---2020-03-05 12:33:03.001706---
+<==={ trade number 5 }==
+only limit order 
+cash is 26400.0 
+portfolio value is 26400.0 
+--PURCHASE-- 100 tvix at 129.81 
+current price is 129.89 
+current 5min MF is 0.29 and descending is False 
+current 30min MF is 0.79 and descending is False 
+
+---2020-03-05 12:33:09.061989---
+<================={ trade number 6 }===================
+five hour deadline: 2020-03-06 11:03:09.059995 
+cash is 13419.0 
+portfolio value is 26400.0 
+--PURCHASE-- 100 tvix at 129.81 
+current price is 129.81 
+current 5min MF is 0.29 and descending is False 
+current 30min MF is 0.79 and descending is False 
+=======================================================>
+
+---2020-03-05 12:39:59.054927---
+<================={ trade number 7 }===================
+cash is 26663.0 
+portfolio value is 26663.0 
+--SALE-- 100 tvix at 132.44 
+current price is 132.44 
+current 5min MF is 0.21 and descending is False 
+current 30min MF is 0.79 and descending is False 
+profit : 263.0 
+=======================================================>
+
+---2020-03-05 12:49:14.522600---
+<==={ trade number 8 }==
+only limit order 
+cash is 26663.0 
+portfolio value is 26663.0 
+--PURCHASE-- 100 tvix at 134.5 
+current price is 134.96 
+current 5min MF is 0.21 and descending is False 
+current 30min MF is 0.71 and descending is False 
+
+---2020-03-05 12:49:31.656876---
+<================={ trade number 9 }===================
+five hour deadline: 2020-03-06 11:19:31.655879 
+cash is 13213.0 
+portfolio value is 26663.0 
+--PURCHASE-- 100 tvix at 134.5 
+current price is 134.49 
+current 5min MF is 0.21 and descending is False 
+current 30min MF is 0.71 and descending is False 
+=======================================================>
+
+---2020-03-05 13:10:38.199296---
+<================={ trade number 10 }===================
+cash is 26963.0 
+portfolio value is 26963.0 
+--SALE-- 100 tvix at 137.5 
+current price is 137.50 
+current 5min MF is 0.21 and descending is False 
+current 30min MF is 0.71 and descending is False 
+profit : 300.0 
+=======================================================>
+
+---2020-03-05 13:11:54.776130---
+<==={ trade number 11 }==
+only limit order 
+cash is 26963.0 
+portfolio value is 26963.0 
+--PURCHASE-- 100 tvix at 135.5 
+current price is 136.00 
+current 5min MF is 0.21 and descending is False 
+current 30min MF is 0.64 and descending is False 
+
+---2020-03-05 13:53:02.574876---
+<==={ trade number 12 }==
+only limit order 
+cash is 26963.0 
+portfolio value is 26963.0 
+--PURCHASE-- 100 tvix at 136.65 
+current price is 136.50 
+current 5min MF is 0.57 and descending is False 
+current 30min MF is 0.64 and descending is False 
+
+---2020-03-05 13:53:02.592925---
+<================={ trade number 13 }===================
+five hour deadline: 2020-03-06 12:23:02.591903 
+cash is 13298.0 
+portfolio value is 26963.0 
+--PURCHASE-- 100 tvix at 136.65 
+current price is 136.50 
+current 5min MF is 0.57 and descending is False 
+current 30min MF is 0.64 and descending is False 
+=======================================================>
+
+---2020-03-05 14:04:25.834542---
+<================={ trade number 14 }===================
+cash is 27239.0 
+portfolio value is 27239.0 
+--SALE-- 100 tvix at 139.41 
+current price is 139.41 
+current 5min MF is 0.43 and descending is False 
+current 30min MF is 0.64 and descending is False 
+profit : 276.0 
+=======================================================>
+
+---2020-03-05 14:05:32.380802---
+<==={ trade number 15 }==
+only limit order 
+cash is 27239.0 
+portfolio value is 27239.0 
+--PURCHASE-- 100 tvix at 138.75 
+current price is 138.75 
+current 5min MF is 0.43 and descending is False 
+current 30min MF is 0.64 and descending is False 
+
+---2020-03-05 14:05:32.394833---
+<================={ trade number 16 }===================
+five hour deadline: 2020-03-06 12:35:32.394834 
+cash is 13364.0 
+portfolio value is 27239.0 
+--PURCHASE-- 100 tvix at 138.75 
+current price is 138.75 
+current 5min MF is 0.43 and descending is False 
+current 30min MF is 0.64 and descending is False 
+=======================================================>
+
+---2020-03-05 14:23:25.326781---
+<================={ trade number 17 }===================
+cash is 27521.0 
+portfolio value is 27521.0 
+--SALE-- 100 tvix at 141.57 
+current price is 141.57 
+current 5min MF is 0.5 and descending is False 
+current 30min MF is 0.57 and descending is False 
+profit : 282.0 
+=======================================================>
+
+---2020-03-05 14:27:03.011791---
+<==={ trade number 18 }==
+only limit order 
+cash is 27521.0 
+portfolio value is 27521.0 
+--PURCHASE-- 100 tvix at 142.5 
+current price is 143.02 
+current 5min MF is 0.5 and descending is False 
+current 30min MF is 0.57 and descending is False 
+
+---2020-03-05 14:27:18.146178---
+<================={ trade number 19 }===================
+five hour deadline: 2020-03-06 12:57:18.145144 
+cash is 13271.0 
+portfolio value is 27521.0 
+--PURCHASE-- 100 tvix at 142.5 
+current price is 142.49 
+current 5min MF is 0.5 and descending is False 
+current 30min MF is 0.57 and descending is False 
+=======================================================>
+
+---2020-03-05 15:12:21.765294---
+<================={ trade number 20 }===================
+cash is 27828.0 
+portfolio value is 27828.0 
+--SALE-- 100 tvix at 145.57 
+current price is 145.57 
+current 5min MF is 0.43 and descending is False 
+current 30min MF is 0.5 and descending is False 
+profit : 307.0 
+=======================================================>
+
+---2020-03-05 15:19:20.980408---
+<==={ trade number 21 }==
+only limit order 
+cash is 27828.0 
+portfolio value is 27828.0 
+--PURCHASE-- 100 tvix at 146.0 
+current price is 146.50 
+current 5min MF is 0.43 and descending is False 
+current 30min MF is 0.5 and descending is False 
+
+---2020-03-05 15:20:07.350839---
+<================={ trade number 22 }===================
+five hour deadline: 2020-03-06 13:50:07.350839 
+cash is 13228.0 
+portfolio value is 27828.0 
+--PURCHASE-- 100 tvix at 146.0 
+current price is 146.00 
+current 5min MF is 0.43 and descending is False 
+current 30min MF is 0.5 and descending is False 
+=======================================================>
+
+---2020-03-05 15:59:19.223866---
+<================={ trade number 23 }===================
+cash is 27228.0 
+portfolio value is 27228.0 
+--SALE-- 100 tvix at 140.0 
+current price is 140.00 
+current 5min MF is 0.5 and descending is False 
+current 30min MF is 0.5 and descending is False 
+profit : -600.0 
+=======================================================>
+
+---2020-03-05 18:04:20.008665---
+<==={ trade number 24 }==
+only limit order 
+cash is 27228.0 
+portfolio value is 27228.0 
+--PURCHASE-- 100 tvix at 138.3 
+current price is 139.05 
+current 5min MF is None and descending is None 
+current 30min MF is 0.5 and descending is False 

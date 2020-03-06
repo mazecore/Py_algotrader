@@ -52,7 +52,7 @@ class ANALYZER:
         return df
     
     def get_SP500_5minStateEvery1min(self):
-        sleepTime = 120
+#        sleepTime = 120
         db = TinyDB('DB.json', sort_keys=True, indent=4, separators=(',', ': '))
         today = [ datetime.now().year, datetime.now().month, datetime.now().day ]
         while self.running == True:
@@ -101,9 +101,9 @@ class ANALYZER:
                                          to=configs.maPhoneNumba
                                      )
                         print('sent SMS message: ', message.sid)
-                        sleepTime = 60
-                    if fiveMinMF_lastValue < 0.56:
-                        sleepTime = 180
+#                        sleepTime = 60
+#                    if fiveMinMF_lastValue < 0.56:
+#                        sleepTime = 180
                         
                 db.update({'SP500_5mMF': { 'value': fiveMinMF_lastValue, 'descending': descending } }, Query().type == 'current_state')
                 db.update({'SP500_5mROC': fiveMinROC_lastValue }, Query().type == 'current_state')
@@ -175,7 +175,6 @@ class ANALYZER:
         print('The number of volume spikes in the last month is %s' % len(volSpkIndxes))
         for i in range(len(volSpkIndxes)):
             spike = { 'volume': int(sp_df['Volume'][volSpkIndxes[i]]), 'date': int(sp_df['Timestamp'][volSpkIndxes[i]]), 'sentiment': None }
-            print('spike', spike)
             if int(sp_df['Close'][volSpkIndxes[i]-1]) > int(sp_df['Close'][volSpkIndxes[i]]):
                 spike['sentiment'] = 'Bearish'
                 print ('bearish volume', sp_df['Volume'][volSpkIndxes[i]])
