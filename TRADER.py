@@ -12,6 +12,8 @@ import time
 from datetime import datetime, date
 from tinydb import TinyDB, Query
 import sys
+from twilio.rest import Client
+import configs
 
 
 class TRADER:
@@ -44,6 +46,7 @@ class TRADER:
         self.tradeNumber = 0
         self.attempt = 0
         self.change_Stock_and_go_to_EDGX('TVIX')
+        self.client = Client(configs.account_sid, configs.auth_token)
         
 
     def change_Stock_and_go_to_EDGX(self, stock):
@@ -157,7 +160,7 @@ class TRADER:
                 n_shares = 100
                 i = 0
                 for j in self.topBidShares:
-                    if int((j.text).replace(',','')) >= 2000:
+                    if int((j.text).replace(',','')) >= 1000:
                         triggerbidShares = self.topBidShares[i].text
                         print('A %s share -BID- detected. Placing a buy limit order for tvix at %s' % (triggerbidShares, float(self.topBidsPrice[i].text)))
                         currentState = self.db.get(doc_id=1)
@@ -168,6 +171,14 @@ class TRADER:
                                 if not currentState['SP500_30mMF']['descending']:
                                     print('30 min money flow is going up...')
                                     n_shares = 50
+                        if int((j.text).replace(',','')) >= 5000:
+                            message = self.client.messages \
+                                    .create(
+                                         body="Large bid detected: %s" % (j.text),
+                                         from_=configs.fromNumba,
+                                         to=configs.maPhoneNumba
+                                     )
+                        print('sent SMS message: ', message.sid)
                         # set shares amount equal to a percentage of portfolio
                         # prevent overnight trades. Stop buying at specified time unless there is a huge demand calculated by repeated block trades.
                         self.set_limit_order(float(self.topBidsPrice[i].text), n_shares, triggerbidShares, 'purchase')
@@ -221,7 +232,7 @@ class TRADER:
         
         sleepTime = 10
         last_record = (self.db.search(Query().type == 'trade'))[-1]['stock']
-        target_price = last_record['price'] + last_record['price'] * 0.02
+        target_price = last_record['price'] + last_record['price'] * 0.01
         while  self.stock_purchased == True:
             if time.time() < self.fiveHourPending:
                 self.currentPrice = float(self.last10TradesPrices[0].text)
@@ -240,7 +251,7 @@ class TRADER:
                 if target_price < self.currentPrice:
                    self.sell(self.currentPrice, last_record['shares'])
                    break
-                if self.currentPrice < last_record['price'] - last_record['price'] * 0.04:
+                if self.currentPrice < last_record['price'] - last_record['price'] * 0.03:
                     print('\n S T O P  L O S S triggered...\n')
                     self.sell(self.currentPrice, last_record['shares'])
                     break
@@ -331,7 +342,7 @@ class TRADER:
         currentState = self.db.get(doc_id=1)
         fiveMinMF = currentState['SP500_5mMF']
         thirtyMinMF = currentState['SP500_30mMF']
-        fiveMinROC = currentState['SP500_5minROC']
+        fiveMinROC = currentState['SP500_5mROC']
         f.write('current 5min MF is %s and descending is %s \n' % (fiveMinMF['value'], fiveMinMF['descending']) )
         f.write('current 30min MF is %s and descending is %s \n' % (thirtyMinMF['value'], thirtyMinMF['descending']) )
         f.write('current 5min ROC is %s and descending is %s \n' % (fiveMinROC['value'], fiveMinROC['descending']) )

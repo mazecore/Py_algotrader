@@ -94,7 +94,7 @@ class ANALYZER:
                     if moneyFlow.values[-20:].mean() > fiveMinMF_lastValue:
                         MFdescending = True
                         print('5min Money Flow is = ', fiveMinMF_lastValue)
-                    if fiveMinMF_lastValue > 0.7:
+                    if fiveMinMF_lastValue > 0.7 or fiveMinMF_lastValue < 0.3:
                         message = self.client.messages \
                                     .create(
                                          body="M F is %s. ROC is %s" % (fiveMinMF_lastValue, fiveMinROC_lastValue),

@@ -17,6 +17,7 @@ if __name__=='__main__':
     db = TinyDB('DB.json', sort_keys=True, indent=4, separators=(',', ': '))
     db.update({'afterhours': False, 
                'SP500_5mMF': { 'value': None, 'descending': None },
+               'SP500_5mROC': { 'value': None, 'descending': None },
                'SP500_30mMF': { 'value': None, 'descending': None }}, Query().type == 'current_state')
     analyzer = ANALYZER.ANALYZER()
     trader = TRADER.TRADER()
