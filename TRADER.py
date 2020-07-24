@@ -45,13 +45,13 @@ class TRADER:
         print('ma cash: ', self.maCash)
         self.tradeNumber = 0
         self.attempt = 0
-        self.change_Stock_and_go_to_EDGX('TVIX')
+        self.change_Stock_and_go_to_EDGX('UVXY')
         self.client = Client(configs.account_sid, configs.auth_token)
         
 
     def change_Stock_and_go_to_EDGX(self, stock):
         inputt = self.browser.find_element_by_xpath('//*[@id="symbol0"]')
-        print('switching stock to tvix')
+        print('switching stock to uvxy')
         actions = ActionChains(self.browser)
         actions.move_to_element(inputt)
         actions.double_click(inputt)
@@ -71,8 +71,8 @@ class TRADER:
     def set_limit_order(self, price, n, trigger, transaction):
         print('setting limit order')
         # register rate of change on the minute range
-        # if tvix rate of change goes up, cancel tvix purchase
-        # and if tvix rate of change goes down, cancel tvix limit order sale.. maybe idk
+        # if uvxy rate of change goes up, cancel uvxy purchase
+        # and if uvxy rate of change goes down, cancel uvxy limit order sale.. maybe idk
         self.limit_order_pending = True
         self.register_the_trade(n, price, transaction, trigger)
         
@@ -160,9 +160,9 @@ class TRADER:
                 n_shares = 100
                 i = 0
                 for j in self.topBidShares:
-                    if int((j.text).replace(',','')) >= 1000:
+                    if int((j.text).replace(',','')) >= 10000:
                         triggerbidShares = self.topBidShares[i].text
-                        print('A %s share -BID- detected. Placing a buy limit order for tvix at %s' % (triggerbidShares, float(self.topBidsPrice[i].text)))
+                        print('A %s share -BID- detected. Placing a buy limit order for uvxy at %s' % (triggerbidShares, float(self.topBidsPrice[i].text)))
                         currentState = self.db.get(doc_id=1)
                         fiveMinMF = currentState['SP500_5mMF']['value']
                         if fiveMinMF:
@@ -171,14 +171,14 @@ class TRADER:
                                 if not currentState['SP500_30mMF']['descending']:
                                     print('30 min money flow is going up...')
                                     n_shares = 50
-                        if int((j.text).replace(',','')) >= 5000:
+                        if int((j.text).replace(',','')) >= 20000:
                             message = self.client.messages \
                                     .create(
                                          body="Large bid detected: %s" % (j.text),
                                          from_=configs.fromNumba,
                                          to=configs.maPhoneNumba
                                      )
-                        print('sent SMS message: ', message.sid)
+                            print('sent SMS message: ', message.sid)
                         # set shares amount equal to a percentage of portfolio
                         # prevent overnight trades. Stop buying at specified time unless there is a huge demand calculated by repeated block trades.
                         self.set_limit_order(float(self.topBidsPrice[i].text), n_shares, triggerbidShares, 'purchase')
@@ -190,7 +190,7 @@ class TRADER:
                     if int((s.text).replace(',','')) >= 2000:
                         price = (self.db.search(Query().type == 'trade'))[-1]['stock']['price']
                         if price + price * 0.01 < float(self.topAskPrice[b].text):
-                            print('A 2000 share -ASK- detected. Placing a sale limit order for tvix at %s' % float(self.topAskPrice[b].text))
+                            print('A 2000 share -ASK- detected. Placing a sale limit order for uvxy at %s' % float(self.topAskPrice[b].text))
                             self.set_limit_order(float(self.topAskPrice[b].text), 50, 'sale')
                             break
                     b = b + 1
@@ -337,7 +337,7 @@ class TRADER:
         
         f.write('cash is %s \n' % self.maCash)
         f.write('portfolio value is %s \n' % portfolio_value)
-        f.write('--%s-- %s tvix at %s \n' % (transactionType.upper(), n, stockPrice))
+        f.write('--%s-- %s uvxy at %s \n' % (transactionType.upper(), n, stockPrice))
         f.write('current price is %s \n' % self.last10TradesPrices[0].text)
         currentState = self.db.get(doc_id=1)
         fiveMinMF = currentState['SP500_5mMF']
@@ -352,7 +352,7 @@ class TRADER:
 #            f.write('==================>\n')
 #            self.db.insert({'type':'attempt', 
 #                            'date': str(datetime.now()),
-#                            'stock': {'name': 'tvix', 'shares': n, 'price': stockPrice }, 
+#                            'stock': {'name': 'uvxy', 'shares': n, 'price': stockPrice }, 
 #                            'transaction': transactionType,
 #                            'profit': profit,
 #                           })
@@ -368,7 +368,7 @@ class TRADER:
             
             self.db.insert({'type':'trade', 
                             'date': str(datetime.now()),
-                            'stock': {'name': 'tvix', 'shares': n, 'price': stockPrice }, 
+                            'stock': {'name': 'uvxy', 'shares': n, 'price': stockPrice }, 
                             'transaction': transactionType,
                             'profit': profit,
                            })
