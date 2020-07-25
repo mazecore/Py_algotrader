@@ -172,13 +172,16 @@ class TRADER:
                                     print('30 min money flow is going up...')
                                     n_shares = 50
                         if int((j.text).replace(',','')) >= 20000:
-                            message = self.client.messages \
-                                    .create(
-                                         body="Large bid detected: %s" % (j.text),
-                                         from_=configs.fromNumba,
-                                         to=configs.maPhoneNumba
-                                     )
-                            print('sent SMS message: ', message.sid)
+                            try:
+                                message = self.client.messages \
+                                        .create(
+                                             body="Large bid detected: %s" % (j.text),
+                                             from_=configs.fromNumba,
+                                             to=configs.maPhoneNumba
+                                         )
+                                print('sent SMS message: ', message.sid)
+                            except:
+                                print('twilio is acting up yo!')
                         # set shares amount equal to a percentage of portfolio
                         # prevent overnight trades. Stop buying at specified time unless there is a huge demand calculated by repeated block trades.
                         self.set_limit_order(float(self.topBidsPrice[i].text), n_shares, triggerbidShares, 'purchase')
