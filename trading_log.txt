@@ -12974,3 +12974,27 @@ current 30min MF is 0.43 and descending is False
 current 5min ROC is -0.97 and descending is False 
 profit : 29.0 
 =======================================================>
+
+---2020-07-24 11:01:36.331693---
+<================={ trade number 0 }===================
+five hour deadline: 2020-07-27 09:31:36.329698 
+cash is 22339.0 
+portfolio value is 25082.0 
+--PURCHASE-- 100 uvxy at 27.43 
+current price is 27.43 
+current 5min MF is 0.79 and descending is False 
+current 30min MF is 0.29 and descending is False 
+current 5min ROC is 0.37 and descending is False 
+=======================================================>
+
+---2020-07-24 11:16:40.733430---
+<================={ trade number 1 }===================
+cash is 25111.0 
+portfolio value is 25111.0 
+--SALE-- 100 uvxy at 27.72 
+current price is 27.7200 
+current 5min MF is 0.64 and descending is False 
+current 30min MF is 0.36 and descending is False 
+current 5min ROC is 0.12 and descending is False 
+profit : 29.0 
+=======================================================>

@@ -52,7 +52,7 @@ class ANALYZER:
         return df
     
     def get_SP500_5minStateEvery1min(self):
-#        sleepTime = 120
+        sleepTime = 60
         db = TinyDB('DB.json', sort_keys=True, indent=4, separators=(',', ': '))
         today = [ datetime.now().year, datetime.now().month, datetime.now().day ]
         while self.running == True:
@@ -95,14 +95,17 @@ class ANALYZER:
                         MFdescending = True
                         print('5min Money Flow is = ', fiveMinMF_lastValue)
                     if fiveMinMF_lastValue > 0.7 or fiveMinMF_lastValue < 0.24:
-                        message = self.client.messages \
-                                    .create(
-                                         body="M F is %s. ROC is %s" % (fiveMinMF_lastValue, fiveMinROC_lastValue),
-                                         from_=configs.fromNumba,
-                                         to=configs.maPhoneNumba
-                                     )
-                        print('sent SMS message: ', message.sid)
-#                        sleepTime = 60
+                        try:
+                            message = self.client.messages \
+                                        .create(
+                                             body="M F is %s. ROC is %s" % (fiveMinMF_lastValue, fiveMinROC_lastValue),
+                                             from_=configs.fromNumba,
+                                             to=configs.maPhoneNumba
+                                         )
+                            print('sent SMS message: ', message.sid)
+                        except:
+                            print('twilio is acting up yo!')
+                        sleepTime = 180
 #                    if fiveMinMF_lastValue < 0.56:
 #                        sleepTime = 180
                         
@@ -115,7 +118,7 @@ class ANALYZER:
                         print('5min Rate Of Change is = ', fiveMinROC_lastValue)
                 db.update({'SP500_5mROC': { 'value': fiveMinROC_lastValue, 'descending': ROCdescending } }, Query().type == 'current_state')
 
-            time.sleep(60)
+            time.sleep(sleepTime)
 
 
     def get_SP500_30minStateEvery15min(self):
