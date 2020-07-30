@@ -25,6 +25,7 @@ class TRADER:
         self.limit_order_pending = False
         self.stock_purchased = False
         self.stock_sold = False
+        self.client = Client(configs.account_sid, configs.auth_token)
         self.db = TinyDB('DB.json', sort_keys=True, indent=4, separators=(',', ': '))
         print('database length', len(self.db))
         print('last record: ', self.db.get(doc_id=len(self.db)))
@@ -46,7 +47,6 @@ class TRADER:
         self.tradeNumber = 0
         self.attempt = 0
         self.change_Stock_and_go_to_EDGX('UVXY')
-        self.client = Client(configs.account_sid, configs.auth_token)
         
 
     def change_Stock_and_go_to_EDGX(self, stock):

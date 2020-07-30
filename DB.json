@@ -3,7 +3,7 @@
         "1": {
             "SP500_30mMF": {
                 "descending": false,
-                "value": 0.36
+                "value": 0.79
             },
             "SP500_5mMF": {
                 "descending": null,
@@ -11,7 +11,7 @@
             },
             "SP500_5mROC": {
                 "descending": true,
-                "value": -0.02
+                "value": 0.07
             },
             "SP500_lastVolumeSpike": {
                 "date": 1593178200,
@@ -19,10 +19,10 @@
                 "volume": 8098120000
             },
             "afterhours": true,
-            "cash_amount": 25111.0,
-            "five_hour_pending": 0,
-            "last_closed_trade": "sale",
-            "portfolio_value": 25111.0,
+            "cash_amount": 22565.0,
+            "five_hour_pending": 1596124143.9539957,
+            "last_closed_trade": "purchase",
+            "portfolio_value": 25110.0,
             "type": "current_state"
         },
         "2": {
@@ -122,6 +122,193 @@
                 "shares": 100
             },
             "transaction": "sale",
+            "type": "trade"
+        },
+        "11": {
+            "date": "2020-07-27 09:59:38.722371",
+            "profit": null,
+            "stock": {
+                "name": "uvxy",
+                "price": 26.4,
+                "shares": 100
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "12": {
+            "date": "2020-07-27 11:24:01.412435",
+            "profit": 27.0,
+            "stock": {
+                "name": "uvxy",
+                "price": 26.67,
+                "shares": 100
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "13": {
+            "date": "2020-07-27 12:07:55.588497",
+            "profit": null,
+            "stock": {
+                "name": "uvxy",
+                "price": 26.93,
+                "shares": 100
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "14": {
+            "date": "2020-07-27 15:33:18.554213",
+            "profit": -82.0,
+            "stock": {
+                "name": "uvxy",
+                "price": 26.11,
+                "shares": 100
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "15": {
+            "date": "2020-07-27 15:44:07.530733",
+            "profit": null,
+            "stock": {
+                "name": "uvxy",
+                "price": 26.05,
+                "shares": 100
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "16": {
+            "date": "2020-07-28 09:54:41.505856",
+            "profit": 27.0,
+            "stock": {
+                "name": "uvxy",
+                "price": 26.32,
+                "shares": 100
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "17": {
+            "date": "2020-07-28 10:02:47.277732",
+            "profit": null,
+            "stock": {
+                "name": "uvxy",
+                "price": 26.0,
+                "shares": 100
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "18": {
+            "date": "2020-07-28 11:33:53.463810",
+            "profit": -83.0,
+            "stock": {
+                "name": "uvxy",
+                "price": 25.17,
+                "shares": 100
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "19": {
+            "date": "2020-07-28 11:39:26.975393",
+            "profit": null,
+            "stock": {
+                "name": "uvxy",
+                "price": 25.0,
+                "shares": 100
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "20": {
+            "date": "2020-07-28 12:06:25.340247",
+            "profit": 26.0,
+            "stock": {
+                "name": "uvxy",
+                "price": 25.26,
+                "shares": 100
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "21": {
+            "date": "2020-07-28 12:09:58.123168",
+            "profit": null,
+            "stock": {
+                "name": "uvxy",
+                "price": 25.1,
+                "shares": 100
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "22": {
+            "date": "2020-07-28 15:16:53.426130",
+            "profit": 27.0,
+            "stock": {
+                "name": "uvxy",
+                "price": 25.37,
+                "shares": 100
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "23": {
+            "date": "2020-07-28 15:40:35.078620",
+            "profit": null,
+            "stock": {
+                "name": "uvxy",
+                "price": 25.6,
+                "shares": 100
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "24": {
+            "date": "2020-07-28 15:50:07.299631",
+            "profit": 31.0,
+            "stock": {
+                "name": "uvxy",
+                "price": 25.91,
+                "shares": 100
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "25": {
+            "date": "2020-07-29 10:27:30.231416",
+            "profit": null,
+            "stock": {
+                "name": "uvxy",
+                "price": 25.44,
+                "shares": 100
+            },
+            "transaction": "purchase",
+            "type": "trade"
+        },
+        "26": {
+            "date": "2020-07-29 12:10:02.446871",
+            "profit": 26.0,
+            "stock": {
+                "name": "uvxy",
+                "price": 25.7,
+                "shares": 100
+            },
+            "transaction": "sale",
+            "type": "trade"
+        },
+        "27": {
+            "date": "2020-07-29 13:19:03.962982",
+            "profit": null,
+            "stock": {
+                "name": "uvxy",
+                "price": 25.45,
+                "shares": 100
+            },
+            "transaction": "purchase",
             "type": "trade"
         }
     }
