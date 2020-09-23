@@ -55,7 +55,7 @@ class ANALYZER:
         sleepTime = 60
         db = TinyDB('DB.json', sort_keys=True, indent=4, separators=(',', ': '))
         today = [ datetime.now().year, datetime.now().month, datetime.now().day ]
-        while self.running == True:
+        while self.running:
             if datetime(*today, 9,28) < datetime.now():
                 
                 if datetime.now().hour >= 16:
@@ -123,7 +123,7 @@ class ANALYZER:
 
     def get_SP500_30minStateEvery15min(self):
         db = TinyDB('DB.json', sort_keys=True, indent=4, separators=(',', ': '))
-        while self.running == True:
+        while self.running:
             monthAgo = time.time() - 2419200
             sp_df = self.get_Yahoo_Data('%5EGSPC', str(monthAgo).split('.')[0], '30m')
             moneyFlow = talib.MFI(sp_df, 14)

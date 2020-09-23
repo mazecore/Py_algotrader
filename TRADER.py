@@ -200,9 +200,7 @@ class TRADER:
         except Exception as e:
             print('exception', e)
             if self.attempt > 2:
-                self.db.update({'afterhours': True, 
-                            }, Query().type == 'current_state')
-                sys.exit('No bids or asks. Arrivederci...')
+                self.close_session('No bids or asks. Arrivederci...');
             self.attempt += 1
             print('attempting again... attempt number ', self.attempt)
 
@@ -215,6 +213,7 @@ class TRADER:
                 print('5 minute Money Flow is %s.' % fvMinMF)
                 if fvMinMF > 0.76:
                     if self.stock_purchased == False:
+                        # do not short one hour before the close!
                         # add control for momentum. Momentum shouldn't be higher than 16
                         # go full conservative (buy only when 5 min MF obove .7) when SP descends and gets close to 20 day MA on daily.
                         self.buy(self.currentPrice, 100)
@@ -228,6 +227,12 @@ class TRADER:
                 print('5m MF exception', e)
         else:
             print('No 5 minute Money Flow data')
+    
+    def close_session(self , message ):
+        self.db.update({'afterhours': True, 
+                            }, Query().type == 'current_state')
+        self.browser.close();
+        sys.exit(message)
             
 
     def monitor_for_5hours_until_1percent_is_gained(self):
@@ -282,9 +287,7 @@ class TRADER:
     
     def check_time_of_day(self):
         if datetime.now().hour > 20:
-            self.db.update({'afterhours': True, 
-                            }, Query().type == 'current_state')
-            sys.exit('8 pm. Arrivederci...')
+            self.close_session('8 pm. Arrivederci...')
 
     def get_info_table(self):
         self.last10TradesPrices = self.browser.find_elements_by_class_name("book-viewer__trades-price")
