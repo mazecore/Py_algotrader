@@ -7,7 +7,7 @@ Created on Thu Dec 26 19:57:19 2019
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
-
+import winsound
 import time
 from datetime import datetime, date
 from tinydb import TinyDB, Query
@@ -163,6 +163,7 @@ class TRADER:
                     if int((j.text).replace(',','')) >= 10000:
                         triggerbidShares = self.topBidShares[i].text
                         print('A %s share -BID- detected. Placing a buy limit order for uvxy at %s' % (triggerbidShares, float(self.topBidsPrice[i].text)))
+                        winsound.PlaySound('C:\Windows\Media\Windows Proximity Connection.wav', winsound.SND_FILENAME)
                         currentState = self.db.get(doc_id=1)
                         fiveMinMF = currentState['SP500_5mMF']['value']
                         if fiveMinMF:

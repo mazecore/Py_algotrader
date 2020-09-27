@@ -151,7 +151,7 @@ class ANALYZER:
 
 #           this still tracks only 1 hr Money Flow
     def get_SP500_4hrStateEvery1hour(self):
-        while self.running == True:
+        while self.running:
             monthAgo = time.time() - 2419200
             sp_df = self.get_Yahoo_Data('%5EGSPC', str(monthAgo).split('.')[0], '60m')
             moneyFlow = talib.MFI(sp_df, 14)
